@@ -33,4 +33,6 @@ html {
 body {
   font-family: 'Jet Brains Mono', monospace;
   background-color: #131316;
+
+  min-width: 1080px;
 }

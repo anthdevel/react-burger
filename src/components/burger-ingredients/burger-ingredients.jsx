@@ -1,5 +1,6 @@
 import styles from './burger-ingredients.module.css';
 import {useState} from 'react';
+import PropTypes from 'prop-types';
 import {Counter, CurrencyIcon, Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 
 const BurgerIngredients = ({data}) => {
@@ -29,7 +30,7 @@ const BurgerIngredients = ({data}) => {
             {buns.map(({_id, name, image, price}) => (
               <div key={_id}>
                 <div className={styles.card}>
-                  <Counter count={1} size='default' />
+                  <Counter count={1} size='default'/>
                   <div className='pl-4 pr-4 mb-1'>
                     <img className={styles.cardPic} src={image} alt={name}/>
                   </div>
@@ -49,7 +50,7 @@ const BurgerIngredients = ({data}) => {
             {sauces.map(({_id, name, image, price}) => (
               <div key={_id}>
                 <div className={styles.card}>
-                  <Counter count={1} size='default' />
+                  <Counter count={1} size='default'/>
                   <div className='pl-4 pr-4 mb-1'>
                     <img className={styles.cardPic} src={image} alt={name}/>
                   </div>
@@ -69,7 +70,7 @@ const BurgerIngredients = ({data}) => {
             {main.map(({_id, name, image, price}) => (
               <div key={_id}>
                 <div className={styles.card}>
-                  <Counter count={1} size='default' />
+                  <Counter count={1} size='default'/>
                   <div className='pl-4 pr-4 mb-1'>
                     <img className={styles.cardPic} src={image} alt={name}/>
                   </div>
@@ -87,5 +88,24 @@ const BurgerIngredients = ({data}) => {
     </div>
   )
 }
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      name: PropTypes.string,
+      type: PropTypes.string,
+      proteins: PropTypes.number,
+      fat: PropTypes.number,
+      carbohydrates: PropTypes.number,
+      calories: PropTypes.number,
+      price: PropTypes.number,
+      image: PropTypes.string,
+      image_mobile: PropTypes.string,
+      image_large: PropTypes.string,
+      __v: PropTypes.number,
+    }).isRequired
+  ).isRequired
+};
 
 export default BurgerIngredients;
