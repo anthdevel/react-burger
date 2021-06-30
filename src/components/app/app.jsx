@@ -9,7 +9,7 @@ function App() {
   return (
     <div className={styles.root}>
       <AppHeader/>
-      <main className={`${styles.main} container`}>
+      <main className={styles.main}>
         <header className='pt-10 pb-5'>
           <h1 className='text text_type_main-large'>Соберите бургер</h1>
         </header>

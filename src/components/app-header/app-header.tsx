@@ -4,24 +4,20 @@ import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-devel
 const AppHeader = () => {
   return (
     <header className={`${styles.root} pt-4 pb-4`}>
-      <div className={`${styles.content} container`}>
+      <div className={styles.content}>
         <nav className={styles.nav}>
-          <ul className={styles.nav__list}>
-            <li className={styles.nav__item}>
-              <button className={`${styles.button} ${styles['is-active']}`}>
-                <span className={`${styles.button__icon} mr-2`}>
-                  <BurgerIcon type='secondary'/>
-                </span>
+          <ul className={styles.navList}>
+            <li className={styles.navItem}>
+              <button className={`${styles.button} ${styles.isActive}`}>
+                <BurgerIcon type='secondary'/>
                 <span className='text text_type_main-default text_color_inactive'>
                   Конструктор
                 </span>
               </button>
             </li>
-            <li className={styles.nav__item}>
+            <li className={styles.navItem}>
               <button className={styles.button}>
-                <span className={`${styles.button__icon} mr-2`}>
-                  <ListIcon type='secondary'/>
-                </span>
+                <ListIcon type='secondary'/>
                 <span className='text text_type_main-default text_color_inactive'>
                   Лента заказов
                 </span>
@@ -31,12 +27,10 @@ const AppHeader = () => {
         </nav>
         <Logo/>
         <nav className={styles.nav}>
-          <ul className={styles.nav__list}>
-            <li className={styles.nav__item}>
+          <ul className={styles.navList}>
+            <li className={styles.navItem}>
               <button className={styles.button}>
-                <span className={`${styles.button__icon} mr-2`}>
-                  <ProfileIcon type='secondary'/>
-                </span>
+                <ProfileIcon type='secondary'/>
                 <span className='text text_type_main-default text_color_inactive'>
                   Личный кабинет
                 </span>

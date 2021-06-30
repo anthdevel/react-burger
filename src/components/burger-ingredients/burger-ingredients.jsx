@@ -31,13 +31,11 @@ const BurgerIngredients = ({data}) => {
                 <div className={styles.card}>
                   <Counter count={1} size='default' />
                   <div className='pl-4 pr-4 mb-1'>
-                    <img className={styles.card__pic} src={image} alt={name}/>
+                    <img className={styles.cardPic} src={image} alt={name}/>
                   </div>
-                  <p className={`${styles.card__price} text text_type_digits-default mb-1`}>
+                  <p className={`${styles.cardPrice} text text_type_digits-default mb-1`}>
                     {price}
-                    <span className={`${styles.card__currency} ml-2`}>
-                      <CurrencyIcon type='primary'/>
-                    </span>
+                    <CurrencyIcon type='primary'/>
                   </p>
                   <p className='text text_type_main-default pb-6'>{name}</p>
                 </div>
@@ -53,13 +51,11 @@ const BurgerIngredients = ({data}) => {
                 <div className={styles.card}>
                   <Counter count={1} size='default' />
                   <div className='pl-4 pr-4 mb-1'>
-                    <img className={styles.card__pic} src={image} alt={name}/>
+                    <img className={styles.cardPic} src={image} alt={name}/>
                   </div>
-                  <p className={`${styles.card__price} text text_type_digits-default mb-1`}>
+                  <p className={`${styles.cardPrice} text text_type_digits-default mb-1`}>
                     {price}
-                    <span className={`${styles.card__currency} ml-2`}>
-                      <CurrencyIcon type='primary'/>
-                    </span>
+                    <CurrencyIcon type='primary'/>
                   </p>
                   <p className='text text_type_main-default pb-6'>{name}</p>
                 </div>
@@ -75,13 +71,11 @@ const BurgerIngredients = ({data}) => {
                 <div className={styles.card}>
                   <Counter count={1} size='default' />
                   <div className='pl-4 pr-4 mb-1'>
-                    <img className={styles.card__pic} src={image} alt={name}/>
+                    <img className={styles.cardPic} src={image} alt={name}/>
                   </div>
-                  <p className={`${styles.card__price} text text_type_digits-default mb-1`}>
+                  <p className={`${styles.cardPrice} text text_type_digits-default mb-1`}>
                     {price}
-                    <span className={`${styles.card__currency} ml-2`}>
-                      <CurrencyIcon type='primary'/>
-                    </span>
+                    <CurrencyIcon type='primary'/>
                   </p>
                   <p className='text text_type_main-default pb-6'>{name}</p>
                 </div>
