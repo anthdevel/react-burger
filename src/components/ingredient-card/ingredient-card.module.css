@@ -1,0 +1,18 @@
+.card {
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.pic {
+  width: 100%;
+}
+
+.price {
+  display: inline-flex;
+  align-items: center;
+}
+
+.price > svg {
+  margin-left: 8px;
+}

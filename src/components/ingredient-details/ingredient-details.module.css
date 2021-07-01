@@ -1,0 +1,16 @@
+.root {
+  text-align: center;
+}
+
+.pic {
+  max-width: 100%;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) ;
+  grid-column-gap: 20px;
+
+  margin-left: -20px;
+  margin-right: -20px;
+}

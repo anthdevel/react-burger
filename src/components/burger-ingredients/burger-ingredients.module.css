@@ -34,21 +34,3 @@
   grid-row-gap: 32px;
 }
 
-.card {
-  text-align: center;
-  position: relative;
-}
-
-.cardPic {
-  width: 100%;
-}
-
-.cardPrice {
-  display: inline-flex;
-  align-items: center;
-}
-
-.cardPrice > svg {
-  margin-left: 8px;
-}
-
