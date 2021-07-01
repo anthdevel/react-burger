@@ -1,15 +1,15 @@
-import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import {useState} from 'react';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
-const BurgerConstructor = ({data}) => {
+const BurgerConstructor = ({ingredients}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const bun = data.filter(item => item.type === 'bun')[0];
-  const ingredients = data.filter(item => item.type !== 'bun');
+  const bun = ingredients.filter(item => item.type === 'bun')[0];
+  const rest = ingredients.filter(item => item.type !== 'bun');
 
   const onOpenModal = () => {
     setIsModalOpen(true);
@@ -37,7 +37,7 @@ const BurgerConstructor = ({data}) => {
             </div>
           </div>
           <div className={styles.constructorList}>
-            {ingredients.map(({_id, name, price, image_mobile}) => (
+            {rest.map(({_id, name, price, image_mobile}) => (
               <div className={styles.constructorItem} key={_id}>
                 <div className={styles.constructorItemDrag}>
                   <DragIcon type='primary'/>
@@ -87,7 +87,7 @@ const BurgerConstructor = ({data}) => {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(
+  ingredients: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,

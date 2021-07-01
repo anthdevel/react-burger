@@ -6,14 +6,14 @@ import Modal from '../modal/modal';
 import IngredientCard from '../ingredient-card/ingredient-card';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
-const BurgerIngredients = ({data}) => {
+const BurgerIngredients = ({ingredients}) => {
   const [tab, setTab] = useState('bun');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [ingredientDetails, setIngredientDetails] = useState(null);
 
-  const buns = data.filter(item => item.type === 'bun');
-  const sauces = data.filter(item => item.type === 'sauce');
-  const main = data.filter(item => item.type === 'main');
+  const buns = ingredients.filter(item => item.type === 'bun');
+  const sauces = ingredients.filter(item => item.type === 'sauce');
+  const main = ingredients.filter(item => item.type === 'main');
 
   const onClickCard = (id) => {
     const {
@@ -23,7 +23,7 @@ const BurgerIngredients = ({data}) => {
       image_large: image,
       name,
       proteins,
-    } = data.filter(item => item._id === id)[0];
+    } = ingredients.filter(item => item._id === id)[0];
 
     setIngredientDetails({
       calories,
@@ -58,7 +58,7 @@ const BurgerIngredients = ({data}) => {
         </div>
         <div className={styles.content}>
           <section className='pb-10'>
-            <h2 className="text text_type_main-medium mb-6">Булки</h2>
+            <h2 className='text text_type_main-medium mb-6'>Булки</h2>
             <div className={`${styles.cards} pl-4 pr-4`}>
               {buns.map(({_id, name, image, price}) => (
                 <div key={_id}>
@@ -74,7 +74,7 @@ const BurgerIngredients = ({data}) => {
             </div>
           </section>
           <section className='pb-10'>
-            <h2 className="text text_type_main-medium mb-6">Соусы</h2>
+            <h2 className='text text_type_main-medium mb-6'>Соусы</h2>
             <div className={`${styles.cards} pl-4 pr-4`}>
               {sauces.map(({_id, name, image, price}) => (
                 <div key={_id}>
@@ -90,7 +90,7 @@ const BurgerIngredients = ({data}) => {
             </div>
           </section>
           <section className='pb-10'>
-            <h2 className="text text_type_main-medium mb-6">Начинка</h2>
+            <h2 className='text text_type_main-medium mb-6'>Начинка</h2>
             <div className={`${styles.cards} pl-4 pr-4`}>
               {main.map(({_id, name, image, price}) => (
                 <div key={_id}>
@@ -118,7 +118,7 @@ const BurgerIngredients = ({data}) => {
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(
+  ingredients: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,

@@ -8,20 +8,20 @@ const AppHeader = () => {
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>
-              <button className={`${styles.button} ${styles.isActive}`}>
+              <a className={`${styles.link} ${styles.isActive}`} href='/'>
                 <BurgerIcon type='secondary'/>
                 <span className='text text_type_main-default text_color_inactive'>
                   Конструктор
                 </span>
-              </button>
+              </a>
             </li>
             <li className={styles.navItem}>
-              <button className={styles.button}>
+              <a className={styles.link} href='/orders'>
                 <ListIcon type='secondary'/>
                 <span className='text text_type_main-default text_color_inactive'>
                   Лента заказов
                 </span>
-              </button>
+              </a>
             </li>
           </ul>
         </nav>
@@ -29,12 +29,12 @@ const AppHeader = () => {
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>
-              <button className={styles.button}>
+              <a className={styles.link} href='/account'>
                 <ProfileIcon type='secondary'/>
                 <span className='text text_type_main-default text_color_inactive'>
                   Личный кабинет
                 </span>
-              </button>
+              </a>
             </li>
           </ul>
         </nav>

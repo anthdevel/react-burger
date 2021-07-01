@@ -32,7 +32,7 @@
   list-style-type: none;
 }
 
-.button {
+.link {
   margin: 0;
   padding: 16px 20px;
 
@@ -40,20 +40,21 @@
   align-items: center;
 
   cursor: pointer;
+  text-decoration: none;
   outline: none;
   border: 0;
   background: none;
   white-space: nowrap;
 }
 
-.button > svg {
+.link > svg {
   margin-right: 8px;
 }
 
-.button.isActive > span {
+.link.isActive > span {
   color: #f2f2f3;
 }
 
-.button.isActive > svg {
+.link.isActive > svg {
   fill: #f2f2f3;
 }

@@ -1,34 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import styles from './app.module.css';
-import {URL_INGREDIENTS} from '../../utils';
+import useIngredientsFetch from "../../hooks/useIngredientsFetch";
 
 function App() {
-  const [state, setState] = useState({
-    isLoading: false,
-    hasError: false,
-    data: []
-  });
-
-  const getData = () => {
-    setState({...state, hasError: false, isLoading: true});
-
-    fetch(URL_INGREDIENTS)
-      .then(res => res.json())
-      .then(({data}) => setState({...state, data, isLoading: false}))
-      .catch(error => {
-        setState({...state, hasError: true, isLoading: false});
-        console.error(error);
-      });
-  };
-
-  useEffect(() => {
-    getData();
-  }, [])
-
-  const {data, isLoading, hasError} = state;
+  const {ingredients, isLoading, hasError} = useIngredientsFetch();
 
   return (
     <div className={styles.root}>
@@ -40,10 +18,10 @@ function App() {
         <div className={styles.content}>
           {isLoading && 'Загрузка...'}
           {hasError && 'Произошла ошибка при выполнении запроса'}
-          {!isLoading && !hasError && data.length > 0 && (
+          {!isLoading && !hasError && ingredients.length > 0 && (
             <>
-              <BurgerIngredients data={data}/>
-              <BurgerConstructor data={data}/>
+              <BurgerIngredients ingredients={ingredients}/>
+              <BurgerConstructor ingredients={ingredients}/>
             </>
           )}
         </div>
