@@ -61,15 +61,14 @@ const BurgerIngredients = ({ingredients}) => {
             <h2 className='text text_type_main-medium mb-6'>Булки</h2>
             <div className={`${styles.cards} pl-4 pr-4`}>
               {buns.map(({_id, name, image, price}) => (
-                <div key={_id}>
-                  <IngredientCard
-                    image={image}
-                    name={name}
-                    price={price}
-                    count={1}
-                    onClickCard={() => onClickCard(_id)}
-                  />
-                </div>
+                <IngredientCard
+                  key={_id}
+                  image={image}
+                  name={name}
+                  price={price}
+                  count={1}
+                  onClickCard={() => onClickCard(_id)}
+                />
               ))}
             </div>
           </section>
@@ -77,15 +76,14 @@ const BurgerIngredients = ({ingredients}) => {
             <h2 className='text text_type_main-medium mb-6'>Соусы</h2>
             <div className={`${styles.cards} pl-4 pr-4`}>
               {sauces.map(({_id, name, image, price}) => (
-                <div key={_id}>
-                  <IngredientCard
-                    image={image}
-                    name={name}
-                    price={price}
-                    count={1}
-                    onClickCard={() => onClickCard(_id)}
-                  />
-                </div>
+                <IngredientCard
+                  key={_id}
+                  image={image}
+                  name={name}
+                  price={price}
+                  count={1}
+                  onClickCard={() => onClickCard(_id)}
+                />
               ))}
             </div>
           </section>
@@ -93,15 +91,14 @@ const BurgerIngredients = ({ingredients}) => {
             <h2 className='text text_type_main-medium mb-6'>Начинка</h2>
             <div className={`${styles.cards} pl-4 pr-4`}>
               {main.map(({_id, name, image, price}) => (
-                <div key={_id}>
-                  <IngredientCard
-                    image={image}
-                    name={name}
-                    price={price}
-                    count={1}
-                    onClickCard={() => onClickCard(_id)}
-                  />
-                </div>
+                <IngredientCard
+                  key={_id}
+                  image={image}
+                  name={name}
+                  price={price}
+                  count={1}
+                  onClickCard={() => onClickCard(_id)}
+                />
               ))}
             </div>
           </section>

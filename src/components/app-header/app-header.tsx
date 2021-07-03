@@ -8,7 +8,7 @@ const AppHeader = () => {
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>
-              <a className={`${styles.link} ${styles.isActive}`} href='/'>
+              <a className={`${styles.link} ${styles.isActive}`} href='##'>
                 <BurgerIcon type='secondary'/>
                 <span className='text text_type_main-default text_color_inactive'>
                   Конструктор
@@ -16,7 +16,7 @@ const AppHeader = () => {
               </a>
             </li>
             <li className={styles.navItem}>
-              <a className={styles.link} href='/orders'>
+              <a className={styles.link} href='##'>
                 <ListIcon type='secondary'/>
                 <span className='text text_type_main-default text_color_inactive'>
                   Лента заказов
@@ -29,7 +29,7 @@ const AppHeader = () => {
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>
-              <a className={styles.link} href='/account'>
+              <a className={styles.link} href='##'>
                 <ProfileIcon type='secondary'/>
                 <span className='text text_type_main-default text_color_inactive'>
                   Личный кабинет

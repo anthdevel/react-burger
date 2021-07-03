@@ -1,12 +1,41 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import styles from './app.module.css';
-import useIngredientsFetch from "../../hooks/useIngredientsFetch";
+import {URL_INGREDIENTS} from '../../utils';
 
 function App() {
-  const {ingredients, isLoading, hasError} = useIngredientsFetch();
+  const [ingredients, setIngredients] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(
+    () => {
+      setIsLoading(true);
+      setHasError(false);
+
+      fetch(URL_INGREDIENTS)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+
+          return Promise.reject(`Ошибка ${response.status}`);
+        })
+        .then(({data}) => {
+          setIngredients(data);
+        })
+        .catch(error => {
+          setHasError(true);
+          console.error(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        })
+    },
+    []
+  );
 
   return (
     <div className={styles.root}>
