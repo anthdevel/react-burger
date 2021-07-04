@@ -1,0 +1,17 @@
+.root {
+  text-align: center;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  max-width: 520px;
+}
+
+.num {
+  text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25), 0 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.icon {
+  width: 100%;
+  max-width: 120px;
+}

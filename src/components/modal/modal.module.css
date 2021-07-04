@@ -1,0 +1,24 @@
+.root {
+  background-color: #1c1c21;
+  border-radius: 40px;
+
+  width: 100%;
+  max-width: 720px;
+}
+
+.header {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  min-height: 64px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 0;
+
+  cursor: pointer;
+}
