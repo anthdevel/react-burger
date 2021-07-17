@@ -1,5 +1,5 @@
 import styles from './burger-ingredients.module.css';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import IngredientCard from '../ingredient-card/ingredient-card';
@@ -7,13 +7,15 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {getIngredients} from '../../services/actions/ingredients';
 import {CLEAR_INGREDIENT_DETAILS, GET_INGREDIENT_DETAILS} from '../../services/actions/ingredientDetails';
-import {Link, Element} from 'react-scroll';
+import {scroller} from 'react-scroll';
+import {InView} from 'react-intersection-observer';
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
 
   const [tab, setTab] = useState('bun');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const currentViewsRatio = useRef({});
 
   const {data: ingredients, isFetching, isFailed} = useSelector(store => store.ingredients);
 
@@ -21,7 +23,7 @@ const BurgerIngredients = () => {
   const sauces = ingredients.filter(item => item.type === 'sauce');
   const main = ingredients.filter(item => item.type === 'main');
 
-  const onClickCard = (id) => {
+  const onClickCard = id => {
     const ingredient = ingredients.filter(item => item._id === id)[0];
 
     dispatch({
@@ -38,6 +40,38 @@ const BurgerIngredients = () => {
     dispatch({type: CLEAR_INGREDIENT_DETAILS});
   }
 
+  const onChange = elemName => {
+    return (inView, entry) => {
+      currentViewsRatio.current[elemName] = entry.intersectionRatio;
+
+      const elemNames = Object.keys(currentViewsRatio.current);
+
+      let [max, maxName] = [
+        currentViewsRatio.current[elemNames[0]],
+        elemNames[0]
+      ];
+
+      elemNames.forEach(name => {
+        if (currentViewsRatio.current[name] > max) {
+          max = currentViewsRatio.current[name];
+          maxName = name;
+        }
+      });
+
+      setTab(maxName);
+    };
+  };
+
+  const onClickTab = value => {
+    setTab(value);
+
+    scroller.scrollTo(value, {
+      duration: 250,
+      smooth: 'easeInOut',
+      containerId: 'scrollableContainer'
+    })
+  }
+
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch])
@@ -46,29 +80,27 @@ const BurgerIngredients = () => {
     <>
       <div className={styles.root}>
         <div className={`${styles.tabs} mb-10`}>
-          <Link smooth to='buns' duration={250} containerId='scrollableContainer'>
-            <Tab value='bun' active={tab === 'bun'} onClick={setTab} to={tab} smooth>
-              Булки
-            </Tab>
-          </Link>
-          <Link smooth to='sauces' duration={250} containerId='scrollableContainer'>
-            <Tab value='sauce' active={tab === 'sauce'} onClick={setTab}>
-              Соусы
-            </Tab>
-          </Link>
-          <Link smooth to='mains' duration={250} containerId='scrollableContainer'>
-            <Tab value='main' active={tab === 'main'} onClick={setTab}>
-              Начинки
-            </Tab>
-          </Link>
+          <Tab value='bun' active={tab === 'bun'} onClick={onClickTab}>
+            Булки
+          </Tab>
+          <Tab value='sauce' active={tab === 'sauce'} onClick={onClickTab}>
+            Соусы
+          </Tab>
+          <Tab value='main' active={tab === 'main'} onClick={onClickTab}>
+            Начинки
+          </Tab>
         </div>
-        <Element className={styles.content} id='scrollableContainer'>
+        <div className={styles.content} id='scrollableContainer'>
           {ingredients.length === 0 && isFetching && 'Загрузка...'}
           {isFailed && 'Что-то пошло не так.'}
 
           {!!ingredients.length && (
             <>
-              <Element name='buns'>
+              <InView
+                onChange={onChange('bun')}
+                threshold={[0, 0.25, 0.5, 0.75, 1]}
+                id='bun'
+              >
                 <section className='pb-10'>
                   <h2 className='text text_type_main-medium mb-6'>Булки</h2>
                   {!!buns.length ? (
@@ -85,8 +117,12 @@ const BurgerIngredients = () => {
                     </div>
                   ) : 'Отсутствуют'}
                 </section>
-              </Element>
-              <Element name='sauces'>
+              </InView>
+              <InView
+                onChange={onChange('sauce')}
+                threshold={[0, 0.25, 0.5, 0.75, 1]}
+                id='sauce'
+              >
                 <section className='pb-10'>
                   <h2 className='text text_type_main-medium mb-6'>Соусы</h2>
                   {!!sauces.length ? (
@@ -103,10 +139,14 @@ const BurgerIngredients = () => {
                     </div>
                   ) : 'Отсутствуют'}
                 </section>
-              </Element>
-              <Element name='mains'>
+              </InView>
+              <InView
+                onChange={onChange('main')}
+                threshold={[0, 0.25, 0.5, 0.75, 1]}
+                id='main'
+              >
                 <section className='pb-10'>
-                  <h2 className='text text_type_main-medium mb-6'>Начинка</h2>
+                  <h2 className='text text_type_main-medium mb-6'>Начинки</h2>
                   {!!main.length ? (
                     <div className={`${styles.cards} pl-4 pr-4`}>
                       {main.map(({_id, name, image, price}) => (
@@ -121,10 +161,10 @@ const BurgerIngredients = () => {
                     </div>
                   ) : 'Отсутствует'}
                 </section>
-              </Element>
+              </InView>
             </>
           )}
-        </Element>
+        </div>
       </div>
 
       {isModalOpen && (
