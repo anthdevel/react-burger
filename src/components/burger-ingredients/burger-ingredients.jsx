@@ -7,6 +7,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {getIngredients} from '../../services/actions/ingredients';
 import {CLEAR_INGREDIENT_DETAILS, GET_INGREDIENT_DETAILS} from '../../services/actions/ingredientDetails';
+import {Link, Element} from 'react-scroll';
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
@@ -45,73 +46,85 @@ const BurgerIngredients = () => {
     <>
       <div className={styles.root}>
         <div className={`${styles.tabs} mb-10`}>
-          <Tab value='bun' active={tab === 'bun'} onClick={setTab}>
-            Булки
-          </Tab>
-          <Tab value='sauce' active={tab === 'sauce'} onClick={setTab}>
-            Соусы
-          </Tab>
-          <Tab value='main' active={tab === 'main'} onClick={setTab}>
-            Начинки
-          </Tab>
+          <Link smooth to='buns' duration={250} containerId='scrollableContainer'>
+            <Tab value='bun' active={tab === 'bun'} onClick={setTab} to={tab} smooth>
+              Булки
+            </Tab>
+          </Link>
+          <Link smooth to='sauces' duration={250} containerId='scrollableContainer'>
+            <Tab value='sauce' active={tab === 'sauce'} onClick={setTab}>
+              Соусы
+            </Tab>
+          </Link>
+          <Link smooth to='mains' duration={250} containerId='scrollableContainer'>
+            <Tab value='main' active={tab === 'main'} onClick={setTab}>
+              Начинки
+            </Tab>
+          </Link>
         </div>
-        <div className={styles.content}>
-          {isFetching && 'Загрузка...'}
+        <Element className={styles.content} id='scrollableContainer'>
+          {ingredients.length === 0 && isFetching && 'Загрузка...'}
           {isFailed && 'Что-то пошло не так.'}
 
           {!!ingredients.length && (
             <>
-              <section className='pb-10'>
-                <h2 className='text text_type_main-medium mb-6'>Булки</h2>
-                {!!buns.length ? (
-                  <div className={`${styles.cards} pl-4 pr-4`}>
-                    {buns.map(({_id, name, image, price}) => (
-                      <IngredientCard
-                        key={_id}
-                        image={image}
-                        name={name}
-                        price={price}
-                        onClickCard={() => onClickCard(_id)}
-                      />
-                    ))}
-                  </div>
-                ) : 'Отсутствуют'}
-              </section>
-              <section className='pb-10'>
-                <h2 className='text text_type_main-medium mb-6'>Соусы</h2>
-                {!!sauces.length ? (
-                  <div className={`${styles.cards} pl-4 pr-4`}>
-                    {sauces.map(({_id, name, image, price}) => (
-                      <IngredientCard
-                        key={_id}
-                        image={image}
-                        name={name}
-                        price={price}
-                        onClickCard={() => onClickCard(_id)}
-                      />
-                    ))}
-                  </div>
-                ) : 'Отсутствуют'}
-              </section>
-              <section className='pb-10'>
-                <h2 className='text text_type_main-medium mb-6'>Начинка</h2>
-                {!!main.length ? (
-                  <div className={`${styles.cards} pl-4 pr-4`}>
-                    {main.map(({_id, name, image, price}) => (
-                      <IngredientCard
-                        key={_id}
-                        image={image}
-                        name={name}
-                        price={price}
-                        onClickCard={() => onClickCard(_id)}
-                      />
-                    ))}
-                  </div>
-                ) : 'Отсутствует'}
-              </section>
+              <Element name='buns'>
+                <section className='pb-10'>
+                  <h2 className='text text_type_main-medium mb-6'>Булки</h2>
+                  {!!buns.length ? (
+                    <div className={`${styles.cards} pl-4 pr-4`}>
+                      {buns.map(({_id, name, image, price}) => (
+                        <IngredientCard
+                          key={_id}
+                          image={image}
+                          name={name}
+                          price={price}
+                          onClickCard={() => onClickCard(_id)}
+                        />
+                      ))}
+                    </div>
+                  ) : 'Отсутствуют'}
+                </section>
+              </Element>
+              <Element name='sauces'>
+                <section className='pb-10'>
+                  <h2 className='text text_type_main-medium mb-6'>Соусы</h2>
+                  {!!sauces.length ? (
+                    <div className={`${styles.cards} pl-4 pr-4`}>
+                      {sauces.map(({_id, name, image, price}) => (
+                        <IngredientCard
+                          key={_id}
+                          image={image}
+                          name={name}
+                          price={price}
+                          onClickCard={() => onClickCard(_id)}
+                        />
+                      ))}
+                    </div>
+                  ) : 'Отсутствуют'}
+                </section>
+              </Element>
+              <Element name='mains'>
+                <section className='pb-10'>
+                  <h2 className='text text_type_main-medium mb-6'>Начинка</h2>
+                  {!!main.length ? (
+                    <div className={`${styles.cards} pl-4 pr-4`}>
+                      {main.map(({_id, name, image, price}) => (
+                        <IngredientCard
+                          key={_id}
+                          image={image}
+                          name={name}
+                          price={price}
+                          onClickCard={() => onClickCard(_id)}
+                        />
+                      ))}
+                    </div>
+                  ) : 'Отсутствует'}
+                </section>
+              </Element>
             </>
           )}
-        </div>
+        </Element>
       </div>
 
       {isModalOpen && (
