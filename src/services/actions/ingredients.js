@@ -18,7 +18,7 @@ export const getIngredients = () => dispatch => {
     .then(({data}) => {
       dispatch({
         type: GET_INGREDIENTS_SUCCESS,
-        data
+        payload: data
       });
     })
     .catch(error => {

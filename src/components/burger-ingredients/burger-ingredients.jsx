@@ -6,13 +6,13 @@ import IngredientCard from '../ingredient-card/ingredient-card';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {getIngredients} from '../../services/actions/ingredients';
+import {CLEAR_INGREDIENT_DETAILS, GET_INGREDIENT_DETAILS} from '../../services/actions/ingredientDetails';
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
 
   const [tab, setTab] = useState('bun');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [ingredientDetails, setIngredientDetails] = useState(null);
 
   const {data: ingredients, isFetching, isFailed} = useSelector(store => store.ingredients);
 
@@ -21,22 +21,11 @@ const BurgerIngredients = () => {
   const main = ingredients.filter(item => item.type === 'main');
 
   const onClickCard = (id) => {
-    const {
-      calories,
-      carbohydrates,
-      fat,
-      image_large: image,
-      name,
-      proteins,
-    } = ingredients.filter(item => item._id === id)[0];
+    const ingredient = ingredients.filter(item => item._id === id)[0];
 
-    setIngredientDetails({
-      calories,
-      carbohydrates,
-      fat,
-      image,
-      name,
-      proteins,
+    dispatch({
+      type: GET_INGREDIENT_DETAILS,
+      payload: ingredient
     })
 
     setIsModalOpen(true);
@@ -44,7 +33,8 @@ const BurgerIngredients = () => {
 
   const onCloseModal = () => {
     setIsModalOpen(false);
-    setIngredientDetails(null);
+
+    dispatch({type: CLEAR_INGREDIENT_DETAILS});
   }
 
   useEffect(() => {
@@ -126,7 +116,7 @@ const BurgerIngredients = () => {
 
       {isModalOpen && (
         <Modal onClose={onCloseModal}>
-          <IngredientDetails {...ingredientDetails}/>
+          <IngredientDetails/>
         </Modal>
       )}
     </>
