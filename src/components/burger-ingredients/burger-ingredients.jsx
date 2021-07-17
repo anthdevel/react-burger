@@ -1,15 +1,20 @@
 import styles from './burger-ingredients.module.css';
-import {useState} from 'react';
-import PropTypes from 'prop-types';
+import {useEffect, useState} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import IngredientCard from '../ingredient-card/ingredient-card';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import {useDispatch, useSelector} from 'react-redux';
+import {getIngredients} from '../../services/actions/ingredients';
 
-const BurgerIngredients = ({ingredients}) => {
+const BurgerIngredients = () => {
+  const dispatch = useDispatch();
+
   const [tab, setTab] = useState('bun');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [ingredientDetails, setIngredientDetails] = useState(null);
+
+  const {data: ingredients, isFetching, isFailed} = useSelector(store => store.ingredients);
 
   const buns = ingredients.filter(item => item.type === 'bun');
   const sauces = ingredients.filter(item => item.type === 'sauce');
@@ -42,6 +47,10 @@ const BurgerIngredients = ({ingredients}) => {
     setIngredientDetails(null);
   }
 
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch])
+
   return (
     <>
       <div className={styles.root}>
@@ -57,51 +66,61 @@ const BurgerIngredients = ({ingredients}) => {
           </Tab>
         </div>
         <div className={styles.content}>
-          <section className='pb-10'>
-            <h2 className='text text_type_main-medium mb-6'>Булки</h2>
-            <div className={`${styles.cards} pl-4 pr-4`}>
-              {buns.map(({_id, name, image, price}) => (
-                <IngredientCard
-                  key={_id}
-                  image={image}
-                  name={name}
-                  price={price}
-                  count={1}
-                  onClickCard={() => onClickCard(_id)}
-                />
-              ))}
-            </div>
-          </section>
-          <section className='pb-10'>
-            <h2 className='text text_type_main-medium mb-6'>Соусы</h2>
-            <div className={`${styles.cards} pl-4 pr-4`}>
-              {sauces.map(({_id, name, image, price}) => (
-                <IngredientCard
-                  key={_id}
-                  image={image}
-                  name={name}
-                  price={price}
-                  count={1}
-                  onClickCard={() => onClickCard(_id)}
-                />
-              ))}
-            </div>
-          </section>
-          <section className='pb-10'>
-            <h2 className='text text_type_main-medium mb-6'>Начинка</h2>
-            <div className={`${styles.cards} pl-4 pr-4`}>
-              {main.map(({_id, name, image, price}) => (
-                <IngredientCard
-                  key={_id}
-                  image={image}
-                  name={name}
-                  price={price}
-                  count={1}
-                  onClickCard={() => onClickCard(_id)}
-                />
-              ))}
-            </div>
-          </section>
+          {isFetching && 'Загрузка...'}
+          {isFailed && 'Что-то пошло не так.'}
+
+          {!!ingredients.length && (
+            <>
+              <section className='pb-10'>
+                <h2 className='text text_type_main-medium mb-6'>Булки</h2>
+                {!!buns.length ? (
+                  <div className={`${styles.cards} pl-4 pr-4`}>
+                    {buns.map(({_id, name, image, price}) => (
+                      <IngredientCard
+                        key={_id}
+                        image={image}
+                        name={name}
+                        price={price}
+                        onClickCard={() => onClickCard(_id)}
+                      />
+                    ))}
+                  </div>
+                ) : 'Отсутствуют'}
+              </section>
+              <section className='pb-10'>
+                <h2 className='text text_type_main-medium mb-6'>Соусы</h2>
+                {!!sauces.length ? (
+                  <div className={`${styles.cards} pl-4 pr-4`}>
+                    {sauces.map(({_id, name, image, price}) => (
+                      <IngredientCard
+                        key={_id}
+                        image={image}
+                        name={name}
+                        price={price}
+                        onClickCard={() => onClickCard(_id)}
+                      />
+                    ))}
+                  </div>
+                ) : 'Отсутствуют'}
+              </section>
+              <section className='pb-10'>
+                <h2 className='text text_type_main-medium mb-6'>Начинка</h2>
+                {!!main.length ? (
+                  <div className={`${styles.cards} pl-4 pr-4`}>
+                    {main.map(({_id, name, image, price}) => (
+                      <IngredientCard
+                        key={_id}
+                        image={image}
+                        name={name}
+                        price={price}
+                        onClickCard={() => onClickCard(_id)}
+                      />
+                    ))}
+                  </div>
+                ) : 'Отсутствует'}
+              </section>
+            </>
+          )}
         </div>
       </div>
 
@@ -113,24 +132,5 @@ const BurgerIngredients = ({ingredients}) => {
     </>
   )
 }
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      proteins: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      calories: PropTypes.number.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number,
-    }).isRequired
-  ).isRequired
-};
 
 export default BurgerIngredients;

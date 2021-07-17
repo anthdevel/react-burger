@@ -7,14 +7,9 @@ import {URL_INGREDIENTS} from '../../utils';
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasError, setHasError] = useState(false);
 
   useEffect(
     () => {
-      setIsLoading(true);
-      setHasError(false);
-
       fetch(URL_INGREDIENTS)
         .then(response => {
           if (response.ok) {
@@ -27,12 +22,9 @@ function App() {
           setIngredients(data);
         })
         .catch(error => {
-          setHasError(true);
           console.error(error);
         })
-        .finally(() => {
-          setIsLoading(false);
-        })
+
     },
     []
   );
@@ -45,13 +37,9 @@ function App() {
           <h1 className='text text_type_main-large'>Соберите бургер</h1>
         </header>
         <div className={styles.content}>
-          {isLoading && 'Загрузка...'}
-          {hasError && 'Произошла ошибка при выполнении запроса'}
-          {!isLoading && !hasError && ingredients.length > 0 && (
-            <>
-              <BurgerIngredients ingredients={ingredients}/>
-              <BurgerConstructor ingredients={ingredients}/>
-            </>
+          <BurgerIngredients/>
+          {!!ingredients.length && (
+            <BurgerConstructor ingredients={ingredients}/>
           )}
         </div>
       </main>

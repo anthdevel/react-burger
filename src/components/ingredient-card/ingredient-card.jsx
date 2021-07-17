@@ -7,13 +7,13 @@ const IngredientCard = (props) => {
     image,
     name,
     price,
-    count,
+    count = 0,
     onClickCard,
   } = props;
 
   return (
     <div className={styles.card} onClick={onClickCard}>
-      <Counter count={count} size='default'/>
+      {!!count && <Counter count={count} size='default'/>}
       <div className='pl-4 pr-4 mb-1'>
         <img className={styles.pic} src={image} alt={name}/>
       </div>
