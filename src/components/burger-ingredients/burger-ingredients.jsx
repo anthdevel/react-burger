@@ -1,23 +1,21 @@
 import styles from './burger-ingredients.module.css';
-import {useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import IngredientCard from '../ingredient-card/ingredient-card';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import {useDispatch, useSelector} from 'react-redux';
-import {getIngredients} from '../../services/actions/ingredients';
+import {useDispatch} from 'react-redux';
 import {CLEAR_INGREDIENT_DETAILS, GET_INGREDIENT_DETAILS} from '../../services/actions/ingredientDetails';
 import {scroller} from 'react-scroll';
 import {InView} from 'react-intersection-observer';
+import PropTypes from 'prop-types';
 
-const BurgerIngredients = () => {
+const BurgerIngredients = ({ingredients}) => {
   const dispatch = useDispatch();
 
   const [tab, setTab] = useState('bun');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const currentViewsRatio = useRef({});
-
-  const {data: ingredients, isFetching, isFailed} = useSelector(store => store.ingredients);
 
   const buns = ingredients.filter(item => item.type === 'bun');
   const sauces = ingredients.filter(item => item.type === 'sauce');
@@ -72,10 +70,6 @@ const BurgerIngredients = () => {
     })
   }
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch])
-
   return (
     <>
       <div className={styles.root}>
@@ -91,79 +85,66 @@ const BurgerIngredients = () => {
           </Tab>
         </div>
         <div className={styles.content} id='scrollableContainer'>
-          {ingredients.length === 0 && isFetching && 'Загрузка...'}
-          {isFailed && 'Что-то пошло не так.'}
-
-          {!!ingredients.length && (
-            <>
-              <InView
-                onChange={onChange('bun')}
-                threshold={[0, 0.25, 0.5, 0.75, 1]}
-                id='bun'
-              >
-                <section className='pb-10'>
-                  <h2 className='text text_type_main-medium mb-6'>Булки</h2>
-                  {!!buns.length ? (
-                    <div className={`${styles.cards} pl-4 pr-4`}>
-                      {buns.map(({_id, name, image, price}) => (
-                        <IngredientCard
-                          key={_id}
-                          image={image}
-                          name={name}
-                          price={price}
-                          onClickCard={() => onClickCard(_id)}
-                        />
-                      ))}
-                    </div>
-                  ) : 'Отсутствуют'}
-                </section>
-              </InView>
-              <InView
-                onChange={onChange('sauce')}
-                threshold={[0, 0.25, 0.5, 0.75, 1]}
-                id='sauce'
-              >
-                <section className='pb-10'>
-                  <h2 className='text text_type_main-medium mb-6'>Соусы</h2>
-                  {!!sauces.length ? (
-                    <div className={`${styles.cards} pl-4 pr-4`}>
-                      {sauces.map(({_id, name, image, price}) => (
-                        <IngredientCard
-                          key={_id}
-                          image={image}
-                          name={name}
-                          price={price}
-                          onClickCard={() => onClickCard(_id)}
-                        />
-                      ))}
-                    </div>
-                  ) : 'Отсутствуют'}
-                </section>
-              </InView>
-              <InView
-                onChange={onChange('main')}
-                threshold={[0, 0.25, 0.5, 0.75, 1]}
-                id='main'
-              >
-                <section className='pb-10'>
-                  <h2 className='text text_type_main-medium mb-6'>Начинки</h2>
-                  {!!main.length ? (
-                    <div className={`${styles.cards} pl-4 pr-4`}>
-                      {main.map(({_id, name, image, price}) => (
-                        <IngredientCard
-                          key={_id}
-                          image={image}
-                          name={name}
-                          price={price}
-                          onClickCard={() => onClickCard(_id)}
-                        />
-                      ))}
-                    </div>
-                  ) : 'Отсутствует'}
-                </section>
-              </InView>
-            </>
-          )}
+          <InView
+            onChange={onChange('bun')}
+            threshold={[0, 0.25, 0.5, 0.75, 1]}
+            id='bun'
+          >
+            <section className='pb-10'>
+              <h2 className='text text_type_main-medium mb-6'>Булки</h2>
+              <div className={`${styles.cards} pl-4 pr-4`}>
+                {buns.map(({_id, name, image, price}) => (
+                  <IngredientCard
+                    key={_id}
+                    image={image}
+                    name={name}
+                    price={price}
+                    onClickCard={() => onClickCard(_id)}
+                  />
+                ))}
+              </div>
+            </section>
+          </InView>
+          <InView
+            onChange={onChange('sauce')}
+            threshold={[0, 0.25, 0.5, 0.75, 1]}
+            id='sauce'
+          >
+            <section className='pb-10'>
+              <h2 className='text text_type_main-medium mb-6'>Соусы</h2>
+              <div className={`${styles.cards} pl-4 pr-4`}>
+                {sauces.map(({_id, name, image, price}) => (
+                  <IngredientCard
+                    key={_id}
+                    image={image}
+                    name={name}
+                    price={price}
+                    onClickCard={() => onClickCard(_id)}
+                  />
+                ))}
+              </div>
+            </section>
+          </InView>
+          <InView
+            onChange={onChange('main')}
+            threshold={[0, 0.25, 0.5, 0.75, 1]}
+            id='main'
+          >
+            <section className='pb-10'>
+              <h2 className='text text_type_main-medium mb-6'>Начинки</h2>
+              <div className={`${styles.cards} pl-4 pr-4`}>
+                {main.map(({_id, name, image, price}) => (
+                  <IngredientCard
+                    key={_id}
+                    image={image}
+                    name={name}
+                    price={price}
+                    onClickCard={() => onClickCard(_id)}
+                  />
+                ))}
+              </div>
+            </section>
+          </InView>
         </div>
       </div>
 
@@ -175,5 +156,24 @@ const BurgerIngredients = () => {
     </>
   )
 }
+
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      proteins: PropTypes.number.isRequired,
+      fat: PropTypes.number.isRequired,
+      carbohydrates: PropTypes.number.isRequired,
+      calories: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
+      image: PropTypes.string,
+      image_mobile: PropTypes.string,
+      image_large: PropTypes.string,
+      __v: PropTypes.number,
+    }).isRequired
+  ).isRequired
+};
 
 export default BurgerIngredients;

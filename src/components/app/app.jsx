@@ -1,33 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import styles from './app.module.css';
-import {URL_INGREDIENTS} from '../../utils';
+import {getIngredients} from '../../services/actions/ingredients';
+import {useDispatch, useSelector} from 'react-redux';
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
 
 function App() {
-  const [ingredients, setIngredients] = useState([]);
+  const dispatch = useDispatch();
+  const {data: ingredients, isFetching, isFailed} = useSelector(store => store.ingredients);
 
-  useEffect(
-    () => {
-      fetch(URL_INGREDIENTS)
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-
-          return Promise.reject(`Ошибка ${response.status}`);
-        })
-        .then(({data}) => {
-          setIngredients(data);
-        })
-        .catch(error => {
-          console.error(error);
-        })
-
-    },
-    []
-  );
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch])
 
   return (
     <div className={styles.root}>
@@ -37,9 +24,14 @@ function App() {
           <h1 className='text text_type_main-large'>Соберите бургер</h1>
         </header>
         <div className={styles.content}>
-          <BurgerIngredients/>
+          {ingredients.length === 0 && isFetching && 'Загрузка конструктора...'}
+          {isFailed && 'Что-то пошло не так.'}
+
           {!!ingredients.length && (
-            <BurgerConstructor ingredients={ingredients}/>
+            <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients ingredients={ingredients}/>
+              <BurgerConstructor ingredients={ingredients}/>
+            </DndProvider>
           )}
         </div>
       </main>
