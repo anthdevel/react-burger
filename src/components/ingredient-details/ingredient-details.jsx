@@ -10,7 +10,7 @@ const IngredientDetails = () => {
     image_large: image,
     name,
     proteins,
-  } = useSelector(store => store.ingredientDetails);
+  } = useSelector(store => store.ingredients.details);
 
   return (
     <div className={`${styles.root} pl-15 pr-15`}>

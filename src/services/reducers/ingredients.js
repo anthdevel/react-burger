@@ -1,7 +1,13 @@
-import {GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_ERROR} from '../actions/ingredients';
+import {
+  GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_SUCCESS,
+  GET_INGREDIENTS_ERROR,
+  GET_INGREDIENT_DETAILS, CLEAR_INGREDIENT_DETAILS
+} from '../actions/ingredients';
 
 const initialState = {
-  data: [],
+  list: [],
+  details: null,
   isFetching: false,
   isFetched: false,
   isFailed: false,
@@ -20,7 +26,7 @@ export const ingredientsReducer = (state = initialState, action) => {
     case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
-        data: action.payload,
+        list: action.payload,
         isFetching: false,
         isFetched: true,
         isFailed: false,
@@ -32,6 +38,18 @@ export const ingredientsReducer = (state = initialState, action) => {
         isFetching: false,
         isFetched: false,
         isFailed: true,
+      };
+    }
+    case GET_INGREDIENT_DETAILS: {
+      return {
+        ...state,
+        details: action.payload
+      };
+    }
+    case CLEAR_INGREDIENT_DETAILS: {
+      return {
+        ...state,
+        details: null
       };
     }
     default:

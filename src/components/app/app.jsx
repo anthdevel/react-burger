@@ -7,23 +7,14 @@ import {getIngredients} from '../../services/actions/ingredients';
 import {useDispatch, useSelector} from 'react-redux';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
-import {SET_DESIGN_ITEM} from '../../services/actions/design';
 
 function App() {
   const dispatch = useDispatch();
-  const {data: ingredients, isFetching, isFailed} = useSelector(store => store.ingredients);
+  const {list: ingredients, isFetching, isFailed} = useSelector(store => store.ingredients);
 
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch])
-
-  useEffect(() => {
-    const bun = ingredients.filter(item => item.type === 'bun')[0];
-
-    if (bun) {
-      dispatch({type: SET_DESIGN_ITEM, payload: bun})
-    }
-  }, [dispatch, ingredients])
 
   return (
     <div className={styles.root}>

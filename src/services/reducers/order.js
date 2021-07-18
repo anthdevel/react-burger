@@ -1,7 +1,7 @@
 import {GET_ORDER_NUMBER_ERROR, GET_ORDER_NUMBER_REQUEST, GET_ORDER_NUMBER_SUCCESS} from '../actions/order';
 
 const initialState = {
-  data: null,
+  number: null,
   isFetching: false,
   isFetched: false,
   isFailed: false,
@@ -20,7 +20,7 @@ export const orderReducer = (state = initialState, action) => {
     case GET_ORDER_NUMBER_SUCCESS: {
       return {
         ...state,
-        data: action.payload,
+        number: action.payload,
         isFetching: false,
         isFetched: true,
         isFailed: false,

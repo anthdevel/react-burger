@@ -5,10 +5,10 @@ import Modal from '../modal/modal';
 import IngredientCard from '../ingredient-card/ingredient-card';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import {useDispatch} from 'react-redux';
-import {CLEAR_INGREDIENT_DETAILS, GET_INGREDIENT_DETAILS} from '../../services/actions/ingredientDetails';
 import {scroller} from 'react-scroll';
 import {InView} from 'react-intersection-observer';
 import PropTypes from 'prop-types';
+import {CLEAR_INGREDIENT_DETAILS, GET_INGREDIENT_DETAILS} from '../../services/actions/ingredients';
 
 const BurgerIngredients = ({ingredients}) => {
   const dispatch = useDispatch();

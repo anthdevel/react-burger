@@ -13,7 +13,7 @@ const BurgerConstructor = () => {
   const dispatch = useDispatch();
 
   const {bun, main} = useSelector(store => store.design);
-  const {data: orderNumber, isFetched} = useSelector(store => store.order)
+  const {number: orderNumber, isFetched} = useSelector(store => store.order)
 
   const [, dropTargetRef] = useDrop({
     accept: ['ingredient'],
@@ -23,21 +23,21 @@ const BurgerConstructor = () => {
   });
 
   const getTotalPrice = (bun, main) => {
-    if (bun) {
-      const bunTotalPrice = bun.price * 2;
+    const bunTotalPrice = bun?.price * 2;
 
-      let mainTotalPrice = 0;
+    let mainTotalPrice = 0;
 
-      for (let i = 0; i < main.length; i++) {
-        mainTotalPrice += main[i].price;
-      }
-
-      return bunTotalPrice + mainTotalPrice;
+    for (let i = 0; i < main.length; i++) {
+      mainTotalPrice += main[i].price;
     }
+
+    return bunTotalPrice + mainTotalPrice;
   };
 
   const checkOut = () => {
-    dispatch(getOrderNumber([bun._id, ...main.map(item => item._id), bun._id]));
+    if (bun) {
+      dispatch(getOrderNumber([bun._id, ...main.map(item => item._id), bun._id]));
+    }
   };
 
   const onCloseModal = () => {
@@ -108,7 +108,7 @@ const BurgerConstructor = () => {
         </div>
         <div className={`${styles.summary} pt-10 pb-10 pr-4`}>
           <div className={`${styles.summaryPrice} mr-10`}>
-            <span className="text text_type_digits-medium">{getTotalPrice(bun, main)}</span>
+            <span className="text text_type_digits-medium">{getTotalPrice(bun, main) || 0}</span>
             <CurrencyIcon type="primary"/>
           </div>
           <Button type="primary" size="large" onClick={checkOut}>
