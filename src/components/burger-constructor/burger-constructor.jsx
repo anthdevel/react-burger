@@ -22,14 +22,14 @@ const BurgerConstructor = () => {
     },
   });
 
-  const getTotalPrice = (bun, main) => {
+  const getTotalPrice = () => {
     const bunTotalPrice = bun?.price * 2;
 
     let mainTotalPrice = 0;
 
-    for (let i = 0; i < main.length; i++) {
-      mainTotalPrice += main[i].price;
-    }
+    main.forEach(item => {
+      mainTotalPrice += item.price;
+    });
 
     return bunTotalPrice + mainTotalPrice;
   };
@@ -108,7 +108,7 @@ const BurgerConstructor = () => {
         </div>
         <div className={`${styles.summary} pt-10 pb-10 pr-4`}>
           <div className={`${styles.summaryPrice} mr-10`}>
-            <span className="text text_type_digits-medium">{getTotalPrice(bun, main) || 0}</span>
+            <span className="text text_type_digits-medium">{getTotalPrice() || 0}</span>
             <CurrencyIcon type="primary"/>
           </div>
           <Button type="primary" size="large" onClick={checkOut}>
