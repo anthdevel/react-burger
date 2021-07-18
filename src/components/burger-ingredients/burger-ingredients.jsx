@@ -93,13 +93,12 @@ const BurgerIngredients = ({ingredients}) => {
             <section className='pb-10'>
               <h2 className='text text_type_main-medium mb-6'>Булки</h2>
               <div className={`${styles.cards} pl-4 pr-4`}>
-                {buns.map(({_id, name, image, price}) => (
+                {buns.map(({_id, ...rest}) => (
                   <IngredientCard
                     key={_id}
-                    image={image}
-                    name={name}
-                    price={price}
+                    _id={_id}
                     onClickCard={() => onClickCard(_id)}
+                    {...rest}
                   />
                 ))}
               </div>
@@ -113,13 +112,12 @@ const BurgerIngredients = ({ingredients}) => {
             <section className='pb-10'>
               <h2 className='text text_type_main-medium mb-6'>Соусы</h2>
               <div className={`${styles.cards} pl-4 pr-4`}>
-                {sauces.map(({_id, name, image, price}) => (
+                {sauces.map(({_id, ...rest}) => (
                   <IngredientCard
                     key={_id}
-                    image={image}
-                    name={name}
-                    price={price}
+                    _id={_id}
                     onClickCard={() => onClickCard(_id)}
+                    {...rest}
                   />
                 ))}
               </div>
@@ -133,13 +131,12 @@ const BurgerIngredients = ({ingredients}) => {
             <section className='pb-10'>
               <h2 className='text text_type_main-medium mb-6'>Начинки</h2>
               <div className={`${styles.cards} pl-4 pr-4`}>
-                {main.map(({_id, name, image, price}) => (
+                {main.map(({_id, ...rest}) => (
                   <IngredientCard
                     key={_id}
-                    image={image}
-                    name={name}
-                    price={price}
+                    _id={_id}
                     onClickCard={() => onClickCard(_id)}
+                    {...rest}
                   />
                 ))}
               </div>

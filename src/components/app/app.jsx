@@ -7,6 +7,7 @@ import {getIngredients} from '../../services/actions/ingredients';
 import {useDispatch, useSelector} from 'react-redux';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
+import {SET_DESIGN_ITEM} from '../../services/actions/design';
 
 function App() {
   const dispatch = useDispatch();
@@ -15,6 +16,14 @@ function App() {
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch])
+
+  useEffect(() => {
+    const bun = ingredients.filter(item => item.type === 'bun')[0];
+
+    if (bun) {
+      dispatch({type: SET_DESIGN_ITEM, payload: bun})
+    }
+  }, [dispatch, ingredients])
 
   return (
     <div className={styles.root}>
@@ -30,7 +39,7 @@ function App() {
           {!!ingredients.length && (
             <DndProvider backend={HTML5Backend}>
               <BurgerIngredients ingredients={ingredients}/>
-              <BurgerConstructor ingredients={ingredients}/>
+              <BurgerConstructor/>
             </DndProvider>
           )}
         </div>

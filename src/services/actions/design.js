@@ -1,0 +1,2 @@
+export const SET_DESIGN_ITEM = 'SET_DESIGN_ITEM';
+export const REMOVE_DESIGN_ITEM = 'REMOVE_DESIGN_ITEM';

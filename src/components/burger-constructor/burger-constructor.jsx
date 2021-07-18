@@ -1,15 +1,24 @@
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import {useState} from 'react';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
+import {useDispatch, useSelector} from 'react-redux';
+import {useDrop} from 'react-dnd';
+import {REMOVE_DESIGN_ITEM, SET_DESIGN_ITEM} from '../../services/actions/design';
 
-const BurgerConstructor = ({ingredients}) => {
+const BurgerConstructor = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
-  const bun = ingredients.filter(item => item.type === 'bun')[0];
-  const rest = ingredients.filter(item => item.type !== 'bun');
+  const [, dropTargetRef] = useDrop({
+    accept: ['ingredient'],
+    drop(item) {
+      dispatch({type: SET_DESIGN_ITEM, payload: item});
+    },
+  })
+
+  const {bun, main} = useSelector(store => store.design);
 
   const onOpenModal = () => {
     setIsModalOpen(true);
@@ -19,26 +28,32 @@ const BurgerConstructor = ({ingredients}) => {
     setIsModalOpen(false);
   }
 
+  const onRemoveItem = (id) => {
+    dispatch({type: REMOVE_DESIGN_ITEM, payload: id})
+  }
+
   return (
     <>
       <div className={`${styles.root} pl-4`}>
-        <div className={styles.constructor}>
+        <div className={styles.constructor} ref={dropTargetRef}>
           <div className={`${styles.constructorBase} mb-4`}>
             <div className={styles.constructorItem}>
               <div className={styles.constructorItemMain}>
-                <ConstructorElement
-                  type='top'
-                  isLocked
-                  text={bun.name}
-                  price={bun.price}
-                  thumbnail={bun.image_mobile}
-                />
+                {bun && (
+                  <ConstructorElement
+                    type='top'
+                    isLocked
+                    text={bun.name}
+                    price={bun.price}
+                    thumbnail={bun.image_mobile}
+                  />
+                )}
               </div>
             </div>
           </div>
           <div className={styles.constructorList}>
-            {rest.map(({_id, name, price, image_mobile}) => (
-              <div className={styles.constructorItem} key={_id}>
+            {main.map(({uniqueId, name, price, image_mobile}) => (
+              <div className={styles.constructorItem} key={uniqueId}>
                 <div className={styles.constructorItemDrag}>
                   <DragIcon type='primary'/>
                 </div>
@@ -47,6 +62,7 @@ const BurgerConstructor = ({ingredients}) => {
                     text={name}
                     price={price}
                     thumbnail={image_mobile}
+                    handleClose={() => onRemoveItem(uniqueId)}
                   />
                 </div>
               </div>
@@ -55,13 +71,15 @@ const BurgerConstructor = ({ingredients}) => {
           <div className={`${styles.constructorBase} mt-4`}>
             <div className={styles.constructorItem}>
               <div className={styles.constructorItemMain}>
-                <ConstructorElement
-                  type='bottom'
-                  isLocked
-                  text={bun.name}
-                  price={bun.price}
-                  thumbnail={bun.image_mobile}
-                />
+                {bun && (
+                  <ConstructorElement
+                    type='bottom'
+                    isLocked
+                    text={bun.name}
+                    price={bun.price}
+                    thumbnail={bun.image_mobile}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -85,24 +103,5 @@ const BurgerConstructor = ({ingredients}) => {
     </>
   )
 }
-
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      proteins: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      calories: PropTypes.number.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number,
-    }).isRequired
-  ).isRequired
-};
 
 export default BurgerConstructor;
