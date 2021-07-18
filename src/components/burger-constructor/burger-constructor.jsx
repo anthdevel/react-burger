@@ -11,26 +11,40 @@ const BurgerConstructor = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
+  const {bun, main} = useSelector(store => store.design);
+
   const [, dropTargetRef] = useDrop({
     accept: ['ingredient'],
     drop(item) {
       dispatch({type: SET_DESIGN_ITEM, payload: item});
     },
-  })
+  });
 
-  const {bun, main} = useSelector(store => store.design);
+  const getTotalPrice = (bun, main) => {
+    if (bun) {
+      const bunTotalPrice = bun.price * 2;
+
+      let mainTotalPrice = 0;
+
+      for (let i = 0; i < main.length; i++) {
+        mainTotalPrice += main[i].price;
+      }
+
+      return bunTotalPrice + mainTotalPrice;
+    }
+  };
 
   const onOpenModal = () => {
     setIsModalOpen(true);
-  }
+  };
 
   const onCloseModal = () => {
     setIsModalOpen(false);
-  }
+  };
 
   const onRemoveItem = (id) => {
-    dispatch({type: REMOVE_DESIGN_ITEM, payload: id})
-  }
+    dispatch({type: REMOVE_DESIGN_ITEM, payload: id});
+  };
 
   return (
     <>
@@ -41,7 +55,7 @@ const BurgerConstructor = () => {
               <div className={styles.constructorItemMain}>
                 {bun && (
                   <ConstructorElement
-                    type='top'
+                    type="top"
                     isLocked
                     text={bun.name}
                     price={bun.price}
@@ -55,7 +69,7 @@ const BurgerConstructor = () => {
             {main.map(({uniqueId, name, price, image_mobile}) => (
               <div className={styles.constructorItem} key={uniqueId}>
                 <div className={styles.constructorItemDrag}>
-                  <DragIcon type='primary'/>
+                  <DragIcon type="primary"/>
                 </div>
                 <div className={styles.constructorItemMain}>
                   <ConstructorElement
@@ -73,7 +87,7 @@ const BurgerConstructor = () => {
               <div className={styles.constructorItemMain}>
                 {bun && (
                   <ConstructorElement
-                    type='bottom'
+                    type="bottom"
                     isLocked
                     text={bun.name}
                     price={bun.price}
@@ -86,10 +100,10 @@ const BurgerConstructor = () => {
         </div>
         <div className={`${styles.summary} pt-10 pb-10 pr-4`}>
           <div className={`${styles.summaryPrice} mr-10`}>
-            <span className='text text_type_digits-medium'>610</span>
-            <CurrencyIcon type='primary'/>
+            <span className="text text_type_digits-medium">{getTotalPrice(bun, main)}</span>
+            <CurrencyIcon type="primary"/>
           </div>
-          <Button type='primary' size='large' onClick={onOpenModal}>
+          <Button type="primary" size="large" onClick={onOpenModal}>
             Оформить заказ
           </Button>
         </div>
@@ -97,11 +111,11 @@ const BurgerConstructor = () => {
 
       {isModalOpen && (
         <Modal onClose={onCloseModal}>
-          <OrderDetails id='034536'/>
+          <OrderDetails id="034536"/>
         </Modal>
       )}
     </>
-  )
-}
+  );
+};
 
 export default BurgerConstructor;
