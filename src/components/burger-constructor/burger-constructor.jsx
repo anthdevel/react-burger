@@ -1,17 +1,19 @@
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrop} from 'react-dnd';
 import {REMOVE_DESIGN_ITEM, SET_DESIGN_ITEM} from '../../services/actions/design';
+import {getOrderNumber} from '../../services/actions/order';
 
 const BurgerConstructor = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
   const {bun, main} = useSelector(store => store.design);
+  const {data: orderNumber, isFetched} = useSelector(store => store.order)
 
   const [, dropTargetRef] = useDrop({
     accept: ['ingredient'],
@@ -34,8 +36,8 @@ const BurgerConstructor = () => {
     }
   };
 
-  const onOpenModal = () => {
-    setIsModalOpen(true);
+  const checkOut = () => {
+    dispatch(getOrderNumber([bun._id, ...main.map(item => item._id), bun._id]));
   };
 
   const onCloseModal = () => {
@@ -45,6 +47,12 @@ const BurgerConstructor = () => {
   const onRemoveItem = (id) => {
     dispatch({type: REMOVE_DESIGN_ITEM, payload: id});
   };
+
+  useEffect(() => {
+    if (isFetched) {
+      setIsModalOpen(true);
+    }
+  }, [isFetched]);
 
   return (
     <>
@@ -57,7 +65,7 @@ const BurgerConstructor = () => {
                   <ConstructorElement
                     type="top"
                     isLocked
-                    text={bun.name}
+                    text={`${bun.name} (верх)`}
                     price={bun.price}
                     thumbnail={bun.image_mobile}
                   />
@@ -89,7 +97,7 @@ const BurgerConstructor = () => {
                   <ConstructorElement
                     type="bottom"
                     isLocked
-                    text={bun.name}
+                    text={`${bun.name} (низ)`}
                     price={bun.price}
                     thumbnail={bun.image_mobile}
                   />
@@ -103,7 +111,7 @@ const BurgerConstructor = () => {
             <span className="text text_type_digits-medium">{getTotalPrice(bun, main)}</span>
             <CurrencyIcon type="primary"/>
           </div>
-          <Button type="primary" size="large" onClick={onOpenModal}>
+          <Button type="primary" size="large" onClick={checkOut}>
             Оформить заказ
           </Button>
         </div>
@@ -111,7 +119,7 @@ const BurgerConstructor = () => {
 
       {isModalOpen && (
         <Modal onClose={onCloseModal}>
-          <OrderDetails id="034536"/>
+          <OrderDetails orderNumber={orderNumber}/>
         </Modal>
       )}
     </>
