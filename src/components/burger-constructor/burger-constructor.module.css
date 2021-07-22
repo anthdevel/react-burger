@@ -16,6 +16,18 @@
 
 .constructorBase {
   padding-right: 16px;
+  padding-left: 32px;
+
+  position: relative;
+}
+
+.constructorBase > div {
+  display: block;
+  max-width: 536px;
+}
+
+.constructorBase > div > span > span:first-of-type {
+  flex-grow: 1;
 }
 
 .constructorList {
@@ -33,32 +45,6 @@
 
 .constructorList::-webkit-scrollbar-thumb {
   background: #8585ad;
-}
-
-.constructorItem {
-  padding-left: 32px;
-
-  position: relative;
-}
-
-.constructorItemMain > div {
-  display: block;
-  max-width: 536px;
-}
-
-.constructorItemMain > div > span > span:first-of-type {
-  flex-grow: 1;
-}
-
-.constructorItemDrag {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.constructorItem + .constructorItem {
-  margin-top: 16px;
 }
 
 .summary {

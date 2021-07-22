@@ -1,5 +1,5 @@
 import {v4 as uuidv4} from 'uuid';
-import {REMOVE_DESIGN_ITEM, SET_DESIGN_ITEM} from '../actions/design';
+import {REMOVE_DESIGN_ITEM, REPLACE_DESIGN_ITEMS, SET_DESIGN_ITEM} from '../actions/design';
 
 const initialState = {
   bun: null,
@@ -31,6 +31,22 @@ export const designReducer = (state = initialState, action) => {
         ...state,
         main: state.main.filter(item => item.uniqueId !== action.payload)
       }
+    case REPLACE_DESIGN_ITEMS: {
+      const {payload} = action;
+
+      const dragItem = state.main.splice(payload.dragIndex, 1);
+
+      const newMain = [
+        ...state.main.slice(0, payload.hoverIndex),
+        ...dragItem,
+        ...state.main.slice(payload.hoverIndex, state.main.length)
+      ]
+
+      return ({
+        ...state,
+        main: newMain
+      })
+    }
     default:
       return state;
   }

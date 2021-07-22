@@ -1,4 +1,4 @@
-import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import {useEffect, useState} from 'react';
 import Modal from '../modal/modal';
@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useDrop} from 'react-dnd';
 import {REMOVE_DESIGN_ITEM, SET_DESIGN_ITEM} from '../../services/actions/design';
 import {getOrderNumber} from '../../services/actions/order';
+import BurgerConstructorItem from '../burger-constructor-item/burger-constructor-item';
 
 const BurgerConstructor = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,51 +60,39 @@ const BurgerConstructor = () => {
       <div className={`${styles.root} pl-4`}>
         <div className={styles.constructor} ref={dropTargetRef}>
           <div className={`${styles.constructorBase} mb-4`}>
-            <div className={styles.constructorItem}>
-              <div className={styles.constructorItemMain}>
-                {bun && (
-                  <ConstructorElement
-                    type="top"
-                    isLocked
-                    text={`${bun.name} (верх)`}
-                    price={bun.price}
-                    thumbnail={bun.image_mobile}
-                  />
-                )}
-              </div>
-            </div>
+            {bun && (
+              <ConstructorElement
+                type="top"
+                isLocked
+                text={`${bun.name} (верх)`}
+                price={bun.price}
+                thumbnail={bun.image_mobile}
+              />
+            )}
           </div>
           <div className={styles.constructorList}>
-            {main.map(({uniqueId, name, price, image_mobile}) => (
-              <div className={styles.constructorItem} key={uniqueId}>
-                <div className={styles.constructorItemDrag}>
-                  <DragIcon type="primary"/>
-                </div>
-                <div className={styles.constructorItemMain}>
-                  <ConstructorElement
-                    text={name}
-                    price={price}
-                    thumbnail={image_mobile}
-                    handleClose={() => onRemoveItem(uniqueId)}
-                  />
-                </div>
-              </div>
+            {main.map(({uniqueId, name, price, image_mobile}, index) => (
+              <BurgerConstructorItem
+                key={uniqueId}
+                uniqueId={uniqueId}
+                index={index}
+                name={name}
+                price={price}
+                image={image_mobile}
+                onRemove={onRemoveItem}
+              />
             ))}
           </div>
           <div className={`${styles.constructorBase} mt-4`}>
-            <div className={styles.constructorItem}>
-              <div className={styles.constructorItemMain}>
-                {bun && (
-                  <ConstructorElement
-                    type="bottom"
-                    isLocked
-                    text={`${bun.name} (низ)`}
-                    price={bun.price}
-                    thumbnail={bun.image_mobile}
-                  />
-                )}
-              </div>
-            </div>
+            {bun && (
+              <ConstructorElement
+                type="bottom"
+                isLocked
+                text={`${bun.name} (низ)`}
+                price={bun.price}
+                thumbnail={bun.image_mobile}
+              />
+            )}
           </div>
         </div>
         <div className={`${styles.summary} pt-10 pb-10 pr-4`}>
