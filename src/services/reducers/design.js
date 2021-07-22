@@ -32,6 +32,6 @@ export const designReducer = (state = initialState, action) => {
         main: state.main.filter(item => item.uniqueId !== action.payload)
       }
     default:
-      return {...state};
+      return state;
   }
 };

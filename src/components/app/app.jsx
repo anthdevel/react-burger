@@ -29,7 +29,7 @@ function App() {
 
           {!!ingredients.length && (
             <DndProvider backend={HTML5Backend}>
-              <BurgerIngredients ingredients={ingredients}/>
+              <BurgerIngredients/>
               <BurgerConstructor/>
             </DndProvider>
           )}

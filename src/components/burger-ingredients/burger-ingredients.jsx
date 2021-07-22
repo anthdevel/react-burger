@@ -4,18 +4,19 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import IngredientCard from '../ingredient-card/ingredient-card';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {scroller} from 'react-scroll';
 import {InView} from 'react-intersection-observer';
-import PropTypes from 'prop-types';
 import {CLEAR_INGREDIENT_DETAILS, GET_INGREDIENT_DETAILS} from '../../services/actions/ingredients';
 
-const BurgerIngredients = ({ingredients}) => {
+const BurgerIngredients = () => {
   const dispatch = useDispatch();
 
   const [tab, setTab] = useState('bun');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const currentViewsRatio = useRef({});
+
+  const {list: ingredients} = useSelector(store => store.ingredients);
 
   const buns = ingredients.filter(item => item.type === 'bun');
   const sauces = ingredients.filter(item => item.type === 'sauce');
@@ -153,24 +154,5 @@ const BurgerIngredients = ({ingredients}) => {
     </>
   )
 }
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      proteins: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      calories: PropTypes.number.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number,
-    }).isRequired
-  ).isRequired
-};
 
 export default BurgerIngredients;
