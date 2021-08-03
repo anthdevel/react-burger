@@ -3,10 +3,10 @@ import iconDone from '../../images/icon-done.png';
 import styles from './order-details.module.css';
 import PropTypes from 'prop-types';
 
-const OrderDetails = ({id}) => (
+const OrderDetails = ({orderNumber}) => (
   <div className={`${styles.root} pt-4 pb-15`}>
     <p className={`${styles.num} text text_type_digits-large mb-8`}>
-      {id}
+      {orderNumber}
     </p>
     <p className='text text_type_main-medium mb-15'>
       идентификатор заказа
@@ -22,7 +22,7 @@ const OrderDetails = ({id}) => (
 );
 
 OrderDetails.propTypes = {
-  id: PropTypes.string.isRequired
+  orderNumber: PropTypes.number.isRequired
 };
 
 export default OrderDetails;

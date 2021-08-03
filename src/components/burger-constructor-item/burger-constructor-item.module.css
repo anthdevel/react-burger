@@ -1,0 +1,26 @@
+.item {
+  position: relative;
+  padding-left: 32px;
+
+  cursor: move;
+}
+
+.item:not(:first-child) {
+  margin-top: 16px;
+}
+
+.itemMain > div {
+  display: block;
+  max-width: 536px;
+}
+
+.itemMain > div > span > span:first-of-type {
+  flex-grow: 1;
+}
+
+.itemDrag {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
