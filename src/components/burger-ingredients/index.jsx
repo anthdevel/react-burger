@@ -1,9 +1,9 @@
-import styles from './burger-ingredients.module.css';
+import styles from './styles.module.css';
 import {useRef, useState} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-import Modal from '../modal/modal';
-import IngredientCard from '../ingredient-card/ingredient-card';
-import IngredientDetails from '../ingredient-details/ingredient-details';
+import Modal from '../modal';
+import IngredientCard from '../ingredient-card';
+import IngredientDetails from '../ingredient-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {scroller} from 'react-scroll';
 import {InView} from 'react-intersection-observer';

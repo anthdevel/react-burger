@@ -1,13 +1,13 @@
 import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './burger-constructor.module.css';
+import styles from './styles.module.css';
 import {useEffect, useState} from 'react';
-import Modal from '../modal/modal';
-import OrderDetails from '../order-details/order-details';
+import Modal from '../modal';
+import OrderDetails from '../order-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrop} from 'react-dnd';
 import {REMOVE_DESIGN_ITEM, SET_DESIGN_ITEM} from '../../services/actions/design';
 import {getOrderNumber} from '../../services/actions/order';
-import BurgerConstructorItem from '../burger-constructor-item/burger-constructor-item';
+import BurgerConstructorItem from '../burger-constructor-item';
 
 const BurgerConstructor = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

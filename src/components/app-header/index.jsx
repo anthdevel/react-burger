@@ -1,4 +1,4 @@
-import styles from './app-header.module.css';
+import styles from './styles.module.css';
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 const AppHeader = () => {

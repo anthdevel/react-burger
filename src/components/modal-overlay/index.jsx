@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import styles from './modal-overlay.module.css';
+import styles from './styles.module.css';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
