@@ -2,14 +2,16 @@ import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import AppHeader from '../app-header';
 import styles from './styles.module.css';
-import MainPage from '../../pages/main';
-import LoginPage from '../../pages/login';
-import RegisterPage from '../../pages/register';
-import ForgotPasswordPage from '../../pages/forgot-password';
-import ResetPasswordPage from '../../pages/reset-password';
-import FeedPage from '../../pages/feed';
-import ProfilePage from '../../pages/profile';
-import NotFoundPage from '../../pages/not-found';
+import {
+  FeedPage,
+  ForgotPasswordPage,
+  LoginPage,
+  MainPage,
+  NotFoundPage,
+  ProfilePage,
+  RegisterPage,
+  ResetPasswordPage,
+} from '../../pages';
 
 function App() {
   return (
