@@ -1,0 +1,64 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row:last-child {
+  align-items: center;
+
+  min-height: 56px;
+}
+
+.col:last-child {
+  flex: 0 0 480px;
+  max-width: 480px;
+}
+
+.col:first-child {
+  flex: 0 0 380px;
+  max-width: 380px;
+
+  padding-right: 60px;
+}
+
+.nav {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.navItem {
+  margin: 0;
+  padding: 17px 0;
+}
+
+.link {
+  text-decoration: none;
+  color: #8585ad;
+}
+
+.link.active {
+  color: #f2f2f3;
+}
+
+.notice {
+  color: rgba(133,133,173,.4);
+}
+
+.inputWrapper > div {
+  width: 100%;
+}
+
+.inputWrapper > div > div {
+  width: 100%;
+}
+
+.inputWrapper > div > div > div {
+  cursor: pointer;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+}
