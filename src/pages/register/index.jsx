@@ -1,5 +1,5 @@
 import styles from './styles.module.css';
-import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link} from 'react-router-dom';
 
 const RegisterPage = () => {
@@ -29,12 +29,9 @@ const RegisterPage = () => {
             />
           </div>
           <div className={`${styles.inputWrapper} mb-6`}>
-            <Input
-              type="password"
-              placeholder="Пароль"
-              size="default"
+            <PasswordInput
               value=""
-              icon="ShowIcon"
+              name="password"
               onChange={() => {
               }}
             />
