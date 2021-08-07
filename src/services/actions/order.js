@@ -8,13 +8,13 @@ export const getOrderNumber = (orderList) => dispatch => {
   dispatch({type: GET_ORDER_NUMBER_REQUEST});
 
   fetch(URL_ORDER, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ingredients: orderList
-      })
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ingredients: orderList
+    })
   })
     .then(response => {
       if (response.ok) {

@@ -1,6 +1,8 @@
 export const URL_INGREDIENTS = 'https://norma.nomoreparties.space/api/ingredients';
 export const URL_ORDER = 'https://norma.nomoreparties.space/api/orders';
 
+export const URL_USER_REGISTER = 'https://norma.nomoreparties.space/api/auth/register';
+
 export function getCookie(name) {
   const matches = document.cookie.match(
     new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')

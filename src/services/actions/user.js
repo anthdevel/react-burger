@@ -1,0 +1,36 @@
+import {URL_USER_REGISTER} from '../../utils';
+
+export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
+export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
+export const REGISTER_USER_ERROR = 'REGISTER_USER_ERROR';
+
+export const registerUser = (user) => dispatch => {
+  dispatch({type: REGISTER_USER_REQUEST});
+
+  fetch(URL_USER_REGISTER, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(user)
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      return Promise.reject(`Ошибка ${response.status}`);
+    })
+    .then(response => dispatch({
+        type: REGISTER_USER_SUCCESS,
+        payload: response.user
+      })
+    )
+    .catch(error => {
+      dispatch({
+        type: REGISTER_USER_ERROR,
+      });
+
+      console.error(error);
+    });
+};
