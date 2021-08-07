@@ -1,21 +1,43 @@
 import styles from './styles.module.css';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {useState} from 'react';
+import {forgotUserPassword} from '../../services/actions/user';
 
 const ForgotPasswordPage = () => {
+  const dispatch = useDispatch();
+  const {isEmailSent} = useSelector(store => store.user);
+
+  const [email, setEmail] = useState('');
+
+  const onChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(forgotUserPassword(email));
+  };
+
+  if (isEmailSent) {
+    return <Redirect to="/reset-password"/>;
+  }
+
   return (
     <div className={styles.root}>
       <div className={styles.content}>
-        <form className="mb-20">
+        <form className="mb-20" onSubmit={onSubmit}>
           <h3 className="text text_type_main-medium mb-6">Восстановление пароля</h3>
           <div className={`${styles.inputWrapper} mb-6`}>
             <Input
+              name="email"
               type="email"
               placeholder="Укажите e-mail"
               size="default"
-              value=""
-              onChange={() => {
-              }}
+              value={email}
+              onChange={onChange}
             />
           </div>
           <Button type="primary" onClick={() => {

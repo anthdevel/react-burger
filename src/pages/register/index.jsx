@@ -1,13 +1,12 @@
 import styles from './styles.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link, Redirect} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import {useState} from 'react';
 import {registerUser} from '../../services/actions/user';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
-  const {isLoggedIn} = useSelector(store => store.user);
 
   const [user, setUser] = useState({
     name: '',
@@ -15,21 +14,15 @@ const RegisterPage = () => {
     password: '',
   });
 
-  const onChange = e => {
-    setUser({...user, [e.target.name]: e.target.value});
+  const onChange = (event) => {
+    setUser({...user, [event.target.name]: event.target.value});
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (event) => {
+    event.preventDefault();
 
     dispatch(registerUser(user));
   };
-
-  if (isLoggedIn) {
-    return (
-      <Redirect to="/"/>
-    );
-  }
 
   return (
     <div className={styles.root}>
