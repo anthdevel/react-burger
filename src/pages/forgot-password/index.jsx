@@ -3,12 +3,11 @@ import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components'
 import {Link, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
-import {forgotUserPassword} from '../../services/actions/user';
+import {restorePasswordFetch} from '../../services/actions/user';
 
 const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
-  const {isEmailSent} = useSelector(store => store.user);
-
+  const {isFetched} = useSelector(store => store.user.restorePassword);
   const [email, setEmail] = useState('');
 
   const onChange = (e) => {
@@ -18,11 +17,11 @@ const ForgotPasswordPage = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(forgotUserPassword(email));
+    dispatch(restorePasswordFetch(email));
   };
 
-  if (isEmailSent) {
-    return <Redirect to="/reset-password"/>;
+  if (isFetched) {
+    return <Redirect to='/reset-password' />
   }
 
   return (

@@ -1,4 +1,3 @@
-export const URL_FORGOT_PASSWORD = 'https://norma.nomoreparties.space/api/password-reset';
 export const URL_RESET_PASSWORD = 'https://norma.nomoreparties.space/api/password-reset/reset';
 export const URL_USER_REGISTER = 'https://norma.nomoreparties.space/api/auth/register';
 
@@ -43,3 +42,24 @@ export function setCookie(name, value, props) {
 export function deleteCookie(name) {
   setCookie(name, null, {expires: -1});
 }
+
+export const fetchableDefault = {
+  isFetching: false,
+  isFetched: false,
+  isFailed: false,
+};
+
+export const fetchableFetching = {
+  ...fetchableDefault,
+  isFetching: true,
+};
+
+export const fetchableFetched = {
+  ...fetchableDefault,
+  isFetched: true,
+};
+
+export const fetchableFailed = {
+  ...fetchableDefault,
+  isFailed: true,
+};
