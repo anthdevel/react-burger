@@ -9,7 +9,7 @@ import {
   RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS,
   RESTORE_PASSWORD_ERROR,
   RESTORE_PASSWORD_REQUEST,
-  RESTORE_PASSWORD_SUCCESS
+  RESTORE_PASSWORD_SUCCESS, UPDATE_USER_ERROR, UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS
 } from '../actions/user';
 import {fetchableDefault, fetchableFailed, fetchableFetched, fetchableFetching} from '../../utils';
 
@@ -18,7 +18,7 @@ const initialState = {
   get: {
     ...fetchableDefault,
   },
-  save: {
+  update: {
     ...fetchableDefault,
   },
   login: {
@@ -93,6 +93,35 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         get: {
           ...state.get,
+          ...fetchableFailed,
+        },
+      };
+    }
+
+    case UPDATE_USER_REQUEST: {
+      return {
+        ...state,
+        update: {
+          ...state.update,
+          ...fetchableFetching,
+        }
+      };
+    }
+    case UPDATE_USER_SUCCESS: {
+      return {
+        ...state,
+        data: action.payload,
+        update: {
+          ...state.update,
+          ...fetchableFetched,
+        },
+      };
+    }
+    case UPDATE_USER_ERROR: {
+      return {
+        ...state,
+        update: {
+          ...state.update,
           ...fetchableFailed,
         },
       };

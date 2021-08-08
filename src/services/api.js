@@ -78,6 +78,17 @@ export const getUser = () => {
   });
 };
 
+export const updateUser = (form) => {
+  return fetch(`${BASE_URL}/auth/user`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getCookie(ACCESS_TOKEN),
+    },
+    body: JSON.stringify(form),
+  })
+};
+
 export const updateToken = (token) => fetch(`${BASE_URL}/auth/token`, {
   method: 'POST',
   headers: {

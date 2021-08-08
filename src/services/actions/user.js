@@ -1,5 +1,14 @@
 import {deleteCookie, getCookie, setCookie} from '../../utils';
-import {getUser, loginUser, logoutUser, registerUser, resetPassword, restorePassword, updateToken} from '../api';
+import {
+  getUser,
+  loginUser,
+  logoutUser,
+  registerUser,
+  resetPassword,
+  restorePassword,
+  updateToken,
+  updateUser
+} from '../api';
 import {ACCESS_TOKEN, REFRESH_TOKEN} from '../../utils/consts';
 
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
@@ -13,6 +22,10 @@ export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR';
 export const GET_USER_REQUEST = 'GET_USER_REQUEST';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_ERROR = 'GET_USER_ERROR';
+
+export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const UPDATE_USER_ERROR = 'UPDATE_USER_ERROR';
 
 export const LOGOUT_USER_REQUEST = 'LOGOUT_USER_REQUEST';
 export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS';
@@ -193,6 +206,52 @@ export const getUserFetch = () => dispatch => {
     })
     .catch(error => {
       dispatch({type: GET_USER_ERROR});
+
+      console.error(error);
+    });
+};
+
+export const updateUserFetch = () => dispatch => {
+  dispatch({type: UPDATE_USER_REQUEST});
+
+  updateUser()
+    .then(response => response.json())
+    .then(response => {
+      if (response.success) {
+        dispatch({
+          type: GET_USER_SUCCESS,
+          payload: response.user
+        });
+
+        return response;
+      }
+
+      return updateToken(getCookie(REFRESH_TOKEN))
+        .then(response => response.json())
+        .then(response => {
+          if (response.success) {
+            setCookie(ACCESS_TOKEN, response.accessToken.split('Bearer ')[1]);
+            setCookie(REFRESH_TOKEN, response.refreshToken);
+
+            return getUser()
+              .then(response => response.json())
+              .then(response => {
+                if (response.success) {
+                  dispatch({
+                    type: UPDATE_USER_SUCCESS,
+                    payload: response.user
+                  });
+
+                  return response;
+                }
+              });
+          }
+
+          return response;
+        });
+    })
+    .catch(error => {
+      dispatch({type: UPDATE_USER_ERROR});
 
       console.error(error);
     });
