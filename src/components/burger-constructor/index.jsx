@@ -100,7 +100,7 @@ const BurgerConstructor = () => {
             <span className="text text_type_digits-medium">{getTotalPrice() || 0}</span>
             <CurrencyIcon type="primary"/>
           </div>
-          <Button type="primary" size="large" onClick={checkOut}>
+          <Button size="large" onClick={checkOut}>
             Оформить заказ
           </Button>
         </div>

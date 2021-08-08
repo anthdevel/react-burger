@@ -6,7 +6,7 @@ const NotFoundPage = () => {
     <div className="pt-30">
       <div className={styles.content}>
         <h1 className={`${styles.title} text text_type_main-large mb-8`}>Такой страницы не&nbsp;найдено</h1>
-        <Button type="primary">
+        <Button>
           Перейти на главную
         </Button>
       </div>

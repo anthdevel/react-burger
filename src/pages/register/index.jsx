@@ -34,7 +34,6 @@ const RegisterPage = () => {
               name="name"
               type="text"
               placeholder="Имя"
-              size="default"
               value={user.name}
               onChange={onChange}
             />
@@ -44,7 +43,6 @@ const RegisterPage = () => {
               name="email"
               type="email"
               placeholder="E-mail"
-              size="default"
               value={user.email}
               onChange={onChange}
             />
@@ -56,7 +54,7 @@ const RegisterPage = () => {
               onChange={onChange}
             />
           </div>
-          <Button type="primary">
+          <Button>
             Зарегистрироваться
           </Button>
         </form>

@@ -26,7 +26,9 @@ const AppHeader = () => {
             </li>
           </ul>
         </nav>
-        <Logo/>
+        <Link to="/">
+          <Logo/>
+        </Link>
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>

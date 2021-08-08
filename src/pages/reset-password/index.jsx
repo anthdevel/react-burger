@@ -45,13 +45,12 @@ const ResetPasswordPage = () => {
               name="token"
               type="text"
               placeholder="Введите код из письма"
-              size="default"
               value={form.token}
               onChange={onChange}
             />
           </div>
 
-          <Button type="primary">
+          <Button>
             Сохранить
           </Button>
         </form>

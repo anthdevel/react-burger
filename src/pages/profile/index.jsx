@@ -34,7 +34,6 @@ const ProfilePage = () => {
                 <Input
                   type="text"
                   placeholder="Имя"
-                  size="default"
                   value="Марк"
                   name="name"
                   icon="EditIcon"
@@ -46,7 +45,6 @@ const ProfilePage = () => {
                 <Input
                   type="email"
                   placeholder="Логин"
-                  size="default"
                   value="mail@stellar.burgers"
                   name="email"
                   icon="EditIcon"
@@ -58,7 +56,6 @@ const ProfilePage = () => {
                 <Input
                   type="password"
                   placeholder="Пароль"
-                  size="default"
                   value=""
                   name="password"
                   icon="CloseIcon"
@@ -85,7 +82,7 @@ const ProfilePage = () => {
                 <Button type="secondary">
                   Отмена
                 </Button>
-                <Button type="primary" onClick={() => {
+                <Button onClick={() => {
                 }}>
                   Сохранить
                 </Button>

@@ -34,12 +34,11 @@ const ForgotPasswordPage = () => {
               name="email"
               type="email"
               placeholder="Укажите e-mail"
-              size="default"
               value={email}
               onChange={onChange}
             />
           </div>
-          <Button type="primary" onClick={() => {
+          <Button onClick={() => {
           }}>
             Восстановить
           </Button>
