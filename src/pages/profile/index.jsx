@@ -2,14 +2,22 @@ import styles from './styles.module.css';
 import {Link, NavLink, Redirect, Route, Switch} from 'react-router-dom';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import {getCookie} from '../../utils';
-import {logoutUserFetch} from '../../services/actions/user';
+import {getUserFetch, logoutUserFetch} from '../../services/actions/user';
 import {useDispatch, useSelector} from 'react-redux';
 import {REFRESH_TOKEN} from '../../utils/consts';
+import {useEffect, useState} from 'react';
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
-  const {isFetched} = useSelector(store => store.user.logout);
+  const {isFetched: isLogoutFetched} = useSelector(store => store.user.logout);
+  const {data: userData} = useSelector(store => store.user);
   const refreshToken = getCookie(REFRESH_TOKEN);
+
+  const [form, setValue] = useState({
+    email: '',
+    name: '',
+    password: '',
+  });
 
   const onLogout = (event) => {
     event.preventDefault();
@@ -17,7 +25,21 @@ const ProfilePage = () => {
     dispatch(logoutUserFetch(refreshToken));
   };
 
-  if (isFetched) {
+  useEffect(() => {
+    dispatch(getUserFetch());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (userData) {
+      setValue(prevState => ({
+        ...prevState,
+        email: userData.email,
+        name: userData.name,
+      }));
+    }
+  }, [userData]);
+
+  if (isLogoutFetched) {
     return <Redirect to="/login"/>;
   }
 
@@ -50,10 +72,10 @@ const ProfilePage = () => {
             <Route path="/profile" exact>
               <div className={`${styles.inputWrapper} mb-6`}>
                 <Input
+                  name="name"
                   type="text"
                   placeholder="Имя"
-                  value="Марк"
-                  name="name"
+                  value={form.name}
                   icon="EditIcon"
                   onChange={() => {
                   }}
@@ -61,10 +83,10 @@ const ProfilePage = () => {
               </div>
               <div className={`${styles.inputWrapper} mb-6`}>
                 <Input
+                  name="email"
                   type="email"
                   placeholder="Логин"
-                  value="mail@stellar.burgers"
-                  name="email"
+                  value={form.email}
                   icon="EditIcon"
                   onChange={() => {
                   }}
@@ -74,7 +96,7 @@ const ProfilePage = () => {
                 <Input
                   type="password"
                   placeholder="Пароль"
-                  value=""
+                  value={form.password}
                   name="password"
                   icon="CloseIcon"
                   onChange={() => {

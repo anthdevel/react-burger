@@ -1,4 +1,6 @@
 import {
+  GET_USER_ERROR,
+  GET_USER_REQUEST, GET_USER_SUCCESS,
   LOGIN_USER_ERROR,
   LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER_ERROR, LOGOUT_USER_REQUEST, LOGOUT_USER_SUCCESS,
   REGISTER_USER_ERROR,
@@ -62,6 +64,35 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         login: {
           ...state.login,
+          ...fetchableFailed,
+        },
+      };
+    }
+
+    case GET_USER_REQUEST: {
+      return {
+        ...state,
+        get: {
+          ...state.get,
+          ...fetchableFetching,
+        }
+      };
+    }
+    case GET_USER_SUCCESS: {
+      return {
+        ...state,
+        data: action.payload,
+        get: {
+          ...state.get,
+          ...fetchableFetched,
+        },
+      };
+    }
+    case GET_USER_ERROR: {
+      return {
+        ...state,
+        get: {
+          ...state.get,
           ...fetchableFailed,
         },
       };

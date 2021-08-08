@@ -25,7 +25,7 @@ const LoginPage = () => {
   };
 
   if (isFetched) {
-    return <Redirect to="/"/>;
+    return <Redirect to="/profile"/>;
   }
 
   return (

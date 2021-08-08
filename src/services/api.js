@@ -1,3 +1,6 @@
+import {ACCESS_TOKEN} from '../utils/consts';
+import {getCookie} from '../utils';
+
 const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 export const getIngredients = () => {
@@ -53,6 +56,15 @@ export const logoutUser = (token) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify({token}),
+  });
+};
+
+export const getUser = () => {
+  return fetch(`${BASE_URL}/auth/user`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getCookie(ACCESS_TOKEN),
+    },
   });
 };
 

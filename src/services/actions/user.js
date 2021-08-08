@@ -1,5 +1,5 @@
 import {deleteCookie, setCookie, URL_USER_REGISTER} from '../../utils';
-import {loginUser, logoutUser, resetPassword, restorePassword} from '../api';
+import {getUser, loginUser, logoutUser, resetPassword, restorePassword} from '../api';
 import {ACCESS_TOKEN, REFRESH_TOKEN} from '../../utils/consts';
 
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
@@ -9,6 +9,10 @@ export const REGISTER_USER_ERROR = 'REGISTER_USER_ERROR';
 export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR';
+
+export const GET_USER_REQUEST = 'GET_USER_REQUEST';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_ERROR = 'GET_USER_ERROR';
 
 export const LOGOUT_USER_REQUEST = 'LOGOUT_USER_REQUEST';
 export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS';
@@ -140,6 +144,29 @@ export const logoutUserFetch = (token) => dispatch => {
     })
     .catch(error => {
       dispatch({type: LOGOUT_USER_ERROR,});
+
+      console.error(error);
+    });
+};
+
+export const getUserFetch = () => dispatch => {
+  dispatch({type: GET_USER_REQUEST});
+
+  getUser()
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      return Promise.reject(`Ошибка ${response.status}`);
+    })
+    .then(response => dispatch({
+        type: GET_USER_SUCCESS,
+        payload: response.user
+      })
+    )
+    .catch(error => {
+      dispatch({type: GET_USER_ERROR});
 
       console.error(error);
     });
