@@ -1,5 +1,5 @@
-import {deleteCookie, getCookie, setCookie, URL_USER_REGISTER} from '../../utils';
-import {getUser, loginUser, logoutUser, resetPassword, restorePassword, updateToken} from '../api';
+import {deleteCookie, getCookie, setCookie} from '../../utils';
+import {getUser, loginUser, logoutUser, registerUser, resetPassword, restorePassword, updateToken} from '../api';
 import {ACCESS_TOKEN, REFRESH_TOKEN} from '../../utils/consts';
 
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
@@ -26,16 +26,10 @@ export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR';
 
-export const registerUser = (user) => dispatch => {
+export const registerUserFetch = (form) => dispatch => {
   dispatch({type: REGISTER_USER_REQUEST});
 
-  fetch(URL_USER_REGISTER, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  })
+  registerUser(form)
     .then(response => {
       if (response.ok) {
         return response.json();
@@ -43,11 +37,20 @@ export const registerUser = (user) => dispatch => {
 
       return Promise.reject(`Ошибка ${response.status}`);
     })
-    .then(response => dispatch({
+    .then(({accessToken, refreshToken, user}) => {
+      if (accessToken) {
+        setCookie(ACCESS_TOKEN, accessToken.split('Bearer ')[1]);
+      }
+
+      if (refreshToken) {
+        setCookie(REFRESH_TOKEN, refreshToken);
+      }
+
+      dispatch({
         type: REGISTER_USER_SUCCESS,
-        payload: response.user
-      })
-    )
+        payload: user
+      });
+    })
     .catch(error => {
       dispatch({type: REGISTER_USER_ERROR});
 

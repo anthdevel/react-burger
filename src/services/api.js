@@ -39,6 +39,16 @@ export const resetPassword = (form) => {
   });
 };
 
+export const registerUser = (form) => {
+  return fetch(`${BASE_URL}/auth/register`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(form),
+  });
+};
+
 export const loginUser = (form) => {
   return fetch(`${BASE_URL}/auth/login`, {
     method: 'POST',

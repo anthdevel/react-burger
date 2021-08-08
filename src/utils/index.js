@@ -1,5 +1,3 @@
-export const URL_USER_REGISTER = 'https://norma.nomoreparties.space/api/auth/register';
-
 export function getCookie(name) {
   const matches = document.cookie.match(
     // eslint-disable-next-line no-useless-escape

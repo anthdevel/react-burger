@@ -3,7 +3,7 @@ import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger
 import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {useState} from 'react';
-import {registerUser} from '../../services/actions/user';
+import {registerUserFetch} from '../../services/actions/user';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const RegisterPage = () => {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    dispatch(registerUser(user));
+    dispatch(registerUserFetch(user));
   };
 
   return (
