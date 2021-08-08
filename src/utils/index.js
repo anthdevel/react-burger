@@ -1,4 +1,3 @@
-export const URL_RESET_PASSWORD = 'https://norma.nomoreparties.space/api/password-reset/reset';
 export const URL_USER_REGISTER = 'https://norma.nomoreparties.space/api/auth/register';
 
 export function getCookie(name) {

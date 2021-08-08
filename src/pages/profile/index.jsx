@@ -1,8 +1,26 @@
 import styles from './styles.module.css';
-import {NavLink, Route, Switch} from 'react-router-dom';
+import {Link, NavLink, Redirect, Route, Switch} from 'react-router-dom';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
+import {getCookie} from '../../utils';
+import {logoutUserFetch} from '../../services/actions/user';
+import {useDispatch, useSelector} from 'react-redux';
+import {REFRESH_TOKEN} from '../../utils/consts';
 
 const ProfilePage = () => {
+  const dispatch = useDispatch();
+  const {isFetched} = useSelector(store => store.user.logout);
+  const refreshToken = getCookie(REFRESH_TOKEN);
+
+  const onLogout = (event) => {
+    event.preventDefault();
+
+    dispatch(logoutUserFetch(refreshToken));
+  };
+
+  if (isFetched) {
+    return <Redirect to="/login"/>;
+  }
+
   return (
     <div className="pt-30">
       <div className={styles.row}>
@@ -21,9 +39,9 @@ const ProfilePage = () => {
               </NavLink>
             </li>
             <li className={styles.navItem}>
-              <NavLink to="/" className={`${styles.link} text text_type_main-medium`}>
+              <Link to="/login" onClick={onLogout} className={`${styles.link} text text_type_main-medium`}>
                 Выход
-              </NavLink>
+              </Link>
             </li>
           </ul>
         </div>

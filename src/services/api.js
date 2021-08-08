@@ -46,6 +46,16 @@ export const loginUser = (form) => {
   });
 };
 
+export const logoutUser = (token) => {
+  return fetch(`${BASE_URL}/auth/logout`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({token}),
+  });
+};
+
 
 
 

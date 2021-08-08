@@ -1,5 +1,6 @@
-import {setCookie, URL_USER_REGISTER} from '../../utils';
-import {loginUser, resetPassword, restorePassword} from '../api';
+import {deleteCookie, setCookie, URL_USER_REGISTER} from '../../utils';
+import {loginUser, logoutUser, resetPassword, restorePassword} from '../api';
+import {ACCESS_TOKEN, REFRESH_TOKEN} from '../../utils/consts';
 
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
@@ -8,6 +9,10 @@ export const REGISTER_USER_ERROR = 'REGISTER_USER_ERROR';
 export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR';
+
+export const LOGOUT_USER_REQUEST = 'LOGOUT_USER_REQUEST';
+export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS';
+export const LOGOUT_USER_ERROR = 'LOGOUT_USER_ERROR';
 
 export const RESTORE_PASSWORD_REQUEST = 'RESTORE_PASSWORD_REQUEST';
 export const RESTORE_PASSWORD_SUCCESS = 'RESTORE_PASSWORD_SUCCESS';
@@ -40,9 +45,7 @@ export const registerUser = (user) => dispatch => {
       })
     )
     .catch(error => {
-      dispatch({
-        type: REGISTER_USER_ERROR,
-      });
+      dispatch({type: REGISTER_USER_ERROR});
 
       console.error(error);
     });
@@ -54,9 +57,7 @@ export const restorePasswordFetch = (email) => dispatch => {
   restorePassword(email)
     .then(response => {
       if (response.ok) {
-        dispatch({
-          type: RESTORE_PASSWORD_SUCCESS
-        });
+        dispatch({type: RESTORE_PASSWORD_SUCCESS});
 
         return response;
       }
@@ -64,9 +65,7 @@ export const restorePasswordFetch = (email) => dispatch => {
       return Promise.reject(`Ошибка ${response.status}`);
     })
     .catch(error => {
-      dispatch({
-        type: RESTORE_PASSWORD_ERROR,
-      });
+      dispatch({type: RESTORE_PASSWORD_ERROR});
 
       console.error(error);
     });
@@ -78,9 +77,7 @@ export const resetPasswordFetch = (form) => dispatch => {
   resetPassword(form)
     .then(response => {
       if (response.ok) {
-        dispatch({
-          type: RESET_PASSWORD_SUCCESS
-        });
+        dispatch({type: RESET_PASSWORD_SUCCESS});
 
         return response;
       }
@@ -88,9 +85,7 @@ export const resetPasswordFetch = (form) => dispatch => {
       return Promise.reject(`Ошибка ${response.status}`);
     })
     .catch(error => {
-      dispatch({
-        type: RESET_PASSWORD_ERROR,
-      });
+      dispatch({type: RESET_PASSWORD_ERROR});
 
       console.error(error);
     });
@@ -109,11 +104,11 @@ export const loginUserFetch = (form) => dispatch => {
     })
     .then(({accessToken, refreshToken, user}) => {
       if (accessToken) {
-        setCookie('accessToken', accessToken.split('Bearer ')[1]);
+        setCookie(ACCESS_TOKEN, accessToken.split('Bearer ')[1]);
       }
 
       if (refreshToken) {
-        setCookie('refreshToken', refreshToken);
+        setCookie(REFRESH_TOKEN, refreshToken);
       }
 
       dispatch({
@@ -122,9 +117,29 @@ export const loginUserFetch = (form) => dispatch => {
       });
     })
     .catch(error => {
-      dispatch({
-        type: LOGIN_USER_ERROR,
-      });
+      dispatch({type: LOGIN_USER_ERROR});
+
+      console.error(error);
+    });
+};
+
+export const logoutUserFetch = (token) => dispatch => {
+  dispatch({type: LOGOUT_USER_REQUEST});
+
+  logoutUser(token)
+    .then(response => {
+      if (response.ok) {
+        deleteCookie(ACCESS_TOKEN);
+        deleteCookie(REFRESH_TOKEN);
+        dispatch({type: LOGOUT_USER_SUCCESS});
+
+        return response;
+      }
+
+      return Promise.reject(`Ошибка ${response.status}`);
+    })
+    .catch(error => {
+      dispatch({type: LOGOUT_USER_ERROR,});
 
       console.error(error);
     });
