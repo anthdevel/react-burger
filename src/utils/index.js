@@ -1,6 +1,3 @@
-export const URL_INGREDIENTS = 'https://norma.nomoreparties.space/api/ingredients';
-export const URL_ORDER = 'https://norma.nomoreparties.space/api/orders';
-
 export const URL_FORGOT_PASSWORD = 'https://norma.nomoreparties.space/api/password-reset';
 export const URL_RESET_PASSWORD = 'https://norma.nomoreparties.space/api/password-reset/reset';
 export const URL_USER_REGISTER = 'https://norma.nomoreparties.space/api/auth/register';

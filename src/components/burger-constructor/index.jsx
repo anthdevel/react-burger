@@ -6,7 +6,7 @@ import OrderDetails from '../order-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrop} from 'react-dnd';
 import {REMOVE_DESIGN_ITEM, SET_DESIGN_ITEM} from '../../services/actions/design';
-import {getOrderNumber} from '../../services/actions/order';
+import {getOrderNumberFetch} from '../../services/actions/order';
 import BurgerConstructorItem from '../burger-constructor-item';
 
 const BurgerConstructor = () => {
@@ -37,7 +37,7 @@ const BurgerConstructor = () => {
 
   const checkOut = () => {
     if (bun) {
-      dispatch(getOrderNumber([bun._id, ...main.map(item => item._id), bun._id]));
+      dispatch(getOrderNumberFetch([bun._id, ...main.map(item => item._id), bun._id]));
     }
   };
 

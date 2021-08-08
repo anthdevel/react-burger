@@ -5,14 +5,14 @@ import BurgerIngredients from '../../components/burger-ingredients';
 import BurgerConstructor from '../../components/burger-constructor';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getIngredients} from '../../services/actions/ingredients';
+import {getIngredientsFetch} from '../../services/actions/ingredients';
 
 const MainPage = () => {
   const dispatch = useDispatch();
   const {list: ingredients, isFetching, isFailed} = useSelector(store => store.ingredients);
 
   useEffect(() => {
-    dispatch(getIngredients());
+    dispatch(getIngredientsFetch());
   }, [dispatch])
 
   return (

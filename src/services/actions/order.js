@@ -1,21 +1,13 @@
-import {URL_ORDER} from '../../utils';
+import {getOrder} from '../api';
 
 export const GET_ORDER_NUMBER_REQUEST = 'GET_ORDER_NUMBER_REQUEST';
 export const GET_ORDER_NUMBER_SUCCESS = 'GET_ORDER_NUMBER_SUCCESS';
 export const GET_ORDER_NUMBER_ERROR = 'GET_ORDER_NUMBER_ERROR';
 
-export const getOrderNumber = (orderList) => dispatch => {
+export const getOrderNumberFetch = (orderList) => dispatch => {
   dispatch({type: GET_ORDER_NUMBER_REQUEST});
 
-  fetch(URL_ORDER, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      ingredients: orderList
-    })
-  })
+  getOrder(orderList)
     .then(response => {
       if (response.ok) {
         return response.json();

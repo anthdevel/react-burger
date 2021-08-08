@@ -7,6 +7,45 @@ import {
   REGISTER_USER_SUCCESS
 } from '../actions/user';
 
+const user = {
+  data: null,
+  get: {
+    isFetching: false,
+    isFetched: false,
+    isFailed: false,
+  },
+  save: {
+    isFetching: false,
+    isFetched: false,
+    isFailed: false,
+  },
+  login: {
+    isFetching: false,
+    isFetched: false,
+    isFailed: false,
+  },
+  register: {
+    isFetching: false,
+    isFetched: false,
+    isFailed: false,
+  },
+  logout: {
+    isFetching: false,
+    isFetched: false,
+    isFailed: false,
+  },
+  forgotPassword: {
+    isFetching: false,
+    isFetched: false,
+    isFailed: false,
+  },
+  resetPassword: {
+    isFetching: false,
+    isFetched: false,
+    isFailed: false,
+  },
+}
+
 // TODO: Еще подумать
 const initialState = {
   data: null,
