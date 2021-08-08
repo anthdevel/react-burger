@@ -38,7 +38,7 @@ function App() {
             <Route path="/feed" exact>
               <FeedPage/>
             </Route>
-            <Route path="/profile" exact>
+            <Route path="/profile">
               <ProfilePage/>
             </Route>
             <Route>

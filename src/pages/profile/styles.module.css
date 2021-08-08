@@ -3,7 +3,7 @@
   flex-wrap: wrap;
 }
 
-.row:last-child {
+.row:not(:first-child) {
   align-items: center;
 
   min-height: 56px;
