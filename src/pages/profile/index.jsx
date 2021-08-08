@@ -1,5 +1,5 @@
 import styles from './styles.module.css';
-import {Link, NavLink, Redirect, Route, Switch} from 'react-router-dom';
+import {Link, NavLink, Route, Switch} from 'react-router-dom';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import {getCookie} from '../../utils';
 import {getUserFetch, logoutUserFetch} from '../../services/actions/user';
@@ -9,7 +9,6 @@ import {useEffect, useState} from 'react';
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
-  const {isFetched: isLogoutFetched} = useSelector(store => store.user.logout);
   const {data: userData} = useSelector(store => store.user);
   const refreshToken = getCookie(REFRESH_TOKEN);
 
@@ -38,10 +37,6 @@ const ProfilePage = () => {
       }));
     }
   }, [userData]);
-
-  if (isLogoutFetched) {
-    return <Redirect to="/login"/>;
-  }
 
   return (
     <div className="pt-30">

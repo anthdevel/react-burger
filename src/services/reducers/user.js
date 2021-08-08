@@ -139,7 +139,7 @@ export const userReducer = (state = initialState, action) => {
     case LOGOUT_USER_SUCCESS: {
       return {
         ...state,
-        data: action.payload,
+        data: null,
         logout: {
           ...state.logout,
           ...fetchableFetched,
