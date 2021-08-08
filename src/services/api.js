@@ -26,6 +26,16 @@ export const restorePassword = (email) => {
   })
 }
 
+export const resetPassword = (form) => {
+  return fetch(`${BASE_URL}/password-reset/reset`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(form)
+  })
+}
+
 
 
 

@@ -1,7 +1,11 @@
 import {
   REGISTER_USER_ERROR,
   REGISTER_USER_REQUEST,
-  REGISTER_USER_SUCCESS, RESTORE_PASSWORD_ERROR, RESTORE_PASSWORD_REQUEST, RESTORE_PASSWORD_SUCCESS
+  REGISTER_USER_SUCCESS, RESET_PASSWORD_ERROR,
+  RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS,
+  RESTORE_PASSWORD_ERROR,
+  RESTORE_PASSWORD_REQUEST,
+  RESTORE_PASSWORD_SUCCESS
 } from '../actions/user';
 import {fetchableDefault, fetchableFailed, fetchableFetched, fetchableFetching} from '../../utils';
 
@@ -84,6 +88,34 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         restorePassword: {
           ...state.restorePassword,
+          ...fetchableFailed,
+        }
+      };
+    }
+
+    case RESET_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        resetPassword: {
+          ...state.resetPassword,
+          ...fetchableFetching,
+        }
+      };
+    }
+    case RESET_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        resetPassword: {
+          ...state.resetPassword,
+          ...fetchableFetched,
+        }
+      };
+    }
+    case RESET_PASSWORD_ERROR: {
+      return {
+        ...state,
+        resetPassword: {
+          ...state.resetPassword,
           ...fetchableFailed,
         }
       };

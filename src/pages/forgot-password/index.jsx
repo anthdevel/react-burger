@@ -21,7 +21,7 @@ const ForgotPasswordPage = () => {
   };
 
   if (isFetched) {
-    return <Redirect to='/reset-password' />
+    return <Redirect to="/reset-password"/>;
   }
 
   return (

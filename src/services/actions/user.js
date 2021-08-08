@@ -1,5 +1,5 @@
 import {URL_USER_REGISTER} from '../../utils';
-import {restorePassword} from '../api';
+import {resetPassword, restorePassword} from '../api';
 
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
@@ -7,6 +7,9 @@ export const REGISTER_USER_ERROR = 'REGISTER_USER_ERROR';
 export const RESTORE_PASSWORD_REQUEST = 'RESTORE_PASSWORD_REQUEST';
 export const RESTORE_PASSWORD_SUCCESS = 'RESTORE_PASSWORD_SUCCESS';
 export const RESTORE_PASSWORD_ERROR = 'RESTORE_PASSWORD_ERROR';
+export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR';
 
 export const registerUser = (user) => dispatch => {
   dispatch({type: REGISTER_USER_REQUEST});
@@ -57,6 +60,30 @@ export const restorePasswordFetch = (email) => dispatch => {
     .catch(error => {
       dispatch({
         type: RESTORE_PASSWORD_ERROR,
+      });
+
+      console.error(error);
+    });
+};
+
+export const resetPasswordFetch = (form) => dispatch => {
+  dispatch({type: RESET_PASSWORD_REQUEST});
+
+  resetPassword(form)
+    .then(response => {
+      if (response.ok) {
+        dispatch({
+          type: RESET_PASSWORD_SUCCESS
+        });
+
+        return response;
+      }
+
+      return Promise.reject(`Ошибка ${response.status}`);
+    })
+    .catch(error => {
+      dispatch({
+        type: RESET_PASSWORD_ERROR,
       });
 
       console.error(error);

@@ -1,34 +1,57 @@
 import styles from './styles.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {useState} from 'react';
+import {resetPasswordFetch} from '../../services/actions/user';
 
 const ResetPasswordPage = () => {
+  const dispatch = useDispatch();
+  const {isFetched} = useSelector(store => store.user.resetPassword);
+
+  const [form, setValue] = useState({
+    password: '',
+    token: '',
+  });
+
+  const onChange = (event) => {
+    setValue({...form, [event.target.name]: event.target.value});
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    dispatch(resetPasswordFetch(form));
+  };
+
+  if (isFetched) {
+    return <Redirect to="/login"/>;
+  }
+
   return (
     <div className={styles.root}>
       <div className={styles.content}>
-        <form className="mb-20">
+        <form className="mb-20" onSubmit={onSubmit}>
           <h3 className="text text_type_main-medium mb-6">Восстановление пароля</h3>
           <div className={`${styles.inputWrapper} mb-6`}>
             <PasswordInput
-              value=""
               name="password"
-              onChange={() => {
-              }}
+              value={form.password}
+              onChange={onChange}
             />
           </div>
           <div className={`${styles.inputWrapper} mb-6`}>
             <Input
+              name="token"
               type="text"
               placeholder="Введите код из письма"
               size="default"
-              value=""
-              onChange={() => {
-              }}
+              value={form.token}
+              onChange={onChange}
             />
           </div>
 
-          <Button type="primary" onClick={() => {
-          }}>
+          <Button type="primary">
             Сохранить
           </Button>
         </form>
