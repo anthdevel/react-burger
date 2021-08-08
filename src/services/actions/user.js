@@ -1,5 +1,5 @@
-import {deleteCookie, setCookie, URL_USER_REGISTER} from '../../utils';
-import {getUser, loginUser, logoutUser, resetPassword, restorePassword} from '../api';
+import {deleteCookie, getCookie, setCookie, URL_USER_REGISTER} from '../../utils';
+import {getUser, loginUser, logoutUser, resetPassword, restorePassword, updateToken} from '../api';
 import {ACCESS_TOKEN, REFRESH_TOKEN} from '../../utils/consts';
 
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
@@ -153,18 +153,41 @@ export const getUserFetch = () => dispatch => {
   dispatch({type: GET_USER_REQUEST});
 
   getUser()
+    .then(response => response.json())
     .then(response => {
-      if (response.ok) {
-        return response.json();
+      if (response.success) {
+        dispatch({
+          type: GET_USER_SUCCESS,
+          payload: response.user
+        });
+
+        return response;
       }
 
-      return Promise.reject(`Ошибка ${response.status}`);
+      return updateToken(getCookie(REFRESH_TOKEN))
+        .then(response => response.json())
+        .then(response => {
+          if (response.success) {
+            setCookie(ACCESS_TOKEN, response.accessToken.split('Bearer ')[1]);
+            setCookie(REFRESH_TOKEN, response.refreshToken);
+
+            return getUser()
+              .then(response => response.json())
+              .then(response => {
+                if (response.success) {
+                  dispatch({
+                    type: GET_USER_SUCCESS,
+                    payload: response.user
+                  });
+
+                  return response;
+                }
+              });
+          }
+
+          return response;
+        });
     })
-    .then(response => dispatch({
-        type: GET_USER_SUCCESS,
-        payload: response.user
-      })
-    )
     .catch(error => {
       dispatch({type: GET_USER_ERROR});
 

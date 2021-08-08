@@ -68,6 +68,14 @@ export const getUser = () => {
   });
 };
 
+export const updateToken = (token) => fetch(`${BASE_URL}/auth/token`, {
+  method: 'POST',
+  headers: {
+    'content-type': 'application/json',
+  },
+  body: JSON.stringify({token}),
+});
+
 
 
 
