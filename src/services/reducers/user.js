@@ -15,6 +15,7 @@ import {fetchableDefault, fetchableFailed, fetchableFetched, fetchableFetching} 
 
 const initialState = {
   data: null,
+  isLoggedIn: false,
   get: {
     ...fetchableDefault,
   },
@@ -52,6 +53,7 @@ export const userReducer = (state = initialState, action) => {
     case LOGIN_USER_SUCCESS: {
       return {
         ...state,
+        isLoggedIn: true,
         data: action.payload,
         login: {
           ...state.login,
@@ -140,6 +142,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         data: null,
+        isLoggedIn: false,
         logout: {
           ...state.logout,
           ...fetchableFetched,
@@ -168,6 +171,7 @@ export const userReducer = (state = initialState, action) => {
     case REGISTER_USER_SUCCESS: {
       return {
         ...state,
+        isLoggedIn: true,
         data: action.payload,
         register: {
           ...state.register,

@@ -7,7 +7,7 @@ import {loginUserFetch} from '../../services/actions/user';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const {isFetched} = useSelector(store => store.user.login);
+  const {isLoggedIn} = useSelector(store => store.user);
 
   const [form, setValue] = useState({
     email: '',
@@ -24,7 +24,7 @@ const LoginPage = () => {
     dispatch(loginUserFetch(form));
   };
 
-  if (isFetched) {
+  if (isLoggedIn) {
     return <Redirect to="/profile"/>;
   }
 
