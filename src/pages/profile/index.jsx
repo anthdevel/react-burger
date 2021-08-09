@@ -9,7 +9,8 @@ import {useEffect, useState} from 'react';
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
-  const {data: userData, isLoggedIn} = useSelector(store => store.user);
+  const {data: userData} = useSelector(store => store.user);
+  const {isFetched: isLogoutFetched} = useSelector(store => store.user.logout);
   const refreshToken = getCookie(REFRESH_TOKEN);
 
   const [form, setValue] = useState({
@@ -38,7 +39,7 @@ const ProfilePage = () => {
     }
   }, [userData]);
 
-  if (!isLoggedIn) {
+  if (isLogoutFetched) {
     return <Redirect to="/login"/>;
   }
 
