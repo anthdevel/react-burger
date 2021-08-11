@@ -1,24 +1,21 @@
-.row {
+.content {
   display: flex;
   flex-wrap: wrap;
 }
 
-.row:not(:first-child) {
-  align-items: center;
-
-  min-height: 56px;
-}
-
-.col:last-child {
-  flex: 0 0 480px;
-  max-width: 480px;
-}
-
-.col:first-child {
+.sidebar {
   flex: 0 0 380px;
   max-width: 380px;
 
   padding-right: 60px;
+}
+
+.details {
+  flex-grow: 1;
+}
+
+.form {
+  max-width: 480px;
 }
 
 .nav {

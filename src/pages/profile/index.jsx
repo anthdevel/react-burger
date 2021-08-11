@@ -19,8 +19,12 @@ const ProfilePage = () => {
     password: '',
   });
 
+  const [canSave, setCanSave] = useState(false);
+
   const onChange = (event) => {
     setForm({...form, [event.target.name]: event.target.value});
+
+    setCanSave(true);
   };
 
   const onLogout = (event) => {
@@ -50,12 +54,15 @@ const ProfilePage = () => {
       name: userData.name,
       password: '',
     });
+
+    setCanSave(false);
   }
 
   const onSubmit = (event) => {
     event.preventDefault();
 
     dispatch(updateUserFetch(form));
+    setCanSave(false);
   };
 
   if (isLogoutFetched) {
@@ -64,8 +71,8 @@ const ProfilePage = () => {
 
   return (
     <div className="pt-30">
-      <div className={styles.row}>
-        <div className={styles.col}>
+      <div className={styles.content}>
+        <div className={styles.sidebar}>
           <ul className={styles.nav}>
             <li className={styles.navItem}>
               <NavLink exact to="/profile" className={`${styles.link} text text_type_main-medium`}
@@ -85,35 +92,50 @@ const ProfilePage = () => {
               </Link>
             </li>
           </ul>
+
+          <p className={`${styles.notice} text text_type_main-default mt-20`}>В этом разделе вы можете изменить свои
+            персональные данные</p>
         </div>
-        <div className={styles.col}>
+        <div className={styles.details}>
           <Switch>
             <Route path="/profile" exact>
-              <div className={`${styles.inputWrapper} mb-6`}>
-                <Input
-                  name="name"
-                  type="text"
-                  placeholder="Имя"
-                  value={form.name}
-                  onChange={onChange}
-                />
-              </div>
-              <div className={`${styles.inputWrapper} mb-6`}>
-                <Input
-                  name="email"
-                  type="email"
-                  placeholder="Логин"
-                  value={form.email}
-                  onChange={onChange}
-                />
-              </div>
-              <div className={`${styles.inputWrapper} mb-6`}>
-                <PasswordInput
-                  value={form.password}
-                  name="password"
-                  onChange={onChange}
-                />
-              </div>
+              <form className={styles.form}>
+                <div className={`${styles.inputWrapper} mb-6`}>
+                  <Input
+                    name="name"
+                    type="text"
+                    placeholder="Имя"
+                    value={form.name}
+                    onChange={onChange}
+                  />
+                </div>
+                <div className={`${styles.inputWrapper} mb-6`}>
+                  <Input
+                    name="email"
+                    type="email"
+                    placeholder="Логин"
+                    value={form.email}
+                    onChange={onChange}
+                  />
+                </div>
+                <div className={`${styles.inputWrapper} mb-6`}>
+                  <PasswordInput
+                    value={form.password}
+                    name="password"
+                    onChange={onChange}
+                  />
+                </div>
+                {canSave && (
+                  <div className={styles.buttonGroup}>
+                    <Button type="secondary" onClick={onCancel}>
+                      Отмена
+                    </Button>
+                    <Button onClick={onSubmit}>
+                      Сохранить
+                    </Button>
+                  </div>
+                )}
+              </form>
             </Route>
             <Route path="/profile/orders" exact>
               <p className="text text_type_main-default">В этом разделе будет храниться история заказов</p>
@@ -121,26 +143,6 @@ const ProfilePage = () => {
           </Switch>
         </div>
       </div>
-      <Switch>
-        <Route path="/profile" exact>
-          <div className={styles.row}>
-            <div className={styles.col}>
-              <p className={`${styles.notice} text text_type_main-default`}>В этом разделе вы можете изменить свои
-                персональные данные</p>
-            </div>
-            <div className={styles.col}>
-              <div className={styles.buttonGroup}>
-                <Button type="secondary" onClick={onCancel}>
-                  Отмена
-                </Button>
-                <Button onClick={onSubmit}>
-                  Сохранить
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Route>
-      </Switch>
     </div>
   );
 };
