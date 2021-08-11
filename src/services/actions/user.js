@@ -211,10 +211,10 @@ export const getUserFetch = () => dispatch => {
     });
 };
 
-export const updateUserFetch = () => dispatch => {
+export const updateUserFetch = (form) => dispatch => {
   dispatch({type: UPDATE_USER_REQUEST});
 
-  updateUser()
+  updateUser(form)
     .then(response => response.json())
     .then(response => {
       if (response.success) {

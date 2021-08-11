@@ -1,8 +1,8 @@
 import styles from './styles.module.css';
 import {Link, NavLink, Redirect, Route, Switch} from 'react-router-dom';
-import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {getCookie} from '../../utils';
-import {getUserFetch, logoutUserFetch} from '../../services/actions/user';
+import {getUserFetch, logoutUserFetch, updateUserFetch} from '../../services/actions/user';
 import {useDispatch, useSelector} from 'react-redux';
 import {REFRESH_TOKEN} from '../../utils/consts';
 import {useEffect, useState} from 'react';
@@ -13,11 +13,15 @@ const ProfilePage = () => {
   const {isFetched: isLogoutFetched} = useSelector(store => store.user.logout);
   const refreshToken = getCookie(REFRESH_TOKEN);
 
-  const [form, setValue] = useState({
+  const [form, setForm] = useState({
     email: '',
     name: '',
     password: '',
   });
+
+  const onChange = (event) => {
+    setForm({...form, [event.target.name]: event.target.value});
+  };
 
   const onLogout = (event) => {
     event.preventDefault();
@@ -31,13 +35,28 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (userData) {
-      setValue(prevState => ({
+      setForm(prevState => ({
         ...prevState,
         email: userData.email,
         name: userData.name,
       }));
     }
   }, [userData]);
+
+  const onCancel = () => {
+    setForm({
+      ...form,
+      email: userData.email,
+      name: userData.name,
+      password: '',
+    });
+  }
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    dispatch(updateUserFetch(form));
+  };
 
   if (isLogoutFetched) {
     return <Redirect to="/login"/>;
@@ -76,9 +95,7 @@ const ProfilePage = () => {
                   type="text"
                   placeholder="Имя"
                   value={form.name}
-                  icon="EditIcon"
-                  onChange={() => {
-                  }}
+                  onChange={onChange}
                 />
               </div>
               <div className={`${styles.inputWrapper} mb-6`}>
@@ -87,20 +104,14 @@ const ProfilePage = () => {
                   type="email"
                   placeholder="Логин"
                   value={form.email}
-                  icon="EditIcon"
-                  onChange={() => {
-                  }}
+                  onChange={onChange}
                 />
               </div>
               <div className={`${styles.inputWrapper} mb-6`}>
-                <Input
-                  type="password"
-                  placeholder="Пароль"
+                <PasswordInput
                   value={form.password}
                   name="password"
-                  icon="CloseIcon"
-                  onChange={() => {
-                  }}
+                  onChange={onChange}
                 />
               </div>
             </Route>
@@ -119,11 +130,10 @@ const ProfilePage = () => {
             </div>
             <div className={styles.col}>
               <div className={styles.buttonGroup}>
-                <Button type="secondary">
+                <Button type="secondary" onClick={onCancel}>
                   Отмена
                 </Button>
-                <Button onClick={() => {
-                }}>
+                <Button onClick={onSubmit}>
                   Сохранить
                 </Button>
               </div>
