@@ -4,18 +4,20 @@ import {Link, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import {resetPasswordFetch} from '../../services/actions/user';
+import {hasToken} from '../../utils';
 
 const ResetPasswordPage = () => {
   const dispatch = useDispatch();
-  const {isFetched} = useSelector(store => store.user.resetPassword);
+  const {isFetched: isResetPasswordFetched} = useSelector(store => store.user.resetPassword);
+  const {isFetched: isRestorePasswordFetched} = useSelector(store => store.user.restorePassword);
 
-  const [form, setValue] = useState({
+  const [form, setForm] = useState({
     password: '',
     token: '',
   });
 
   const onChange = (event) => {
-    setValue({...form, [event.target.name]: event.target.value});
+    setForm({...form, [event.target.name]: event.target.value});
   };
 
   const onSubmit = (event) => {
@@ -24,7 +26,9 @@ const ResetPasswordPage = () => {
     dispatch(resetPasswordFetch(form));
   };
 
-  if (isFetched) {
+  if (hasToken || !isRestorePasswordFetched) {
+    return <Redirect to="/"/>;
+  } else if (isResetPasswordFetched) {
     return <Redirect to="/login"/>;
   }
 

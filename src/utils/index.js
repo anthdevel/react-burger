@@ -1,3 +1,5 @@
+import {ACCESS_TOKEN} from './consts';
+
 export function getCookie(name) {
   const matches = document.cookie.match(
     // eslint-disable-next-line no-useless-escape
@@ -60,3 +62,9 @@ export const fetchableFailed = {
   ...fetchableDefault,
   isFailed: true,
 };
+
+export const hasToken = (function () {
+  const accessToken = getCookie(ACCESS_TOKEN);
+
+  return Boolean(accessToken?.trim());
+})();

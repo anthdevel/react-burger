@@ -140,11 +140,9 @@ export const userReducer = (state = initialState, action) => {
     }
     case LOGOUT_USER_SUCCESS: {
       return {
-        ...state,
-        data: null,
-        isLoggedIn: false,
+        ...initialState,
         logout: {
-          ...state.logout,
+          ...initialState.logout,
           ...fetchableFetched,
         },
       };

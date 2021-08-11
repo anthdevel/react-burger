@@ -4,6 +4,7 @@ import {Link, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import {registerUserFetch} from '../../services/actions/user';
+import {hasToken} from '../../utils';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const RegisterPage = () => {
     dispatch(registerUserFetch(form));
   };
 
-  if (isLoggedIn) {
+  if (hasToken || isLoggedIn) {
     return <Redirect to="/"/>;
   }
 

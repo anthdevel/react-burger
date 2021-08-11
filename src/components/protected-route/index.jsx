@@ -1,17 +1,20 @@
 import {Redirect, Route} from 'react-router-dom';
-import {getCookie} from '../../utils';
-import {ACCESS_TOKEN} from '../../utils/consts';
+import {hasToken} from '../../utils';
 
 const ProtectedRoute = (props) => {
   const {children, ...rest} = props;
-  const accessToken = getCookie(ACCESS_TOKEN);
 
   return (
     <Route
       {...rest}
-      render={() =>
-        accessToken ? children : (
-          <Redirect to="/login"/>
+      render={({location}) =>
+        hasToken ? children : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: {from: location},
+            }}
+          />
         )
       }
     />

@@ -4,19 +4,20 @@ import {Link, Redirect, useLocation} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import {loginUserFetch} from '../../services/actions/user';
+import {hasToken} from '../../utils';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const {state} = useLocation();
   const {isLoggedIn} = useSelector(store => store.user);
 
-  const [form, setValue] = useState({
+  const [form, setForm] = useState({
     email: '',
     password: '',
   });
 
   const onChange = (event) => {
-    setValue({...form, [event.target.name]: event.target.value});
+    setForm({...form, [event.target.name]: event.target.value});
   };
 
   const onSubmit = (event) => {
@@ -25,7 +26,7 @@ const LoginPage = () => {
     dispatch(loginUserFetch(form));
   };
 
-  if (isLoggedIn) {
+  if (hasToken || isLoggedIn) {
     return <Redirect to={state?.from || '/'}/>;
   }
 

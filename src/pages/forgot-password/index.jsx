@@ -4,6 +4,7 @@ import {Link, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import {restorePasswordFetch} from '../../services/actions/user';
+import {hasToken} from '../../utils';
 
 const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,9 @@ const ForgotPasswordPage = () => {
     dispatch(restorePasswordFetch(email));
   };
 
-  if (isFetched) {
+  if (hasToken) {
+    return <Redirect to="/"/>;
+  } else if (isFetched) {
     return <Redirect to="/reset-password"/>;
   }
 
