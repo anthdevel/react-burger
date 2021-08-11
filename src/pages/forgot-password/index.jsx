@@ -21,7 +21,7 @@ const ForgotPasswordPage = () => {
     dispatch(restorePasswordFetch(email));
   };
 
-  if (hasToken) {
+  if (hasToken()) {
     return <Redirect to="/"/>;
   } else if (isFetched) {
     return <Redirect to="/reset-password"/>;

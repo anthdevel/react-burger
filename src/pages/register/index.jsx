@@ -26,7 +26,7 @@ const RegisterPage = () => {
     dispatch(registerUserFetch(form));
   };
 
-  if (hasToken || isLoggedIn) {
+  if (hasToken() || isLoggedIn) {
     return <Redirect to="/"/>;
   }
 

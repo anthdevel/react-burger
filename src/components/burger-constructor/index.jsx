@@ -5,16 +5,19 @@ import Modal from '../modal';
 import OrderDetails from '../order-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrop} from 'react-dnd';
-import {REMOVE_DESIGN_ITEM, SET_DESIGN_ITEM} from '../../services/actions/design';
+import {REMOVE_DESIGN_ITEM, RESET_DESIGN, SET_DESIGN_ITEM} from '../../services/actions/design';
 import {getOrderNumberFetch} from '../../services/actions/order';
 import BurgerConstructorItem from '../burger-constructor-item';
+import {useHistory} from 'react-router-dom';
+import {hasToken} from '../../utils';
 
 const BurgerConstructor = () => {
+  const history = useHistory();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
   const {bun, main} = useSelector(store => store.design);
-  const {number: orderNumber, isFetched} = useSelector(store => store.order);
+  const {number: orderNumber, isFetched: isOrderFetched} = useSelector(store => store.order);
 
   const [, dropTargetRef] = useDrop({
     accept: ['ingredient'],
@@ -36,12 +39,15 @@ const BurgerConstructor = () => {
   };
 
   const checkOut = () => {
-    if (bun) {
+    if (hasToken() && bun) {
       dispatch(getOrderNumberFetch([bun._id, ...main.map(item => item._id), bun._id]));
+    } else {
+      history.push("/login");
     }
   };
 
   const onCloseModal = () => {
+    dispatch({type: RESET_DESIGN});
     setIsModalOpen(false);
   };
 
@@ -50,10 +56,10 @@ const BurgerConstructor = () => {
   };
 
   useEffect(() => {
-    if (isFetched) {
+    if (isOrderFetched) {
       setIsModalOpen(true);
     }
-  }, [isFetched]);
+  }, [isOrderFetched]);
 
   return (
     <>

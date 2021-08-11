@@ -26,7 +26,7 @@ const ResetPasswordPage = () => {
     dispatch(resetPasswordFetch(form));
   };
 
-  if (hasToken || !isRestorePasswordFetched) {
+  if (hasToken() || !isRestorePasswordFetched) {
     return <Redirect to="/"/>;
   } else if (isResetPasswordFetched) {
     return <Redirect to="/login"/>;

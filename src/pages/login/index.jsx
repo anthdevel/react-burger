@@ -26,7 +26,7 @@ const LoginPage = () => {
     dispatch(loginUserFetch(form));
   };
 
-  if (hasToken || isLoggedIn) {
+  if (hasToken() || isLoggedIn) {
     return <Redirect to={state?.from || '/'}/>;
   }
 

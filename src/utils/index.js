@@ -63,8 +63,8 @@ export const fetchableFailed = {
   isFailed: true,
 };
 
-export const hasToken = (function () {
+export const hasToken = () => {
   const accessToken = getCookie(ACCESS_TOKEN);
 
   return Boolean(accessToken?.trim());
-})();
+};

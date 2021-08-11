@@ -8,7 +8,7 @@ const ProtectedRoute = (props) => {
     <Route
       {...rest}
       render={({location}) =>
-        hasToken ? children : (
+        hasToken() ? children : (
           <Redirect
             to={{
               pathname: '/login',
