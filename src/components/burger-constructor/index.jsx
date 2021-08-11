@@ -14,7 +14,7 @@ const BurgerConstructor = () => {
   const dispatch = useDispatch();
 
   const {bun, main} = useSelector(store => store.design);
-  const {number: orderNumber, isFetched} = useSelector(store => store.order)
+  const {number: orderNumber, isFetched} = useSelector(store => store.order);
 
   const [, dropTargetRef] = useDrop({
     accept: ['ingredient'],

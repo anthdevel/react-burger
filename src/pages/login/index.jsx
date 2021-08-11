@@ -1,12 +1,13 @@
 import styles from './styles.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link, Redirect} from 'react-router-dom';
+import {Link, Redirect, useLocation} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import {loginUserFetch} from '../../services/actions/user';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const {state} = useLocation();
   const {isLoggedIn} = useSelector(store => store.user);
 
   const [form, setValue] = useState({
@@ -25,7 +26,7 @@ const LoginPage = () => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/profile"/>;
+    return <Redirect to={state?.from || '/'}/>;
   }
 
   return (

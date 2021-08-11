@@ -99,7 +99,7 @@ const ProfilePage = () => {
         <div className={styles.details}>
           <Switch>
             <Route path="/profile" exact>
-              <form className={styles.form}>
+              <form className={styles.form} onSubmit={onSubmit}>
                 <div className={`${styles.inputWrapper} mb-6`}>
                   <Input
                     name="name"
@@ -130,7 +130,7 @@ const ProfilePage = () => {
                     <Button type="secondary" onClick={onCancel}>
                       Отмена
                     </Button>
-                    <Button onClick={onSubmit}>
+                    <Button>
                       Сохранить
                     </Button>
                   </div>

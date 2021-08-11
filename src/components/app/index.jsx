@@ -12,6 +12,7 @@ import {
   RegisterPage,
   ResetPasswordPage,
 } from '../../pages';
+import ProtectedRoute from '../protected-route';
 
 function App() {
   return (
@@ -38,9 +39,9 @@ function App() {
             <Route path="/feed" exact>
               <FeedPage/>
             </Route>
-            <Route path="/profile">
+            <ProtectedRoute path="/profile">
               <ProfilePage/>
-            </Route>
+            </ProtectedRoute>
             <Route>
               <NotFoundPage/>
             </Route>

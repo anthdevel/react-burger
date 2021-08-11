@@ -1,28 +1,33 @@
 import styles from './styles.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {Link, Redirect} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import {registerUserFetch} from '../../services/actions/user';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
+  const {isLoggedIn} = useSelector(store => store.user);
 
-  const [user, setUser] = useState({
+  const [form, setForm] = useState({
     name: '',
     email: '',
     password: '',
   });
 
   const onChange = (event) => {
-    setUser({...user, [event.target.name]: event.target.value});
+    setForm({...form, [event.target.name]: event.target.value});
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    dispatch(registerUserFetch(user));
+    dispatch(registerUserFetch(form));
   };
+
+  if (isLoggedIn) {
+    return <Redirect to="/"/>;
+  }
 
   return (
     <div className={styles.root}>
@@ -34,7 +39,7 @@ const RegisterPage = () => {
               name="name"
               type="text"
               placeholder="Имя"
-              value={user.name}
+              value={form.name}
               onChange={onChange}
             />
           </div>
@@ -43,14 +48,14 @@ const RegisterPage = () => {
               name="email"
               type="email"
               placeholder="E-mail"
-              value={user.email}
+              value={form.email}
               onChange={onChange}
             />
           </div>
           <div className={`${styles.inputWrapper} mb-6`}>
             <PasswordInput
               name="password"
-              value={user.password}
+              value={form.password}
               onChange={onChange}
             />
           </div>
