@@ -2,7 +2,7 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_ERROR,
-  GET_INGREDIENT_DETAILS, CLEAR_INGREDIENT_DETAILS
+  GET_INGREDIENT_DETAILS
 } from '../actions/ingredients';
 
 const initialState = {
@@ -44,12 +44,6 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         details: action.payload
-      };
-    }
-    case CLEAR_INGREDIENT_DETAILS: {
-      return {
-        ...state,
-        details: null
       };
     }
     default:

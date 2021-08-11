@@ -1,10 +1,10 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {Switch, Route, useHistory, useLocation} from 'react-router-dom';
 import AppHeader from '../app-header';
 import styles from './styles.module.css';
 import {
   FeedPage,
-  ForgotPasswordPage,
+  ForgotPasswordPage, IngredientPage,
   LoginPage,
   MainPage,
   NotFoundPage,
@@ -13,42 +13,62 @@ import {
   ResetPasswordPage,
 } from '../../pages';
 import ProtectedRoute from '../protected-route';
+import Modal from '../modal';
+import IngredientDetails from '../ingredient-details';
 
 function App() {
+  const history = useHistory();
+  const location = useLocation();
+
+  const background = history.action === 'PUSH' && location.state && location.state.background;
+
+  const onCloseModal = () => {
+    history.goBack();
+  };
+
   return (
-    <Router>
-      <div className={styles.root}>
-        <AppHeader/>
-        <main className={styles.main}>
-          <Switch>
-            <Route path="/" exact>
-              <MainPage/>
-            </Route>
-            <Route path="/login" exact>
-              <LoginPage/>
-            </Route>
-            <Route path="/register" exact>
-              <RegisterPage/>
-            </Route>
-            <Route path="/forgot-password" exact>
-              <ForgotPasswordPage/>
-            </Route>
-            <Route path="/reset-password" exact>
-              <ResetPasswordPage/>
-            </Route>
-            <Route path="/feed" exact>
-              <FeedPage/>
-            </Route>
-            <ProtectedRoute path="/profile">
-              <ProfilePage/>
-            </ProtectedRoute>
-            <Route>
-              <NotFoundPage/>
-            </Route>
-          </Switch>
-        </main>
-      </div>
-    </Router>
+    <div className={styles.root}>
+      <AppHeader/>
+      <main className={styles.main}>
+        <Switch location={background || location}>
+          <Route path="/" exact>
+            <MainPage/>
+          </Route>
+          <Route path="/login" exact>
+            <LoginPage/>
+          </Route>
+          <Route path="/register" exact>
+            <RegisterPage/>
+          </Route>
+          <Route path="/forgot-password" exact>
+            <ForgotPasswordPage/>
+          </Route>
+          <Route path="/reset-password" exact>
+            <ResetPasswordPage/>
+          </Route>
+          <Route path="/feed" exact>
+            <FeedPage/>
+          </Route>
+          <ProtectedRoute path="/profile">
+            <ProfilePage/>
+          </ProtectedRoute>
+          <Route path="/ingredients/:id">
+            <IngredientPage/>
+          </Route>
+          <Route>
+            <NotFoundPage/>
+          </Route>
+        </Switch>
+
+        {background && (
+          <Route path="/ingredients/:id">
+            <Modal title="Детали ингредиента" onClose={onCloseModal}>
+              <IngredientDetails/>
+            </Modal>
+          </Route>
+        )}
+      </main>
+    </div>
   );
 }
 
