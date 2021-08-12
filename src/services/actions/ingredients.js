@@ -1,16 +1,15 @@
-import {URL_INGREDIENTS} from '../../utils';
+import {getIngredients} from '../api';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_ERROR = 'GET_INGREDIENTS_ERROR';
 
 export const GET_INGREDIENT_DETAILS = 'GET_INGREDIENT_DETAILS';
-export const CLEAR_INGREDIENT_DETAILS = 'CLEAR_INGREDIENT_DETAILS';
 
-export const getIngredients = () => dispatch => {
+export const getIngredientsFetch = () => dispatch => {
   dispatch({type: GET_INGREDIENTS_REQUEST});
 
-  fetch(URL_INGREDIENTS)
+  getIngredients()
     .then(response => {
       if (response.ok) {
         return response.json();

@@ -1,5 +1,6 @@
-import styles from './app-header.module.css';
+import styles from './styles.module.css';
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Link, NavLink} from 'react-router-dom';
 
 const AppHeader = () => {
   return (
@@ -8,33 +9,37 @@ const AppHeader = () => {
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>
-              <a className={`${styles.link} ${styles.isActive}`} href='##'>
+              <NavLink to="/" exact className={`${styles.link} text_type_main-medium`}
+                       activeClassName={styles.active}>
                 <BurgerIcon type='secondary'/>
                 <span className='text text_type_main-default text_color_inactive'>
                   Конструктор
                 </span>
-              </a>
+              </NavLink>
             </li>
             <li className={styles.navItem}>
-              <a className={styles.link} href='##'>
+              <NavLink to="/feed" exact className={`${styles.link} text_type_main-medium`}
+                       activeClassName={styles.active}>
                 <ListIcon type='secondary'/>
                 <span className='text text_type_main-default text_color_inactive'>
                   Лента заказов
                 </span>
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>
-        <Logo/>
+        <Link to="/">
+          <Logo/>
+        </Link>
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>
-              <a className={styles.link} href='##'>
+              <NavLink className={styles.link} to="/profile" activeClassName={styles.active}>
                 <ProfileIcon type='secondary'/>
                 <span className='text text_type_main-default text_color_inactive'>
                   Личный кабинет
                 </span>
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>

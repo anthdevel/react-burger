@@ -1,4 +1,4 @@
-import styles from './ingredient-card.module.css';
+import styles from './styles.module.css';
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import {useDrag} from 'react-dnd';

@@ -1,0 +1,26 @@
+.root {
+  padding-top: 200px;
+  padding-bottom: 120px;
+}
+
+.content {
+  max-width: 480px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  text-align: center;
+}
+
+.inputWrapper > div {
+  width: 100%;
+}
+
+.inputWrapper > div > div {
+  width: 100%;
+}
+
+.link {
+  color: #4c4cff;
+  text-decoration: none;
+}

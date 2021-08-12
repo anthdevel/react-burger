@@ -1,6 +1,6 @@
 import React from 'react';
 import iconDone from '../../images/icon-done.png';
-import styles from './order-details.module.css';
+import styles from './styles.module.css';
 import PropTypes from 'prop-types';
 
 const OrderDetails = ({orderNumber}) => (

@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './ingredient-details.module.css'
+import styles from './styles.module.css'
 import {useSelector} from 'react-redux';
 
 const IngredientDetails = () => {
