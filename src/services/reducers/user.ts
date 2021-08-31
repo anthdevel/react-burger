@@ -39,7 +39,7 @@ const initialState = {
   },
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case LOGIN_USER_REQUEST: {
       return {

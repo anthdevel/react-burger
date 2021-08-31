@@ -6,7 +6,7 @@ const initialState = {
   main: [],
 };
 
-export const designReducer = (state = initialState, action) => {
+export const designReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SET_DESIGN_ITEM: {
       const {payload} = action;
@@ -29,7 +29,7 @@ export const designReducer = (state = initialState, action) => {
     case REMOVE_DESIGN_ITEM:
       return {
         ...state,
-        main: state.main.filter(item => item.uniqueId !== action.payload)
+        main: state.main.filter((item: any) => item.uniqueId !== action.payload)
       }
     case RESET_DESIGN:
       return initialState;

@@ -6,7 +6,8 @@ import {useDispatch} from 'react-redux';
 import {useDrag, useDrop} from 'react-dnd';
 import {REPLACE_DESIGN_ITEMS} from '../../services/actions/design';
 
-const BurgerConstructorItem = (props) => {
+// TODO: any
+const BurgerConstructorItem = (props: any) => {
   const {
     uniqueId,
     index,
@@ -17,9 +18,11 @@ const BurgerConstructorItem = (props) => {
   } = props;
 
   const dispatch = useDispatch();
-  const ref = useRef(null);
 
-  const moveItem = (dragIndex, hoverIndex) => {
+  // TODO: any
+  const ref = useRef<any>(null);
+
+  const moveItem = (dragIndex: number, hoverIndex: number) => {
     dispatch({
       type: REPLACE_DESIGN_ITEMS,
       payload: {
@@ -31,7 +34,8 @@ const BurgerConstructorItem = (props) => {
 
   const [, drop] = useDrop({
     accept: 'constructor-item',
-    hover(item, monitor) {
+    // TODO: any
+    hover(item: any, monitor) {
       if (!ref.current) {
         return;
       }
@@ -46,7 +50,8 @@ const BurgerConstructorItem = (props) => {
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
-      const clientOffset = monitor.getClientOffset();
+      // TODO: any
+      const clientOffset: any = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {

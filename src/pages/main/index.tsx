@@ -9,7 +9,7 @@ import {getIngredientsFetch} from '../../services/actions/ingredients';
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const {list: ingredients, isFetching, isFailed} = useSelector(store => store.ingredients);
+  const {list: ingredients, isFetching, isFailed} = useSelector((store: any) => store.ingredients);
 
   useEffect(() => {
     dispatch(getIngredientsFetch());

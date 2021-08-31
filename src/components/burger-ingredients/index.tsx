@@ -14,21 +14,27 @@ const BurgerIngredients = () => {
   const location = useLocation();
 
   const [tab, setTab] = useState('bun');
-  const currentViewsRatio = useRef({});
+  // TODO: any
+  const currentViewsRatio = useRef<any>({});
 
-  const {list: ingredients} = useSelector(store => store.ingredients);
+  // TODO: any
+  const {list: ingredients} = useSelector((store: any) => store.ingredients);
 
-  const buns = ingredients.filter(item => item.type === 'bun');
-  const sauces = ingredients.filter(item => item.type === 'sauce');
-  const main = ingredients.filter(item => item.type === 'main');
+  // TODO: any
+  const buns = ingredients.filter((item: any) => item.type === 'bun');
+  // TODO: any
+  const sauces = ingredients.filter((item: any) => item.type === 'sauce');
+  // TODO: any
+  const main = ingredients.filter((item: any) => item.type === 'main');
 
-  const onClickCard = id => {
+  const onClickCard = (id: string) => {
     history.push({
       pathname: `/ingredients/${id}`,
       state: {background: location},
     })
 
-    const ingredient = ingredients.filter(item => item._id === id)[0];
+    // TODO: any
+    const ingredient = ingredients.filter((item: any) => item._id === id)[0];
 
     dispatch({
       type: GET_INGREDIENT_DETAILS,
@@ -36,8 +42,10 @@ const BurgerIngredients = () => {
     });
   };
 
-  const onChange = elemName => {
-    return (inView, entry) => {
+  // TODO: any
+  const onChange = (elemName: any) => {
+    // TODO: any
+    return (inView: any, entry: any) => {
       currentViewsRatio.current[elemName] = entry.intersectionRatio;
 
       const elemNames = Object.keys(currentViewsRatio.current);
@@ -58,7 +66,8 @@ const BurgerIngredients = () => {
     };
   };
 
-  const onClickTab = value => {
+  // TODO: any
+  const onClickTab = (value: any) => {
     setTab(value);
 
     scroller.scrollTo(value, {
@@ -91,7 +100,7 @@ const BurgerIngredients = () => {
             <section className="pb-10">
               <h2 className="text text_type_main-medium mb-6">Булки</h2>
               <div className={`${styles.cards} pl-4 pr-4`}>
-                {buns.map(({_id, ...rest}) => (
+                {buns.map(({_id, ...rest}: any) => (
                   <IngredientCard
                     key={_id}
                     _id={_id}
@@ -110,7 +119,7 @@ const BurgerIngredients = () => {
             <section className="pb-10">
               <h2 className="text text_type_main-medium mb-6">Соусы</h2>
               <div className={`${styles.cards} pl-4 pr-4`}>
-                {sauces.map(({_id, ...rest}) => (
+                {sauces.map(({_id, ...rest}: any) => (
                   <IngredientCard
                     key={_id}
                     _id={_id}
@@ -129,7 +138,7 @@ const BurgerIngredients = () => {
             <section className="pb-10">
               <h2 className="text text_type_main-medium mb-6">Начинки</h2>
               <div className={`${styles.cards} pl-4 pr-4`}>
-                {main.map(({_id, ...rest}) => (
+                {main.map(({_id, ...rest}: any) => (
                   <IngredientCard
                     key={_id}
                     _id={_id}

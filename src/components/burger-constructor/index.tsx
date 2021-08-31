@@ -16,8 +16,11 @@ const BurgerConstructor = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const {bun, main} = useSelector(store => store.design);
-  const {number: orderNumber, isFetched: isOrderFetched} = useSelector(store => store.order);
+  // TODO: any
+  const {bun, main} = useSelector((store: any) => store.design);
+
+  // TODO: any
+  const {number: orderNumber, isFetched: isOrderFetched} = useSelector((store: any) => store.order);
 
   const [, dropTargetRef] = useDrop({
     accept: ['ingredient'],
@@ -31,7 +34,8 @@ const BurgerConstructor = () => {
 
     let mainTotalPrice = 0;
 
-    main.forEach(item => {
+    // TODO: any
+    main.forEach((item: any) => {
       mainTotalPrice += item.price;
     });
 
@@ -40,7 +44,8 @@ const BurgerConstructor = () => {
 
   const checkOut = () => {
     if (hasToken() && bun) {
-      dispatch(getOrderNumberFetch([bun._id, ...main.map(item => item._id), bun._id]));
+      // TODO: any
+      dispatch(getOrderNumberFetch([bun._id, ...main.map((item: any) => item._id), bun._id]));
     } else {
       history.push("/login");
     }
@@ -51,7 +56,8 @@ const BurgerConstructor = () => {
     setIsModalOpen(false);
   };
 
-  const onRemoveItem = (id) => {
+  // TODO: any
+  const onRemoveItem = (id: any) => {
     dispatch({type: REMOVE_DESIGN_ITEM, payload: id});
   };
 
@@ -64,7 +70,7 @@ const BurgerConstructor = () => {
   return (
     <>
       <div className={`${styles.root} pl-4`}>
-        <div className={styles.constructor} ref={dropTargetRef}>
+        <div className={styles.constructorRow} ref={dropTargetRef}>
           <div className={`${styles.constructorBase} mb-4`}>
             {bun && (
               <ConstructorElement
@@ -77,7 +83,8 @@ const BurgerConstructor = () => {
             )}
           </div>
           <div className={styles.constructorList}>
-            {main.map(({uniqueId, name, price, image_mobile}, index) => (
+            {/*// TODO: any*/}
+            {main.map(({uniqueId, name, price, image_mobile}: any, index: number) => (
               <BurgerConstructorItem
                 key={uniqueId}
                 uniqueId={uniqueId}

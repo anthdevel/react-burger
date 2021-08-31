@@ -7,15 +7,15 @@ import styles from './styles.module.css';
 
 const IngredientPage = () => {
   const dispatch = useDispatch();
-  const {id} = useParams();
-  const {list: ingredients, details: ingredientDetails} = useSelector(store => store.ingredients);
+  const {id}: any = useParams();
+  const {list: ingredients, details: ingredientDetails} = useSelector((store: any) => store.ingredients);
 
   useEffect(() => {
     dispatch(getIngredientsFetch());
   }, [dispatch]);
 
   useEffect(() => {
-    const ingredient = ingredients.filter(item => item._id === id)[0];
+    const ingredient = ingredients.filter((item: any) => item._id === id)[0];
 
     if (ingredient) {
       dispatch({

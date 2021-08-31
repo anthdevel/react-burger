@@ -3,22 +3,22 @@ import styles from './styles.module.css';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-const modalRoot = document.getElementById('modals');
+const modalRoot: any = document.getElementById('modals');
 
-const ModalOverlay = (props) => {
+const ModalOverlay = (props: any) => {
   const {
     children,
     onClose
   } = props;
 
-  const onClickOverlay = (event) => {
+  const onClickOverlay = (event: any) => {
     if (event.target.classList.contains(styles.root)) {
       onClose();
     }
   }
 
   useEffect(() => {
-    const onPressKey = (event) => {
+    const onPressKey = (event: any) => {
       if (event.key === 'Escape') {
         onClose();
       }

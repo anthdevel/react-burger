@@ -1,15 +1,21 @@
-import {GET_ORDER_NUMBER_ERROR, GET_ORDER_NUMBER_REQUEST, GET_ORDER_NUMBER_SUCCESS} from '../actions/order';
+import {
+  GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_SUCCESS,
+  GET_INGREDIENTS_ERROR,
+  GET_INGREDIENT_DETAILS
+} from '../actions/ingredients';
 
 const initialState = {
-  number: null,
+  list: [],
+  details: null,
   isFetching: false,
   isFetched: false,
   isFailed: false,
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case GET_ORDER_NUMBER_REQUEST: {
+    case GET_INGREDIENTS_REQUEST: {
       return {
         ...state,
         isFetching: true,
@@ -17,16 +23,16 @@ export const orderReducer = (state = initialState, action) => {
         isFailed: false,
       };
     }
-    case GET_ORDER_NUMBER_SUCCESS: {
+    case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
-        number: action.payload,
+        list: action.payload,
         isFetching: false,
         isFetched: true,
         isFailed: false,
       };
     }
-    case GET_ORDER_NUMBER_ERROR: {
+    case GET_INGREDIENTS_ERROR: {
       return {
         ...state,
         isFetching: false,
@@ -34,8 +40,13 @@ export const orderReducer = (state = initialState, action) => {
         isFailed: true,
       };
     }
-
+    case GET_INGREDIENT_DETAILS: {
+      return {
+        ...state,
+        details: action.payload
+      };
+    }
     default:
       return state;
   }
-};
+}

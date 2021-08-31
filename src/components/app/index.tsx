@@ -18,7 +18,8 @@ import IngredientDetails from '../ingredient-details';
 
 function App() {
   const history = useHistory();
-  const location = useLocation();
+  // TODO: any
+  const location = useLocation<any>();
 
   const background = history.action === 'PUSH' && location.state && location.state.background;
 

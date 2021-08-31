@@ -5,7 +5,7 @@ import {useDrag} from 'react-dnd';
 import {useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
 
-const IngredientCard = (props) => {
+const IngredientCard = (props: any) => {
   const {
     onClickCard,
     ...rest
@@ -19,7 +19,7 @@ const IngredientCard = (props) => {
   } = rest;
 
   const [count, setCount] = useState(0);
-  const {bun, main} = useSelector(store => store.design);
+  const {bun, main} = useSelector((store: any) => store.design);
 
   useEffect(() => {
     if (bun?._id === _id) {
@@ -27,7 +27,7 @@ const IngredientCard = (props) => {
     } else {
       let counter = 0;
 
-      main.forEach(item => {
+      main.forEach((item: any) => {
         if (item._id === _id) {
           counter = counter + 1;
         }

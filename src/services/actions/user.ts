@@ -9,7 +9,7 @@ import {
   updateToken,
   updateUser
 } from '../api';
-import {ACCESS_TOKEN, REFRESH_TOKEN} from '../../utils/consts';
+import {ETokenVariant} from '../../types/enums';
 
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
@@ -39,7 +39,7 @@ export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR';
 
-export const registerUserFetch = (form) => dispatch => {
+export const registerUserFetch = (form: any) => (dispatch: any) => {
   dispatch({type: REGISTER_USER_REQUEST});
 
   registerUser(form)
@@ -52,11 +52,11 @@ export const registerUserFetch = (form) => dispatch => {
     })
     .then(({accessToken, refreshToken, user}) => {
       if (accessToken) {
-        setCookie(ACCESS_TOKEN, accessToken.split('Bearer ')[1]);
+        setCookie(ETokenVariant.AccessToken, accessToken.split('Bearer ')[1]);
       }
 
       if (refreshToken) {
-        setCookie(REFRESH_TOKEN, refreshToken);
+        setCookie(ETokenVariant.RefreshToken, refreshToken);
       }
 
       dispatch({
@@ -71,7 +71,7 @@ export const registerUserFetch = (form) => dispatch => {
     });
 };
 
-export const restorePasswordFetch = (email) => dispatch => {
+export const restorePasswordFetch = (email: any) => (dispatch: any) => {
   dispatch({type: RESTORE_PASSWORD_REQUEST});
 
   restorePassword(email)
@@ -91,7 +91,7 @@ export const restorePasswordFetch = (email) => dispatch => {
     });
 };
 
-export const resetPasswordFetch = (form) => dispatch => {
+export const resetPasswordFetch = (form: any) => (dispatch: any) => {
   dispatch({type: RESET_PASSWORD_REQUEST});
 
   resetPassword(form)
@@ -111,7 +111,7 @@ export const resetPasswordFetch = (form) => dispatch => {
     });
 };
 
-export const loginUserFetch = (form) => dispatch => {
+export const loginUserFetch = (form: any) => (dispatch: any) => {
   dispatch({type: LOGIN_USER_REQUEST});
 
   loginUser(form)
@@ -124,11 +124,11 @@ export const loginUserFetch = (form) => dispatch => {
     })
     .then(({accessToken, refreshToken, user}) => {
       if (accessToken) {
-        setCookie(ACCESS_TOKEN, accessToken.split('Bearer ')[1]);
+        setCookie(ETokenVariant.AccessToken, accessToken.split('Bearer ')[1]);
       }
 
       if (refreshToken) {
-        setCookie(REFRESH_TOKEN, refreshToken);
+        setCookie(ETokenVariant.RefreshToken, refreshToken);
       }
 
       dispatch({
@@ -143,14 +143,14 @@ export const loginUserFetch = (form) => dispatch => {
     });
 };
 
-export const logoutUserFetch = (token) => dispatch => {
+export const logoutUserFetch = (token: any) => (dispatch: any) => {
   dispatch({type: LOGOUT_USER_REQUEST});
 
   logoutUser(token)
     .then(response => {
       if (response.ok) {
-        deleteCookie(ACCESS_TOKEN);
-        deleteCookie(REFRESH_TOKEN);
+        deleteCookie(ETokenVariant.AccessToken);
+        deleteCookie(ETokenVariant.RefreshToken);
         dispatch({type: LOGOUT_USER_SUCCESS});
 
         return response;
@@ -165,7 +165,7 @@ export const logoutUserFetch = (token) => dispatch => {
     });
 };
 
-export const getUserFetch = () => dispatch => {
+export const getUserFetch = () => (dispatch: any) => {
   dispatch({type: GET_USER_REQUEST});
 
   getUser()
@@ -180,12 +180,12 @@ export const getUserFetch = () => dispatch => {
         return response;
       }
 
-      return updateToken(getCookie(REFRESH_TOKEN))
+      return updateToken(getCookie(ETokenVariant.RefreshToken))
         .then(response => response.json())
         .then(response => {
           if (response.success) {
-            setCookie(ACCESS_TOKEN, response.accessToken.split('Bearer ')[1]);
-            setCookie(REFRESH_TOKEN, response.refreshToken);
+            setCookie(ETokenVariant.AccessToken, response.accessToken.split('Bearer ')[1]);
+            setCookie(ETokenVariant.RefreshToken, response.refreshToken);
 
             return getUser()
               .then(response => response.json())
@@ -211,7 +211,7 @@ export const getUserFetch = () => dispatch => {
     });
 };
 
-export const updateUserFetch = (form) => dispatch => {
+export const updateUserFetch = (form: any) => (dispatch: any) => {
   dispatch({type: UPDATE_USER_REQUEST});
 
   updateUser(form)
@@ -226,12 +226,12 @@ export const updateUserFetch = (form) => dispatch => {
         return response;
       }
 
-      return updateToken(getCookie(REFRESH_TOKEN))
+      return updateToken(getCookie(ETokenVariant.RefreshToken))
         .then(response => response.json())
         .then(response => {
           if (response.success) {
-            setCookie(ACCESS_TOKEN, response.accessToken.split('Bearer ')[1]);
-            setCookie(REFRESH_TOKEN, response.refreshToken);
+            setCookie(ETokenVariant.AccessToken, response.accessToken.split('Bearer ')[1]);
+            setCookie(ETokenVariant.RefreshToken, response.refreshToken);
 
             return getUser()
               .then(response => response.json())

@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 import PropTypes from 'prop-types';
 import ModalOverlay from '../modal-overlay';
 
-const Modal = (props) => {
+const Modal = (props: any) => {
   const {children, title, onClose} = props;
 
   return (

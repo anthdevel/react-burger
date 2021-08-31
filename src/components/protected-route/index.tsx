@@ -1,7 +1,7 @@
 import {Redirect, Route} from 'react-router-dom';
 import {hasToken} from '../../utils';
 
-const ProtectedRoute = (props) => {
+const ProtectedRoute = (props: any) => {
   const {children, ...rest} = props;
 
   return (

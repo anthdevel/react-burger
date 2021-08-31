@@ -6,7 +6,7 @@ export const GET_INGREDIENTS_ERROR = 'GET_INGREDIENTS_ERROR';
 
 export const GET_INGREDIENT_DETAILS = 'GET_INGREDIENT_DETAILS';
 
-export const getIngredientsFetch = () => dispatch => {
+export const getIngredientsFetch = () => (dispatch: any) => {
   dispatch({type: GET_INGREDIENTS_REQUEST});
 
   getIngredients()

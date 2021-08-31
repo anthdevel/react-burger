@@ -1,6 +1,6 @@
-import {ACCESS_TOKEN} from './consts';
+import {ETokenVariant} from '../types/enums';
 
-export function getCookie(name) {
+export function getCookie(name: ETokenVariant) {
   const matches = document.cookie.match(
     // eslint-disable-next-line no-useless-escape
     new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
@@ -9,7 +9,7 @@ export function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name, value, props) {
+export function setCookie(name: ETokenVariant, value: any, props?: any) {
   props = props || {};
 
   let exp = props.expires;
@@ -38,7 +38,7 @@ export function setCookie(name, value, props) {
   document.cookie = updatedCookie;
 }
 
-export function deleteCookie(name) {
+export function deleteCookie(name: ETokenVariant) {
   setCookie(name, null, {expires: -1});
 }
 
@@ -64,7 +64,7 @@ export const fetchableFailed = {
 };
 
 export const hasToken = () => {
-  const accessToken = getCookie(ACCESS_TOKEN);
+  const accessToken = getCookie(ETokenVariant.AccessToken);
 
   return Boolean(accessToken?.trim());
 };

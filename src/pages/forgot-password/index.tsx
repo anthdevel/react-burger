@@ -8,15 +8,15 @@ import {hasToken} from '../../utils';
 
 const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
-  const {isFetched} = useSelector(store => store.user.restorePassword);
+  const {isFetched} = useSelector((store: any) => store.user.restorePassword);
   const [email, setEmail] = useState('');
 
-  const onChange = (e) => {
-    setEmail(e.target.value);
+  const onChange = (event: any) => {
+    setEmail(event.target.value);
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (event: any) => {
+    event.preventDefault();
 
     dispatch(restorePasswordFetch(email));
   };

@@ -8,19 +8,19 @@ import {hasToken} from '../../utils';
 
 const ResetPasswordPage = () => {
   const dispatch = useDispatch();
-  const {isFetched: isResetPasswordFetched} = useSelector(store => store.user.resetPassword);
-  const {isFetched: isRestorePasswordFetched} = useSelector(store => store.user.restorePassword);
+  const {isFetched: isResetPasswordFetched} = useSelector((store: any) => store.user.resetPassword);
+  const {isFetched: isRestorePasswordFetched} = useSelector((store: any) => store.user.restorePassword);
 
   const [form, setForm] = useState({
     password: '',
     token: '',
   });
 
-  const onChange = (event) => {
+  const onChange = (event: any) => {
     setForm({...form, [event.target.name]: event.target.value});
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: any) => {
     event.preventDefault();
 
     dispatch(resetPasswordFetch(form));
@@ -53,10 +53,7 @@ const ResetPasswordPage = () => {
               onChange={onChange}
             />
           </div>
-
-          <Button>
-            Сохранить
-          </Button>
+          <Button>Сохранить</Button>
         </form>
         <p className="text text_type_main-default text_color_inactive">
           Вспомнили пароль?
