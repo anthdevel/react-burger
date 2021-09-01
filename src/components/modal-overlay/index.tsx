@@ -1,24 +1,27 @@
-import React, {useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import styles from './styles.module.css';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 
-const modalRoot: any = document.getElementById('modals');
+const modalRoot: HTMLElement | null = document.getElementById('modals');
 
-const ModalOverlay = (props: any) => {
+interface IModalOverlayProps {
+  readonly onClose: () => void
+}
+
+const ModalOverlay: FC<IModalOverlayProps> = (props) => {
   const {
     children,
     onClose
   } = props;
 
-  const onClickOverlay = (event: any) => {
-    if (event.target.classList.contains(styles.root)) {
+  const onClickOverlay = (event: React.SyntheticEvent<HTMLDivElement>) => {
+    if ((event.target as HTMLDivElement).classList.contains(styles.root)) {
       onClose();
     }
   }
 
   useEffect(() => {
-    const onPressKey = (event: any) => {
+    const onPressKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         onClose();
       }
@@ -35,13 +38,8 @@ const ModalOverlay = (props: any) => {
         {children}
       </div>
     ),
-    modalRoot
+    modalRoot!
   )
-};
-
-ModalOverlay.propTypes = {
-  children: PropTypes.element.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default ModalOverlay;

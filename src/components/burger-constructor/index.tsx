@@ -1,6 +1,6 @@
 import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles.module.css';
-import {useEffect, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
 import Modal from '../modal';
 import OrderDetails from '../order-details';
 import {useDispatch, useSelector} from 'react-redux';
@@ -11,15 +11,13 @@ import BurgerConstructorItem from '../burger-constructor-item';
 import {useHistory} from 'react-router-dom';
 import {hasToken} from '../../utils';
 
-const BurgerConstructor = () => {
+const BurgerConstructor: FC = () => {
   const history = useHistory();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  // TODO: any
   const {bun, main} = useSelector((store: any) => store.design);
 
-  // TODO: any
   const {number: orderNumber, isFetched: isOrderFetched} = useSelector((store: any) => store.order);
 
   const [, dropTargetRef] = useDrop({
@@ -34,7 +32,6 @@ const BurgerConstructor = () => {
 
     let mainTotalPrice = 0;
 
-    // TODO: any
     main.forEach((item: any) => {
       mainTotalPrice += item.price;
     });
@@ -44,7 +41,6 @@ const BurgerConstructor = () => {
 
   const checkOut = () => {
     if (hasToken() && bun) {
-      // TODO: any
       dispatch(getOrderNumberFetch([bun._id, ...main.map((item: any) => item._id), bun._id]));
     } else {
       history.push("/login");
@@ -56,8 +52,7 @@ const BurgerConstructor = () => {
     setIsModalOpen(false);
   };
 
-  // TODO: any
-  const onRemoveItem = (id: any) => {
+  const onRemoveItem = (id: string) => {
     dispatch({type: REMOVE_DESIGN_ITEM, payload: id});
   };
 
@@ -83,7 +78,6 @@ const BurgerConstructor = () => {
             )}
           </div>
           <div className={styles.constructorList}>
-            {/*// TODO: any*/}
             {main.map(({uniqueId, name, price, image_mobile}: any, index: number) => (
               <BurgerConstructorItem
                 key={uniqueId}

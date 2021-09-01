@@ -1,6 +1,7 @@
 import styles from './styles.module.css';
+import {FC} from 'react';
 
-const FeedPage = () => {
+const FeedPage: FC = () => {
   return (
     <div className="pt-30">
       <div className={styles.content}>

@@ -1,8 +1,9 @@
 import styles from './styles.module.css';
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useHistory} from 'react-router-dom';
+import {FC} from 'react';
 
-const NotFoundPage = () => {
+const NotFoundPage: FC = () => {
   const history = useHistory();
 
   return (

@@ -1,4 +1,5 @@
 import {ETokenVariant} from '../types/enums';
+import {Nullable} from '../types/types';
 
 export function getCookie(name: ETokenVariant) {
   const matches = document.cookie.match(
@@ -9,7 +10,7 @@ export function getCookie(name: ETokenVariant) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name: ETokenVariant, value: any, props?: any) {
+export function setCookie(name: ETokenVariant, value: Nullable<string>, props?: { [key: string]: any }) {
   props = props || {};
 
   let exp = props.expires;
@@ -24,7 +25,7 @@ export function setCookie(name: ETokenVariant, value: any, props?: any) {
     props.expires = exp.toUTCString();
   }
 
-  value = encodeURIComponent(value);
+  value = encodeURIComponent(value!);
   let updatedCookie = name + '=' + value;
 
   for (const propName in props) {

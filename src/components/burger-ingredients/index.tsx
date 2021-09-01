@@ -1,5 +1,5 @@
 import styles from './styles.module.css';
-import {useRef, useState} from 'react';
+import {FC, useRef, useState} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientCard from '../ingredient-card';
 import {useDispatch, useSelector} from 'react-redux';
@@ -7,33 +7,29 @@ import {scroller} from 'react-scroll';
 import {InView} from 'react-intersection-observer';
 import {GET_INGREDIENT_DETAILS} from '../../services/actions/ingredients';
 import {useHistory, useLocation} from 'react-router-dom';
+import {EIngredientType} from '../../types/enums';
 
-const BurgerIngredients = () => {
+const BurgerIngredients: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
 
-  const [tab, setTab] = useState('bun');
-  // TODO: any
+  const [tab, setTab] = useState<string>('bun');
+
   const currentViewsRatio = useRef<any>({});
 
-  // TODO: any
   const {list: ingredients} = useSelector((store: any) => store.ingredients);
 
-  // TODO: any
   const buns = ingredients.filter((item: any) => item.type === 'bun');
-  // TODO: any
   const sauces = ingredients.filter((item: any) => item.type === 'sauce');
-  // TODO: any
   const main = ingredients.filter((item: any) => item.type === 'main');
 
   const onClickCard = (id: string) => {
     history.push({
       pathname: `/ingredients/${id}`,
       state: {background: location},
-    })
+    });
 
-    // TODO: any
     const ingredient = ingredients.filter((item: any) => item._id === id)[0];
 
     dispatch({
@@ -42,15 +38,13 @@ const BurgerIngredients = () => {
     });
   };
 
-  // TODO: any
-  const onChange = (elemName: any) => {
-    // TODO: any
-    return (inView: any, entry: any) => {
+  const onChange = (elemName: string) => {
+    return (inView: boolean, entry: IntersectionObserverEntry) => {
       currentViewsRatio.current[elemName] = entry.intersectionRatio;
 
       const elemNames = Object.keys(currentViewsRatio.current);
 
-      let [max, maxName] = [
+      let [max, maxName]: [number, string] = [
         currentViewsRatio.current[elemNames[0]],
         elemNames[0]
       ];
@@ -66,8 +60,7 @@ const BurgerIngredients = () => {
     };
   };
 
-  // TODO: any
-  const onClickTab = (value: any) => {
+  const onClickTab = (value: string) => {
     setTab(value);
 
     scroller.scrollTo(value, {
@@ -93,7 +86,7 @@ const BurgerIngredients = () => {
         </div>
         <div className={styles.content} id="scrollableContainer">
           <InView
-            onChange={onChange('bun')}
+            onChange={onChange(EIngredientType.Bun)}
             threshold={[0, 0.25, 0.5, 0.75, 1]}
             id="bun"
           >
@@ -112,7 +105,7 @@ const BurgerIngredients = () => {
             </section>
           </InView>
           <InView
-            onChange={onChange('sauce')}
+            onChange={onChange(EIngredientType.Sauce)}
             threshold={[0, 0.25, 0.5, 0.75, 1]}
             id="sauce"
           >
@@ -131,7 +124,7 @@ const BurgerIngredients = () => {
             </section>
           </InView>
           <InView
-            onChange={onChange('main')}
+            onChange={onChange(EIngredientType.Main)}
             threshold={[0, 0.25, 0.5, 0.75, 1]}
             id="main"
           >

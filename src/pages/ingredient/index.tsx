@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import IngredientDetails from '../../components/ingredient-details';
 import {GET_INGREDIENT_DETAILS, getIngredientsFetch} from '../../services/actions/ingredients';
 import styles from './styles.module.css';
 
-const IngredientPage = () => {
+const IngredientPage: FC = () => {
   const dispatch = useDispatch();
-  const {id}: any = useParams();
+  const {id} = useParams<{id: string}>();
   const {list: ingredients, details: ingredientDetails} = useSelector((store: any) => store.ingredients);
 
   useEffect(() => {

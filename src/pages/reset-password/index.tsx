@@ -2,7 +2,7 @@ import styles from './styles.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {resetPasswordFetch} from '../../services/actions/user';
 import {hasToken} from '../../utils';
 
@@ -11,16 +11,19 @@ const ResetPasswordPage = () => {
   const {isFetched: isResetPasswordFetched} = useSelector((store: any) => store.user.resetPassword);
   const {isFetched: isRestorePasswordFetched} = useSelector((store: any) => store.user.restorePassword);
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<{
+    password: string
+    token: string
+  }>({
     password: '',
     token: '',
   });
 
-  const onChange = (event: any) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({...form, [event.target.name]: event.target.value});
   };
 
-  const onSubmit = (event: any) => {
+  const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     dispatch(resetPasswordFetch(form));

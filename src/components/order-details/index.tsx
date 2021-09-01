@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {FC} from 'react';
 import iconDone from '../../images/icon-done.png';
 import styles from './styles.module.css';
 
-const OrderDetails = ({orderNumber}: { readonly orderNumber: number }) => (
+const OrderDetails: FC<{
+  readonly orderNumber: number
+}> = ({orderNumber}) => (
   <div className={`${styles.root} pt-4 pb-15`}>
     <p className={`${styles.num} text text_type_digits-large mb-8`}>
       {orderNumber}

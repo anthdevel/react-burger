@@ -4,30 +4,34 @@ import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger
 import {getCookie} from '../../utils';
 import {getUserFetch, logoutUserFetch, updateUserFetch} from '../../services/actions/user';
 import {useDispatch, useSelector} from 'react-redux';
-import {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {ETokenVariant} from '../../types/enums';
 
-const ProfilePage = () => {
+const ProfilePage: FC = () => {
   const dispatch = useDispatch();
   const {data: userData} = useSelector((store: any) => store.user);
   const {isFetched: isLogoutFetched} = useSelector((store: any) => store.user.logout);
   const refreshToken = getCookie(ETokenVariant.RefreshToken);
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<{
+    email: string
+    name: string
+    password: string
+  }>({
     email: '',
     name: '',
     password: '',
   });
 
-  const [canSave, setCanSave] = useState(false);
+  const [canSave, setCanSave] = useState<boolean>(false);
 
-  const onChange = (event: any) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({...form, [event.target.name]: event.target.value});
 
     setCanSave(true);
   };
 
-  const onLogout = (event: any) => {
+  const onLogout = (event: React.MouseEvent) => {
     event.preventDefault();
 
     dispatch(logoutUserFetch(refreshToken));
@@ -58,7 +62,7 @@ const ProfilePage = () => {
     setCanSave(false);
   }
 
-  const onSubmit = (event: any) => {
+  const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     dispatch(updateUserFetch(form));

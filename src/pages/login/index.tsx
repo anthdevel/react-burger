@@ -2,25 +2,30 @@ import styles from './styles.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Redirect, useLocation} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {useState} from 'react';
+import React, {FC, useState} from 'react';
 import {loginUserFetch} from '../../services/actions/user';
 import {hasToken} from '../../utils';
+import {LocationState} from '../../types/types';
 
-const LoginPage = () => {
+const LoginPage: FC = () => {
   const dispatch = useDispatch();
-  const {state} = useLocation<any>();
+  const {state} = useLocation<LocationState>();
+
   const {isLoggedIn} = useSelector((store: any) => store.user);
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<{
+    email: string
+    password: string
+  }>({
     email: '',
     password: '',
   });
 
-  const onChange = (event: any) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({...form, [event.target.name]: event.target.value});
   };
 
-  const onSubmit = (event: any) => {
+  const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     dispatch(loginUserFetch(form));

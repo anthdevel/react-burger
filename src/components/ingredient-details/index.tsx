@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {FC} from 'react';
 import styles from './styles.module.css'
 import {useSelector} from 'react-redux';
 
-const IngredientDetails = () => {
+const IngredientDetails: FC = () => {
   const {
     calories,
     carbohydrates,

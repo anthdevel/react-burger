@@ -3,11 +3,11 @@ import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
 import BurgerIngredients from '../../components/burger-ingredients';
 import BurgerConstructor from '../../components/burger-constructor';
-import React, {useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getIngredientsFetch} from '../../services/actions/ingredients';
 
-const MainPage = () => {
+const MainPage: FC = () => {
   const dispatch = useDispatch();
   const {list: ingredients, isFetching, isFailed} = useSelector((store: any) => store.ingredients);
 

@@ -2,20 +2,20 @@ import styles from './styles.module.css';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {useState} from 'react';
+import React, {FC, useState} from 'react';
 import {restorePasswordFetch} from '../../services/actions/user';
 import {hasToken} from '../../utils';
 
-const ForgotPasswordPage = () => {
+const ForgotPasswordPage: FC = () => {
   const dispatch = useDispatch();
   const {isFetched} = useSelector((store: any) => store.user.restorePassword);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState<string>('');
 
-  const onChange = (event: any) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
-  const onSubmit = (event: any) => {
+  const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     dispatch(restorePasswordFetch(email));

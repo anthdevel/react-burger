@@ -1,13 +1,27 @@
-import PropTypes from 'prop-types';
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles.module.css';
-import {useRef} from 'react';
+import {FC, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {useDrag, useDrop} from 'react-dnd';
 import {REPLACE_DESIGN_ITEMS} from '../../services/actions/design';
+import {Nullable} from '../../types/types';
 
-// TODO: any
-const BurgerConstructorItem = (props: any) => {
+interface IBurgerConstructorItemProps {
+  readonly key: string
+  readonly uniqueId: string
+  readonly index: number
+  readonly name: string
+  readonly price: number
+  readonly image: string
+  readonly onRemove: (id: string) => void
+}
+
+interface IDragItem {
+  index: number
+  readonly uniqueId: string
+}
+
+const BurgerConstructorItem: FC<IBurgerConstructorItemProps> = (props) => {
   const {
     uniqueId,
     index,
@@ -19,8 +33,7 @@ const BurgerConstructorItem = (props: any) => {
 
   const dispatch = useDispatch();
 
-  // TODO: any
-  const ref = useRef<any>(null);
+  const ref = useRef<Nullable<HTMLDivElement>>(null);
 
   const moveItem = (dragIndex: number, hoverIndex: number) => {
     dispatch({
@@ -34,8 +47,7 @@ const BurgerConstructorItem = (props: any) => {
 
   const [, drop] = useDrop({
     accept: 'constructor-item',
-    // TODO: any
-    hover(item: any, monitor) {
+    hover(item: IDragItem, monitor) {
       if (!ref.current) {
         return;
       }
@@ -50,9 +62,8 @@ const BurgerConstructorItem = (props: any) => {
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
-      // TODO: any
-      const clientOffset: any = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -90,15 +101,6 @@ const BurgerConstructorItem = (props: any) => {
       </div>
     </div>
   );
-};
-
-BurgerConstructorItem.propTypes = {
-  uniqueId: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string,
-  onRemove: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructorItem;

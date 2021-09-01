@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Switch, Route, useHistory, useLocation} from 'react-router-dom';
 import AppHeader from '../app-header';
 import styles from './styles.module.css';
@@ -16,10 +16,18 @@ import ProtectedRoute from '../protected-route';
 import Modal from '../modal';
 import IngredientDetails from '../ingredient-details';
 
-function App() {
+interface ILocationState {
+  readonly background: {
+    readonly hash: string
+    readonly pathname: string
+    readonly search: string
+    readonly state: undefined
+  }
+}
+
+const App: FC = () => {
   const history = useHistory();
-  // TODO: any
-  const location = useLocation<any>();
+  const location = useLocation<ILocationState>();
 
   const background = history.action === 'PUSH' && location.state && location.state.background;
 

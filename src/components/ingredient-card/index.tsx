@@ -1,11 +1,15 @@
 import styles from './styles.module.css';
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import {useDrag} from 'react-dnd';
 import {useSelector} from 'react-redux';
-import {useEffect, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
+import {IIngredient} from '../../types/model';
 
-const IngredientCard = (props: any) => {
+interface IIngredientCardProps extends IIngredient {
+  onClickCard: () => void
+}
+
+const IngredientCard: FC<IIngredientCardProps> = (props) => {
   const {
     onClickCard,
     ...rest
@@ -18,7 +22,7 @@ const IngredientCard = (props: any) => {
     price,
   } = rest;
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState<number>(0);
   const {bun, main} = useSelector((store: any) => store.design);
 
   useEffect(() => {
@@ -56,21 +60,5 @@ const IngredientCard = (props: any) => {
     </div>
   )
 }
-
-IngredientCard.propTypes = {
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  proteins: PropTypes.number.isRequired,
-  fat: PropTypes.number.isRequired,
-  carbohydrates: PropTypes.number.isRequired,
-  calories: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number,
-  onClickCard: PropTypes.func.isRequired,
-};
 
 export default IngredientCard;
