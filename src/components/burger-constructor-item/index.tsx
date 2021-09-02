@@ -4,7 +4,7 @@ import {FC, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {useDrag, useDrop} from 'react-dnd';
 import {Nullable} from '../../types/types';
-import {REPLACE_CONSTRUCTOR_ITEMS} from '../../services/constants/constructor';
+import {replaceConstructorItems} from '../../services/actions/constructor';
 
 interface IBurgerConstructorItemProps {
   readonly key: string
@@ -36,13 +36,7 @@ const BurgerConstructorItem: FC<IBurgerConstructorItemProps> = (props) => {
   const ref = useRef<Nullable<HTMLDivElement>>(null);
 
   const moveItem = (dragIndex: number, hoverIndex: number) => {
-    dispatch({
-      type: REPLACE_CONSTRUCTOR_ITEMS,
-      payload: {
-        dragIndex,
-        hoverIndex
-      },
-    });
+    dispatch(replaceConstructorItems(dragIndex, hoverIndex));
   };
 
   const [, drop] = useDrop({

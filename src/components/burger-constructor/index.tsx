@@ -9,7 +9,8 @@ import {getOrderNumberFetch} from '../../services/actions/order';
 import BurgerConstructorItem from '../burger-constructor-item';
 import {useHistory} from 'react-router-dom';
 import {hasToken} from '../../utils';
-import {REMOVE_CONSTRUCTOR_ITEM, RESET_CONSTRUCTOR, SET_CONSTRUCTOR_ITEM} from '../../services/constants/constructor';
+import {removeConstructorItem, resetConstructor, setConstructorItem} from '../../services/actions/constructor';
+import {TIngredient} from '../../services/types/data';
 
 const BurgerConstructor: FC = () => {
   const history = useHistory();
@@ -22,8 +23,8 @@ const BurgerConstructor: FC = () => {
 
   const [, dropTargetRef] = useDrop({
     accept: ['ingredient'],
-    drop(item) {
-      dispatch({type: SET_CONSTRUCTOR_ITEM, payload: item});
+    drop(item: TIngredient) {
+      dispatch(setConstructorItem(item));
     },
   });
 
@@ -48,12 +49,12 @@ const BurgerConstructor: FC = () => {
   };
 
   const onCloseModal = () => {
-    dispatch({type: RESET_CONSTRUCTOR});
+    dispatch(resetConstructor());
     setIsModalOpen(false);
   };
 
   const onRemoveItem = (id: string) => {
-    dispatch({type: REMOVE_CONSTRUCTOR_ITEM, payload: id});
+    dispatch(removeConstructorItem(id));
   };
 
   useEffect(() => {
