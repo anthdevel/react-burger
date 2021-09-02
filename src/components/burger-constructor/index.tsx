@@ -5,11 +5,11 @@ import Modal from '../modal';
 import OrderDetails from '../order-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrop} from 'react-dnd';
-import {REMOVE_CONSTRUCTOR_ITEM, RESET_CONSTRUCTOR, SET_CONSTRUCTOR_ITEM} from '../../services/actions/constructor';
 import {getOrderNumberFetch} from '../../services/actions/order';
 import BurgerConstructorItem from '../burger-constructor-item';
 import {useHistory} from 'react-router-dom';
 import {hasToken} from '../../utils';
+import {REMOVE_CONSTRUCTOR_ITEM, RESET_CONSTRUCTOR, SET_CONSTRUCTOR_ITEM} from '../../services/constants/constructor';
 
 const BurgerConstructor: FC = () => {
   const history = useHistory();

@@ -1,9 +1,9 @@
 import {
-  GET_INGREDIENTS_REQUEST,
-  GET_INGREDIENTS_SUCCESS,
+  GET_INGREDIENT_DETAILS,
   GET_INGREDIENTS_ERROR,
-  GET_INGREDIENT_DETAILS
-} from '../actions/ingredients';
+  GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_SUCCESS
+} from '../constants/ingredients';
 
 const initialState = {
   list: [],

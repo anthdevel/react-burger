@@ -3,10 +3,10 @@ import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-com
 import {useDrag} from 'react-dnd';
 import {useSelector} from 'react-redux';
 import {FC, useEffect, useState} from 'react';
-import {IIngredient} from '../../types/model';
+import {TIngredient} from '../../services/types/data';
 
-interface IIngredientCardProps extends IIngredient {
-  onClickCard: () => void
+interface IIngredientCardProps extends TIngredient {
+  readonly onClickCard: () => void
 }
 
 const IngredientCard: FC<IIngredientCardProps> = (props) => {

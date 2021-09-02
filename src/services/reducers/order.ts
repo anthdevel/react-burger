@@ -1,4 +1,4 @@
-import {GET_ORDER_NUMBER_ERROR, GET_ORDER_NUMBER_REQUEST, GET_ORDER_NUMBER_SUCCESS} from '../actions/order';
+import {GET_ORDER_NUMBER_ERROR, GET_ORDER_NUMBER_REQUEST, GET_ORDER_NUMBER_SUCCESS} from '../constants/order';
 
 const initialState = {
   number: null,

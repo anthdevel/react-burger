@@ -1,8 +1,5 @@
 import {getOrder} from '../api';
-
-export const GET_ORDER_NUMBER_REQUEST = 'GET_ORDER_NUMBER_REQUEST';
-export const GET_ORDER_NUMBER_SUCCESS = 'GET_ORDER_NUMBER_SUCCESS';
-export const GET_ORDER_NUMBER_ERROR = 'GET_ORDER_NUMBER_ERROR';
+import {GET_ORDER_NUMBER_ERROR, GET_ORDER_NUMBER_REQUEST, GET_ORDER_NUMBER_SUCCESS} from '../constants/order';
 
 export const getOrderNumberFetch = (orderList: any) => (dispatch: any) => {
   dispatch({type: GET_ORDER_NUMBER_REQUEST});

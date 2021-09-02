@@ -2,8 +2,9 @@ import React, {FC, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import IngredientDetails from '../../components/ingredient-details';
-import {GET_INGREDIENT_DETAILS, getIngredientsFetch} from '../../services/actions/ingredients';
+import {getIngredientsFetch} from '../../services/actions/ingredients';
 import styles from './styles.module.css';
+import {GET_INGREDIENT_DETAILS} from '../../services/constants/ingredients';
 
 const IngredientPage: FC = () => {
   const dispatch = useDispatch();

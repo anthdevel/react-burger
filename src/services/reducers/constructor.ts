@@ -1,5 +1,10 @@
 import {v4 as uuidv4} from 'uuid';
-import {REMOVE_CONSTRUCTOR_ITEM, REPLACE_CONSTRUCTOR_ITEMS, RESET_CONSTRUCTOR, SET_CONSTRUCTOR_ITEM} from '../actions/constructor';
+import {
+  REMOVE_CONSTRUCTOR_ITEM,
+  REPLACE_CONSTRUCTOR_ITEMS,
+  RESET_CONSTRUCTOR,
+  SET_CONSTRUCTOR_ITEM
+} from '../constants/constructor';
 
 const initialState = {
   bun: null,

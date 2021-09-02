@@ -3,8 +3,8 @@ import styles from './styles.module.css';
 import {FC, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {useDrag, useDrop} from 'react-dnd';
-import {REPLACE_CONSTRUCTOR_ITEMS} from '../../services/actions/constructor';
 import {Nullable} from '../../types/types';
+import {REPLACE_CONSTRUCTOR_ITEMS} from '../../services/constants/constructor';
 
 interface IBurgerConstructorItemProps {
   readonly key: string

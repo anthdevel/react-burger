@@ -5,9 +5,9 @@ import IngredientCard from '../ingredient-card';
 import {useDispatch, useSelector} from 'react-redux';
 import {scroller} from 'react-scroll';
 import {InView} from 'react-intersection-observer';
-import {GET_INGREDIENT_DETAILS} from '../../services/actions/ingredients';
 import {useHistory, useLocation} from 'react-router-dom';
 import {EIngredientType} from '../../types/enums';
+import {GET_INGREDIENT_DETAILS} from '../../services/constants/ingredients';
 
 const BurgerIngredients: FC = () => {
   const dispatch = useDispatch();
