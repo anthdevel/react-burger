@@ -1,14 +1,14 @@
 import {v4 as uuidv4} from 'uuid';
-import {REMOVE_DESIGN_ITEM, REPLACE_DESIGN_ITEMS, RESET_DESIGN, SET_DESIGN_ITEM} from '../actions/design';
+import {REMOVE_CONSTRUCTOR_ITEM, REPLACE_CONSTRUCTOR_ITEMS, RESET_CONSTRUCTOR, SET_CONSTRUCTOR_ITEM} from '../actions/constructor';
 
 const initialState = {
   bun: null,
   main: [],
 };
 
-export const designReducer = (state = initialState, action: any) => {
+export const constructorReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case SET_DESIGN_ITEM: {
+    case SET_CONSTRUCTOR_ITEM: {
       const {payload} = action;
 
       if (payload.type === 'bun') {
@@ -26,14 +26,14 @@ export const designReducer = (state = initialState, action: any) => {
         };
       }
     }
-    case REMOVE_DESIGN_ITEM:
+    case REMOVE_CONSTRUCTOR_ITEM:
       return {
         ...state,
         main: state.main.filter((item: any) => item.uniqueId !== action.payload)
       }
-    case RESET_DESIGN:
+    case RESET_CONSTRUCTOR:
       return initialState;
-    case REPLACE_DESIGN_ITEMS: {
+    case REPLACE_CONSTRUCTOR_ITEMS: {
       const {payload} = action;
 
       const dragItem = state.main.splice(payload.dragIndex, 1);

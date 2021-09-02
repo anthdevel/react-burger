@@ -23,7 +23,7 @@ const IngredientCard: FC<IIngredientCardProps> = (props) => {
   } = rest;
 
   const [count, setCount] = useState<number>(0);
-  const {bun, main} = useSelector((store: any) => store.design);
+  const {bun, main} = useSelector((store: any) => store.constructorStore);
 
   useEffect(() => {
     if (bun?._id === _id) {

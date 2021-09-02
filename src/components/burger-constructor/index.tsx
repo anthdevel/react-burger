@@ -5,7 +5,7 @@ import Modal from '../modal';
 import OrderDetails from '../order-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrop} from 'react-dnd';
-import {REMOVE_DESIGN_ITEM, RESET_DESIGN, SET_DESIGN_ITEM} from '../../services/actions/design';
+import {REMOVE_CONSTRUCTOR_ITEM, RESET_CONSTRUCTOR, SET_CONSTRUCTOR_ITEM} from '../../services/actions/constructor';
 import {getOrderNumberFetch} from '../../services/actions/order';
 import BurgerConstructorItem from '../burger-constructor-item';
 import {useHistory} from 'react-router-dom';
@@ -16,14 +16,14 @@ const BurgerConstructor: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  const {bun, main} = useSelector((store: any) => store.design);
+  const {bun, main} = useSelector((store: any) => store.constructorStore);
 
   const {number: orderNumber, isFetched: isOrderFetched} = useSelector((store: any) => store.order);
 
   const [, dropTargetRef] = useDrop({
     accept: ['ingredient'],
     drop(item) {
-      dispatch({type: SET_DESIGN_ITEM, payload: item});
+      dispatch({type: SET_CONSTRUCTOR_ITEM, payload: item});
     },
   });
 
@@ -48,12 +48,12 @@ const BurgerConstructor: FC = () => {
   };
 
   const onCloseModal = () => {
-    dispatch({type: RESET_DESIGN});
+    dispatch({type: RESET_CONSTRUCTOR});
     setIsModalOpen(false);
   };
 
   const onRemoveItem = (id: string) => {
-    dispatch({type: REMOVE_DESIGN_ITEM, payload: id});
+    dispatch({type: REMOVE_CONSTRUCTOR_ITEM, payload: id});
   };
 
   useEffect(() => {

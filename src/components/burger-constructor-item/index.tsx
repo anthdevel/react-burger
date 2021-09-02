@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import {FC, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {useDrag, useDrop} from 'react-dnd';
-import {REPLACE_DESIGN_ITEMS} from '../../services/actions/design';
+import {REPLACE_CONSTRUCTOR_ITEMS} from '../../services/actions/constructor';
 import {Nullable} from '../../types/types';
 
 interface IBurgerConstructorItemProps {
@@ -37,7 +37,7 @@ const BurgerConstructorItem: FC<IBurgerConstructorItemProps> = (props) => {
 
   const moveItem = (dragIndex: number, hoverIndex: number) => {
     dispatch({
-      type: REPLACE_DESIGN_ITEMS,
+      type: REPLACE_CONSTRUCTOR_ITEMS,
       payload: {
         dragIndex,
         hoverIndex
