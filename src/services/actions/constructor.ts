@@ -34,17 +34,17 @@ export type TConstructorActions =
   | IReplaceConstructorItemsAction
   | IResetConstructorAction;
 
-export const setConstructorItem = (ingredient: TIngredient): ISetConstructorItemAction => ({
+export const setConstructorItemAction = (ingredient: TIngredient): ISetConstructorItemAction => ({
   type: SET_CONSTRUCTOR_ITEM,
   payload: ingredient
 });
 
-export const removeConstructorItem = (id: string): IRemoveConstructorItemAction => ({
+export const removeConstructorItemAction = (id: string): IRemoveConstructorItemAction => ({
   type: REMOVE_CONSTRUCTOR_ITEM,
   payload: id
 });
 
-export const replaceConstructorItems = (dragIndex: number, hoverIndex: number): IReplaceConstructorItemsAction => ({
+export const replaceConstructorItemsAction = (dragIndex: number, hoverIndex: number): IReplaceConstructorItemsAction => ({
   type: REPLACE_CONSTRUCTOR_ITEMS,
   payload: {
     dragIndex,
@@ -52,9 +52,6 @@ export const replaceConstructorItems = (dragIndex: number, hoverIndex: number): 
   }
 });
 
-export const resetConstructor = (): IResetConstructorAction => ({
+export const resetConstructorAction = (): IResetConstructorAction => ({
   type: RESET_CONSTRUCTOR
 });
-
-
-
