@@ -6,6 +6,9 @@ import {
   registerUser,
   resetPassword,
   restorePassword,
+  TLoginUserForm,
+  TResetPasswordForm,
+  TUserForm,
   updateToken,
   updateUser
 } from '../api';
@@ -116,6 +119,7 @@ export interface IUpdateUserRequestAction {
 
 export interface IUpdateUserSuccessAction {
   readonly type: typeof UPDATE_USER_SUCCESS
+  readonly payload: TUser
 }
 
 export interface IUpdateUserErrorAction {
@@ -143,19 +147,104 @@ export type TUserActions =
   | IRestorePasswordErrorAction
   | IUpdateUserRequestAction
   | IUpdateUserSuccessAction
-  | IUpdateUserErrorAction
+  | IUpdateUserErrorAction;
+
+export const getUserRequestAction = (): IGetUserRequestAction => ({
+  type: GET_USER_REQUEST
+})
+
+export const getUserSuccessAction = (user: TUser): IGetUserSuccessAction => ({
+  type: GET_USER_SUCCESS,
+  payload: user
+})
+
+export const getUserErrorAction = (): IGetUserErrorAction => ({
+  type: GET_USER_ERROR
+})
+
+export const loginUserRequestAction = (): ILoginUserRequestAction => ({
+  type: LOGIN_USER_REQUEST
+})
+
+export const loginUserSuccessAction = (user: TUser): ILoginUserSuccessAction => ({
+  type: LOGIN_USER_SUCCESS,
+  payload: user
+})
+
+export const loginUserErrorAction = (): ILoginUserErrorAction => ({
+  type: LOGIN_USER_ERROR
+})
+
+export const logoutUserRequestAction = (): ILogoutUserRequestAction => ({
+  type: LOGOUT_USER_REQUEST
+})
+
+export const logoutUserSuccessAction = (): ILogoutUserSuccessAction => ({
+  type: LOGOUT_USER_SUCCESS
+})
+
+export const logoutUserErrorAction = (): ILogoutUserErrorAction => ({
+  type: LOGOUT_USER_ERROR
+})
+
+export const registerUserRequestAction = (): IRegisterUserRequestAction => ({
+  type: REGISTER_USER_REQUEST
+})
+
+export const registerUserSuccessAction = (user: TUser): IRegisterUserSuccessAction => ({
+  type: REGISTER_USER_SUCCESS,
+  payload: user
+})
+
+export const registerUserErrorAction = (): IRegisterUserErrorAction => ({
+  type: REGISTER_USER_ERROR
+})
+
+export const resetPasswordRequestAction = (): IResetPasswordRequestAction => ({
+  type: RESET_PASSWORD_REQUEST
+})
+
+export const resetPasswordSuccessAction = (): IResetPasswordSuccessAction => ({
+  type: RESET_PASSWORD_SUCCESS
+})
+
+export const resetPasswordErrorAction = (): IResetPasswordErrorAction => ({
+  type: RESET_PASSWORD_ERROR
+})
+
+export const restorePasswordRequestAction = (): IRestorePasswordRequestAction => ({
+  type: RESTORE_PASSWORD_REQUEST
+})
+
+export const restorePasswordSuccessAction = (): IRestorePasswordSuccessAction => ({
+  type: RESTORE_PASSWORD_SUCCESS
+})
+
+export const restorePasswordErrorAction = (): IRestorePasswordErrorAction => ({
+  type: RESTORE_PASSWORD_ERROR
+})
+
+export const updateUserRequestAction = (): IUpdateUserRequestAction => ({
+  type: UPDATE_USER_REQUEST
+})
+
+export const updateUserSuccessAction = (user: TUser): IUpdateUserSuccessAction => ({
+  type: UPDATE_USER_SUCCESS,
+  payload: user
+})
+
+export const updateUserErrorAction = (): IUpdateUserErrorAction => ({
+  type: UPDATE_USER_ERROR
+})
 
 export const getUserFetch = () => (dispatch: any) => {
-  dispatch({type: GET_USER_REQUEST});
+  dispatch(getUserRequestAction());
 
   getUser()
     .then(response => response.json())
     .then(response => {
       if (response.success) {
-        dispatch({
-          type: GET_USER_SUCCESS,
-          payload: response.user
-        });
+        dispatch(getUserSuccessAction(response.user));
 
         return response;
       }
@@ -171,10 +260,7 @@ export const getUserFetch = () => (dispatch: any) => {
               .then(response => response.json())
               .then(response => {
                 if (response.success) {
-                  dispatch({
-                    type: GET_USER_SUCCESS,
-                    payload: response.user
-                  });
+                  dispatch(getUserSuccessAction(response.user));
 
                   return response;
                 }
@@ -185,14 +271,14 @@ export const getUserFetch = () => (dispatch: any) => {
         });
     })
     .catch(error => {
-      dispatch({type: GET_USER_ERROR});
+      dispatch(getUserErrorAction());
 
       console.error(error);
     });
 };
 
-export const loginUserFetch = (form: any) => (dispatch: any) => {
-  dispatch({type: LOGIN_USER_REQUEST});
+export const loginUserFetch = (form: TLoginUserForm) => (dispatch: any) => {
+  dispatch(loginUserRequestAction());
 
   loginUser(form)
     .then(response => {
@@ -211,27 +297,24 @@ export const loginUserFetch = (form: any) => (dispatch: any) => {
         setCookie(ETokenVariant.RefreshToken, refreshToken);
       }
 
-      dispatch({
-        type: LOGIN_USER_SUCCESS,
-        payload: user
-      });
+      dispatch(loginUserSuccessAction(user));
     })
     .catch(error => {
-      dispatch({type: LOGIN_USER_ERROR});
+      dispatch(loginUserErrorAction());
 
       console.error(error);
     });
 };
 
-export const logoutUserFetch = (token: any) => (dispatch: any) => {
-  dispatch({type: LOGOUT_USER_REQUEST});
+export const logoutUserFetch = (token?: string) => (dispatch: any) => {
+  dispatch(logoutUserRequestAction());
 
   logoutUser(token)
     .then(response => {
       if (response.ok) {
         deleteCookie(ETokenVariant.AccessToken);
         deleteCookie(ETokenVariant.RefreshToken);
-        dispatch({type: LOGOUT_USER_SUCCESS});
+        dispatch(logoutUserSuccessAction());
 
         return response;
       }
@@ -239,16 +322,14 @@ export const logoutUserFetch = (token: any) => (dispatch: any) => {
       return Promise.reject(`Ошибка ${response.status}`);
     })
     .catch(error => {
-      dispatch({type: LOGOUT_USER_ERROR});
+      dispatch(logoutUserErrorAction());
 
       console.error(error);
     });
 };
 
-export const registerUserFetch = (form: any) => (dispatch: any) => {
-  dispatch({
-    type: REGISTER_USER_REQUEST
-  });
+export const registerUserFetch = (form: TUserForm) => (dispatch: any) => {
+  dispatch(registerUserRequestAction());
 
   registerUser(form)
     .then(response => {
@@ -267,27 +348,22 @@ export const registerUserFetch = (form: any) => (dispatch: any) => {
         setCookie(ETokenVariant.RefreshToken, refreshToken);
       }
 
-      dispatch({
-        type: REGISTER_USER_SUCCESS,
-        payload: user
-      });
+      dispatch(registerUserSuccessAction(user));
     })
     .catch(error => {
-      dispatch({
-        type: REGISTER_USER_ERROR
-      });
+      dispatch(registerUserErrorAction());
 
       console.error(error);
     });
 };
 
-export const resetPasswordFetch = (form: any) => (dispatch: any) => {
-  dispatch({type: RESET_PASSWORD_REQUEST});
+export const resetPasswordFetch = (form: TResetPasswordForm) => (dispatch: any) => {
+  dispatch(resetPasswordRequestAction());
 
   resetPassword(form)
     .then(response => {
       if (response.ok) {
-        dispatch({type: RESET_PASSWORD_SUCCESS});
+        dispatch(resetPasswordSuccessAction());
 
         return response;
       }
@@ -295,19 +371,19 @@ export const resetPasswordFetch = (form: any) => (dispatch: any) => {
       return Promise.reject(`Ошибка ${response.status}`);
     })
     .catch(error => {
-      dispatch({type: RESET_PASSWORD_ERROR});
+      dispatch(resetPasswordErrorAction());
 
       console.error(error);
     });
 };
 
-export const restorePasswordFetch = (email: any) => (dispatch: any) => {
-  dispatch({type: RESTORE_PASSWORD_REQUEST});
+export const restorePasswordFetch = (email: string) => (dispatch: any) => {
+  dispatch(restorePasswordRequestAction());
 
   restorePassword(email)
     .then(response => {
       if (response.ok) {
-        dispatch({type: RESTORE_PASSWORD_SUCCESS});
+        dispatch(restorePasswordSuccessAction());
 
         return response;
       }
@@ -315,23 +391,20 @@ export const restorePasswordFetch = (email: any) => (dispatch: any) => {
       return Promise.reject(`Ошибка ${response.status}`);
     })
     .catch(error => {
-      dispatch({type: RESTORE_PASSWORD_ERROR});
+      dispatch(restorePasswordErrorAction());
 
       console.error(error);
     });
 };
 
-export const updateUserFetch = (form: any) => (dispatch: any) => {
-  dispatch({type: UPDATE_USER_REQUEST});
+export const updateUserFetch = (form: TUserForm) => (dispatch: any) => {
+  dispatch(updateUserRequestAction());
 
   updateUser(form)
     .then(response => response.json())
     .then(response => {
       if (response.success) {
-        dispatch({
-          type: GET_USER_SUCCESS,
-          payload: response.user
-        });
+        dispatch(updateUserSuccessAction(response.user));
 
         return response;
       }
@@ -347,10 +420,7 @@ export const updateUserFetch = (form: any) => (dispatch: any) => {
               .then(response => response.json())
               .then(response => {
                 if (response.success) {
-                  dispatch({
-                    type: UPDATE_USER_SUCCESS,
-                    payload: response.user
-                  });
+                  dispatch(updateUserSuccessAction(response.user));
 
                   return response;
                 }
@@ -361,7 +431,7 @@ export const updateUserFetch = (form: any) => (dispatch: any) => {
         });
     })
     .catch(error => {
-      dispatch({type: UPDATE_USER_ERROR});
+      dispatch(updateUserErrorAction());
 
       console.error(error);
     });

@@ -32,7 +32,7 @@ export const getOrderNumberErrorAction = (): IGetOrderNumberErrorAction => ({
   type: GET_ORDER_NUMBER_ERROR
 })
 
-export const getOrderNumberFetch = (orderList: any) => (dispatch: any) => {
+export const getOrderNumberFetch = (orderList: string[]) => (dispatch: any) => {
   dispatch(getOrderNumberRequestAction());
 
   getOrder(orderList)

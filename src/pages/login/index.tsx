@@ -6,6 +6,7 @@ import React, {FC, useState} from 'react';
 import {loginUserFetch} from '../../services/actions/user';
 import {hasToken} from '../../utils';
 import {LocationState} from '../../types/types';
+import {TLoginUserForm} from '../../services/api';
 
 const LoginPage: FC = () => {
   const dispatch = useDispatch();
@@ -13,10 +14,7 @@ const LoginPage: FC = () => {
 
   const {isLoggedIn} = useSelector((store: any) => store.user);
 
-  const [form, setForm] = useState<{
-    email: string
-    password: string
-  }>({
+  const [form, setForm] = useState<TLoginUserForm>({
     email: '',
     password: '',
   });

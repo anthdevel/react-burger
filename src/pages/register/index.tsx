@@ -5,16 +5,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import React, {useState} from 'react';
 import {registerUserFetch} from '../../services/actions/user';
 import {hasToken} from '../../utils';
+import {TUserForm} from '../../services/api';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const {isLoggedIn} = useSelector((store: any) => store.user);
 
-  const [form, setForm] = useState<{
-    name: string
-    email: string
-    password: string
-  }>({
+  const [form, setForm] = useState<TUserForm>({
     name: '',
     email: '',
     password: '',

@@ -7,7 +7,7 @@ export const getIngredients = () => {
   return fetch(`${BASE_URL}/ingredients`);
 };
 
-export const getOrder = (orderList: any) => {
+export const getOrder = (orderList: string[]) => {
   return fetch(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
@@ -19,7 +19,7 @@ export const getOrder = (orderList: any) => {
   });
 };
 
-export const restorePassword = (email: any) => {
+export const restorePassword = (email: string) => {
   return fetch(`${BASE_URL}/password-reset`, {
     method: 'POST',
     headers: {
@@ -29,7 +29,12 @@ export const restorePassword = (email: any) => {
   });
 };
 
-export const resetPassword = (form: any) => {
+export type TResetPasswordForm = {
+  password: string
+  token: string
+}
+
+export const resetPassword = (form: TResetPasswordForm) => {
   return fetch(`${BASE_URL}/password-reset/reset`, {
     method: 'POST',
     headers: {
@@ -39,7 +44,13 @@ export const resetPassword = (form: any) => {
   });
 };
 
-export const registerUser = (form: any) => {
+export type TUserForm = {
+  email: string
+  password: string
+  name: string
+}
+
+export const registerUser = (form: TUserForm) => {
   return fetch(`${BASE_URL}/auth/register`, {
     method: 'POST',
     headers: {
@@ -49,7 +60,12 @@ export const registerUser = (form: any) => {
   });
 };
 
-export const loginUser = (form: any) => {
+export type TLoginUserForm = {
+  email: string
+  password: string
+}
+
+export const loginUser = (form: TLoginUserForm) => {
   return fetch(`${BASE_URL}/auth/login`, {
     method: 'POST',
     headers: {
@@ -59,7 +75,7 @@ export const loginUser = (form: any) => {
   });
 };
 
-export const logoutUser = (token: any) => {
+export const logoutUser = (token?: string) => {
   return fetch(`${BASE_URL}/auth/logout`, {
     method: 'POST',
     headers: {
@@ -78,7 +94,7 @@ export const getUser = () => {
   });
 };
 
-export const updateUser = (form: any) => {
+export const updateUser = (form: TUserForm) => {
   return fetch(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -86,10 +102,10 @@ export const updateUser = (form: any) => {
       Authorization: 'Bearer ' + getCookie(ETokenVariant.AccessToken),
     },
     body: JSON.stringify(form),
-  })
+  });
 };
 
-export const updateToken = (token: any) => fetch(`${BASE_URL}/auth/token`, {
+export const updateToken = (token?: string) => fetch(`${BASE_URL}/auth/token`, {
   method: 'POST',
   headers: {
     'content-type': 'application/json',

@@ -5,16 +5,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import React, {useState} from 'react';
 import {resetPasswordFetch} from '../../services/actions/user';
 import {hasToken} from '../../utils';
+import {TResetPasswordForm} from '../../services/api';
 
 const ResetPasswordPage = () => {
   const dispatch = useDispatch();
   const {isFetched: isResetPasswordFetched} = useSelector((store: any) => store.user.resetPassword);
   const {isFetched: isRestorePasswordFetched} = useSelector((store: any) => store.user.restorePassword);
 
-  const [form, setForm] = useState<{
-    password: string
-    token: string
-  }>({
+  const [form, setForm] = useState<TResetPasswordForm>({
     password: '',
     token: '',
   });

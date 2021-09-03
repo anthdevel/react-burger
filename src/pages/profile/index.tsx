@@ -6,6 +6,7 @@ import {getUserFetch, logoutUserFetch, updateUserFetch} from '../../services/act
 import {useDispatch, useSelector} from 'react-redux';
 import React, {FC, useEffect, useState} from 'react';
 import {ETokenVariant} from '../../types/enums';
+import {TUserForm} from '../../services/api';
 
 const ProfilePage: FC = () => {
   const dispatch = useDispatch();
@@ -13,11 +14,7 @@ const ProfilePage: FC = () => {
   const {isFetched: isLogoutFetched} = useSelector((store: any) => store.user.logout);
   const refreshToken = getCookie(ETokenVariant.RefreshToken);
 
-  const [form, setForm] = useState<{
-    email: string
-    name: string
-    password: string
-  }>({
+  const [form, setForm] = useState<TUserForm>({
     email: '',
     name: '',
     password: '',
