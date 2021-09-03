@@ -33,12 +33,15 @@ import {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS
 } from '../constants/user';
+import {TUser} from '../types/data';
 
 export interface IGetUserRequestAction {
   readonly type: typeof GET_USER_REQUEST
 }
 
 export interface IGetUserSuccessAction {
+  readonly type: typeof GET_USER_SUCCESS
+  readonly payload: TUser
 }
 
 export interface IGetUserErrorAction {
@@ -50,6 +53,8 @@ export interface ILoginUserRequestAction {
 }
 
 export interface ILoginUserSuccessAction {
+  readonly type: typeof LOGIN_USER_SUCCESS
+  readonly payload: TUser
 }
 
 export interface ILoginUserErrorAction {
@@ -61,30 +66,32 @@ export interface ILogoutUserRequestAction {
 }
 
 export interface ILogoutUserSuccessAction {
+  readonly type: typeof LOGOUT_USER_SUCCESS
 }
 
 export interface ILogoutUserErrorAction {
   readonly type: typeof LOGOUT_USER_ERROR
 }
 
-
 export interface IRegisterUserRequestAction {
   readonly type: typeof REGISTER_USER_REQUEST
 }
 
 export interface IRegisterUserSuccessAction {
+  readonly type: typeof REGISTER_USER_SUCCESS
+  readonly payload: TUser
 }
 
 export interface IRegisterUserErrorAction {
   readonly type: typeof REGISTER_USER_ERROR
 }
 
-
 export interface IResetPasswordRequestAction {
   readonly type: typeof RESET_PASSWORD_REQUEST
 }
 
 export interface IResetPasswordSuccessAction {
+  readonly type: typeof RESET_PASSWORD_SUCCESS
 }
 
 export interface IResetPasswordErrorAction {
@@ -96,6 +103,7 @@ export interface IRestorePasswordRequestAction {
 }
 
 export interface IRestorePasswordSuccessAction {
+  readonly type: typeof RESTORE_PASSWORD_SUCCESS
 }
 
 export interface IRestorePasswordErrorAction {
@@ -107,6 +115,7 @@ export interface IUpdateUserRequestAction {
 }
 
 export interface IUpdateUserSuccessAction {
+  readonly type: typeof UPDATE_USER_SUCCESS
 }
 
 export interface IUpdateUserErrorAction {
@@ -135,18 +144,6 @@ export type TUserActions =
   | IUpdateUserRequestAction
   | IUpdateUserSuccessAction
   | IUpdateUserErrorAction
-
-
-
-
-
-export const registerUserRequestAction = (): IRegisterUserRequestAction => ({
-  type: REGISTER_USER_REQUEST
-})
-
-export const registerUserErrorAction = (): IRegisterUserErrorAction => ({
-  type: REGISTER_USER_ERROR
-})
 
 export const getUserFetch = () => (dispatch: any) => {
   dispatch({type: GET_USER_REQUEST});
@@ -249,7 +246,9 @@ export const logoutUserFetch = (token: any) => (dispatch: any) => {
 };
 
 export const registerUserFetch = (form: any) => (dispatch: any) => {
-  dispatch(registerUserRequestAction());
+  dispatch({
+    type: REGISTER_USER_REQUEST
+  });
 
   registerUser(form)
     .then(response => {
@@ -274,7 +273,9 @@ export const registerUserFetch = (form: any) => (dispatch: any) => {
       });
     })
     .catch(error => {
-      dispatch(registerUserErrorAction());
+      dispatch({
+        type: REGISTER_USER_ERROR
+      });
 
       console.error(error);
     });

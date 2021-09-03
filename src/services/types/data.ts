@@ -13,5 +13,10 @@ export type TIngredient = {
   readonly _id: string;
 }
 
+export type TUser = {
+  readonly email: string
+  readonly name: string
+}
+
 
 
