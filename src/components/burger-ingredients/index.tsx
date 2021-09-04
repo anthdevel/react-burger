@@ -7,7 +7,7 @@ import {scroller} from 'react-scroll';
 import {InView} from 'react-intersection-observer';
 import {useHistory, useLocation} from 'react-router-dom';
 import {EIngredientType} from '../../types/enums';
-import {GET_INGREDIENT_DETAILS} from '../../services/constants/ingredients';
+import {getIngredientDetailsAction} from '../../services/actions/ingredients';
 
 const BurgerIngredients: FC = () => {
   const dispatch = useDispatch();
@@ -32,10 +32,7 @@ const BurgerIngredients: FC = () => {
 
     const ingredient = ingredients.filter((item: any) => item._id === id)[0];
 
-    dispatch({
-      type: GET_INGREDIENT_DETAILS,
-      payload: ingredient
-    });
+    dispatch(getIngredientDetailsAction(ingredient));
   };
 
   const onChange = (elemName: string) => {

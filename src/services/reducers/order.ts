@@ -1,13 +1,22 @@
 import {GET_ORDER_NUMBER_ERROR, GET_ORDER_NUMBER_REQUEST, GET_ORDER_NUMBER_SUCCESS} from '../constants/order';
+import {Nullable} from '../../types/types';
+import {TOrderActions} from '../actions/order';
 
-const initialState = {
+export type TOrderState = {
+  number: Nullable<number>
+  isFetching: boolean
+  isFetched: boolean
+  isFailed: boolean
+}
+
+const initialState: TOrderState = {
   number: null,
   isFetching: false,
   isFetched: false,
   isFailed: false,
 };
 
-export const orderReducer = (state = initialState, action: any) => {
+export const orderReducer = (state = initialState, action: TOrderActions): TOrderState => {
   switch (action.type) {
     case GET_ORDER_NUMBER_REQUEST: {
       return {

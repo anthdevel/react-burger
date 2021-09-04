@@ -1,5 +1,5 @@
 import {getIngredients} from '../api';
-import {GET_INGREDIENTS_ERROR, GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS} from '../constants/ingredients';
+import {GET_INGREDIENTS_ERROR, GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, GET_INGREDIENT_DETAILS} from '../constants/ingredients';
 import {TIngredient} from '../types/data';
 
 export interface IGetIngredientsRequestAction {
@@ -15,10 +15,16 @@ export interface IGetIngredientsErrorAction {
   readonly type: typeof GET_INGREDIENTS_ERROR
 }
 
+export interface IGetIngredientDetailsAction {
+  readonly type: typeof GET_INGREDIENT_DETAILS
+  readonly payload: TIngredient
+}
+
 export type TIngredientsActions =
   | IGetIngredientsRequestAction
   | IGetIngredientsSuccessAction
-  | IGetIngredientsErrorAction;
+  | IGetIngredientsErrorAction
+  | IGetIngredientDetailsAction;
 
 export const getIngredientsRequestAction = (): IGetIngredientsRequestAction => ({
   type: GET_INGREDIENTS_REQUEST
@@ -31,6 +37,11 @@ export const getIngredientsSuccessAction = (data: TIngredient[]): IGetIngredient
 
 export const getIngredientsErrorAction = (): IGetIngredientsErrorAction => ({
   type: GET_INGREDIENTS_ERROR
+})
+
+export const getIngredientDetailsAction = (ingredient: TIngredient): IGetIngredientDetailsAction => ({
+  type: GET_INGREDIENT_DETAILS,
+  payload: ingredient
 })
 
 export const getIngredientsFetch = () => (dispatch: any) => {

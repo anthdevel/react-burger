@@ -11,15 +11,62 @@ import {
   LOGOUT_USER_SUCCESS,
   REGISTER_USER_ERROR,
   REGISTER_USER_REQUEST,
-  REGISTER_USER_SUCCESS, RESET_PASSWORD_ERROR, RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESTORE_PASSWORD_ERROR,
+  REGISTER_USER_SUCCESS,
+  RESET_PASSWORD_ERROR,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESTORE_PASSWORD_ERROR,
   RESTORE_PASSWORD_REQUEST,
   RESTORE_PASSWORD_SUCCESS,
   UPDATE_USER_ERROR,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS
 } from '../constants/user';
+import {Nullable} from '../../types/types';
+import {TUser} from '../types/data';
+import {TUserActions} from '../actions/user';
 
-const initialState = {
+export type TUserState = {
+  data: Nullable<TUser>
+  isLoggedIn: boolean
+  get: {
+    isFetching: boolean
+    isFetched: boolean
+    isFailed: boolean
+  }
+  update: {
+    isFetching: boolean
+    isFetched: boolean
+    isFailed: boolean
+  }
+  login: {
+    isFetching: boolean
+    isFetched: boolean
+    isFailed: boolean
+  }
+  register: {
+    isFetching: boolean
+    isFetched: boolean
+    isFailed: boolean
+  }
+  logout: {
+    isFetching: boolean
+    isFetched: boolean
+    isFailed: boolean
+  }
+  restorePassword: {
+    isFetching: boolean
+    isFetched: boolean
+    isFailed: boolean
+  }
+  resetPassword: {
+    isFetching: boolean
+    isFetched: boolean
+    isFailed: boolean
+  }
+}
+
+const initialState: TUserState = {
   data: null,
   isLoggedIn: false,
   get: {
@@ -45,7 +92,7 @@ const initialState = {
   },
 };
 
-export const userReducer = (state = initialState, action: any) => {
+export const userReducer = (state = initialState, action: TUserActions): TUserState => {
   switch (action.type) {
     case LOGIN_USER_REQUEST: {
       return {

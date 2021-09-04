@@ -4,8 +4,19 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS
 } from '../constants/ingredients';
+import {TIngredient} from '../types/data';
+import {Nullable} from '../../types/types';
+import {TIngredientsActions} from '../actions/ingredients';
 
-const initialState = {
+export type TIngredientsState = {
+  list: TIngredient[]
+  details: Nullable<TIngredient>
+  isFetching: boolean
+  isFetched: boolean
+  isFailed: boolean
+}
+
+const initialState: TIngredientsState = {
   list: [],
   details: null,
   isFetching: false,
@@ -13,7 +24,7 @@ const initialState = {
   isFailed: false,
 };
 
-export const ingredientsReducer = (state = initialState, action: any) => {
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions): TIngredientsState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {

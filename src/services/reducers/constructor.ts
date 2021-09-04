@@ -5,13 +5,25 @@ import {
   RESET_CONSTRUCTOR,
   SET_CONSTRUCTOR_ITEM
 } from '../constants/constructor';
+import {Nullable} from '../../types/types';
+import {TIngredient} from '../types/data';
+import {TConstructorActions} from '../actions/constructor';
 
-const initialState = {
+export type TMainIngredient = TIngredient & {
+  uniqueId: string
+}
+
+export type TConstructorState = {
+  bun: Nullable<TIngredient>
+  main: TMainIngredient[]
+}
+
+const initialState: TConstructorState = {
   bun: null,
   main: [],
 };
 
-export const constructorReducer = (state = initialState, action: any) => {
+export const constructorReducer = (state = initialState, action: TConstructorActions): TConstructorState => {
   switch (action.type) {
     case SET_CONSTRUCTOR_ITEM: {
       const {payload} = action;
@@ -26,7 +38,10 @@ export const constructorReducer = (state = initialState, action: any) => {
           ...state,
           main: [
             ...state.main,
-            {...payload, uniqueId: uuidv4()}
+            {
+              ...payload,
+              uniqueId: uuidv4()
+            }
           ]
         };
       }
@@ -34,7 +49,7 @@ export const constructorReducer = (state = initialState, action: any) => {
     case REMOVE_CONSTRUCTOR_ITEM:
       return {
         ...state,
-        main: state.main.filter((item: any) => item.uniqueId !== action.payload)
+        main: state.main.filter(item => item.uniqueId !== action.payload)
       }
     case RESET_CONSTRUCTOR:
       return initialState;
