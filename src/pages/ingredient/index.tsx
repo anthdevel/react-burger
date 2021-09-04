@@ -1,28 +1,24 @@
 import React, {FC, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import IngredientDetails from '../../components/ingredient-details';
-import {getIngredientsFetch} from '../../services/actions/ingredients';
+import {getIngredientDetailsAction, getIngredientsFetch} from '../../services/actions/ingredients';
 import styles from './styles.module.css';
-import {GET_INGREDIENT_DETAILS} from '../../services/constants/ingredients';
+import {useDispatch, useSelector} from '../../services/hooks';
 
 const IngredientPage: FC = () => {
   const dispatch = useDispatch();
   const {id} = useParams<{id: string}>();
-  const {list: ingredients, details: ingredientDetails} = useSelector((store: any) => store.ingredients);
+  const {list: ingredients, details: ingredientDetails} = useSelector(store => store.ingredients);
 
   useEffect(() => {
     dispatch(getIngredientsFetch());
   }, [dispatch]);
 
   useEffect(() => {
-    const ingredient = ingredients.filter((item: any) => item._id === id)[0];
+    const ingredient = ingredients.filter(item => item._id === id)[0];
 
     if (ingredient) {
-      dispatch({
-        type: GET_INGREDIENT_DETAILS,
-        payload: ingredient
-      });
+      dispatch(getIngredientDetailsAction(ingredient));
     }
   }, [dispatch, ingredients, id]);
 

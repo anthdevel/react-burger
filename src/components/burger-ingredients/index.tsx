@@ -2,12 +2,12 @@ import styles from './styles.module.css';
 import {FC, useRef, useState} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientCard from '../ingredient-card';
-import {useDispatch, useSelector} from 'react-redux';
 import {scroller} from 'react-scroll';
 import {InView} from 'react-intersection-observer';
 import {useHistory, useLocation} from 'react-router-dom';
 import {EIngredientType} from '../../types/enums';
 import {getIngredientDetailsAction} from '../../services/actions/ingredients';
+import {useDispatch, useSelector} from '../../services/hooks';
 
 const BurgerIngredients: FC = () => {
   const dispatch = useDispatch();
@@ -18,11 +18,11 @@ const BurgerIngredients: FC = () => {
 
   const currentViewsRatio = useRef<any>({});
 
-  const {list: ingredients} = useSelector((store: any) => store.ingredients);
+  const {list: ingredients} = useSelector(store => store.ingredients);
 
-  const buns = ingredients.filter((item: any) => item.type === 'bun');
-  const sauces = ingredients.filter((item: any) => item.type === 'sauce');
-  const main = ingredients.filter((item: any) => item.type === 'main');
+  const buns = ingredients.filter(item => item.type === 'bun');
+  const sauces = ingredients.filter(item => item.type === 'sauce');
+  const main = ingredients.filter(item => item.type === 'main');
 
   const onClickCard = (id: string) => {
     history.push({
@@ -30,7 +30,7 @@ const BurgerIngredients: FC = () => {
       state: {background: location},
     });
 
-    const ingredient = ingredients.filter((item: any) => item._id === id)[0];
+    const ingredient = ingredients.filter(item => item._id === id)[0];
 
     dispatch(getIngredientDetailsAction(ingredient));
   };
@@ -90,7 +90,7 @@ const BurgerIngredients: FC = () => {
             <section className="pb-10">
               <h2 className="text text_type_main-medium mb-6">Булки</h2>
               <div className={`${styles.cards} pl-4 pr-4`}>
-                {buns.map(({_id, ...rest}: any) => (
+                {buns.map(({_id, ...rest}) => (
                   <IngredientCard
                     key={_id}
                     _id={_id}
@@ -109,7 +109,7 @@ const BurgerIngredients: FC = () => {
             <section className="pb-10">
               <h2 className="text text_type_main-medium mb-6">Соусы</h2>
               <div className={`${styles.cards} pl-4 pr-4`}>
-                {sauces.map(({_id, ...rest}: any) => (
+                {sauces.map(({_id, ...rest}) => (
                   <IngredientCard
                     key={_id}
                     _id={_id}
@@ -128,7 +128,7 @@ const BurgerIngredients: FC = () => {
             <section className="pb-10">
               <h2 className="text text_type_main-medium mb-6">Начинки</h2>
               <div className={`${styles.cards} pl-4 pr-4`}>
-                {main.map(({_id, ...rest}: any) => (
+                {main.map(({_id, ...rest}) => (
                   <IngredientCard
                     key={_id}
                     _id={_id}

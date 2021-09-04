@@ -3,15 +3,15 @@ import {Link, NavLink, Redirect, Route, Switch} from 'react-router-dom';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {getCookie} from '../../utils';
 import {getUserFetch, logoutUserFetch, updateUserFetch} from '../../services/actions/user';
-import {useDispatch, useSelector} from 'react-redux';
 import React, {FC, useEffect, useState} from 'react';
 import {ETokenVariant} from '../../types/enums';
 import {TUserForm} from '../../services/api';
+import {useDispatch, useSelector} from '../../services/hooks';
 
 const ProfilePage: FC = () => {
   const dispatch = useDispatch();
-  const {data: userData} = useSelector((store: any) => store.user);
-  const {isFetched: isLogoutFetched} = useSelector((store: any) => store.user.logout);
+  const {data: userData} = useSelector(store => store.user);
+  const {isFetched: isLogoutFetched} = useSelector(store => store.user.logout);
   const refreshToken = getCookie(ETokenVariant.RefreshToken);
 
   const [form, setForm] = useState<TUserForm>({
@@ -51,8 +51,8 @@ const ProfilePage: FC = () => {
   const onCancel = () => {
     setForm({
       ...form,
-      email: userData.email,
-      name: userData.name,
+      email: userData!.email,
+      name: userData!.name,
       password: '',
     });
 

@@ -1,15 +1,15 @@
 import styles from './styles.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Redirect} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
 import React, {useState} from 'react';
 import {registerUserFetch} from '../../services/actions/user';
 import {hasToken} from '../../utils';
 import {TUserForm} from '../../services/api';
+import {useDispatch, useSelector} from '../../services/hooks';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
-  const {isLoggedIn} = useSelector((store: any) => store.user);
+  const {isLoggedIn} = useSelector(store => store.user);
 
   const [form, setForm] = useState<TUserForm>({
     name: '',

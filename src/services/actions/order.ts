@@ -1,5 +1,6 @@
 import {getOrder} from '../api';
 import {GET_ORDER_NUMBER_ERROR, GET_ORDER_NUMBER_REQUEST, GET_ORDER_NUMBER_SUCCESS} from '../constants/order';
+import {AppDispatch, AppThunk} from '../types';
 
 export interface IGetOrderNumberRequestAction {
   readonly type: typeof GET_ORDER_NUMBER_REQUEST
@@ -32,7 +33,7 @@ export const getOrderNumberErrorAction = (): IGetOrderNumberErrorAction => ({
   type: GET_ORDER_NUMBER_ERROR
 })
 
-export const getOrderNumberFetch = (orderList: string[]) => (dispatch: any) => {
+export const getOrderNumberFetch: AppThunk = (orderList: string[]) => (dispatch: AppDispatch) => {
   dispatch(getOrderNumberRequestAction());
 
   getOrder(orderList)

@@ -1,9 +1,9 @@
 import styles from './styles.module.css';
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useDrag} from 'react-dnd';
-import {useSelector} from 'react-redux';
 import {FC, useEffect, useState} from 'react';
 import {TIngredient} from '../../services/types/data';
+import {useSelector} from '../../services/hooks';
 
 interface IIngredientCardProps extends TIngredient {
   readonly onClickCard: () => void
@@ -23,7 +23,7 @@ const IngredientCard: FC<IIngredientCardProps> = (props) => {
   } = rest;
 
   const [count, setCount] = useState<number>(0);
-  const {bun, main} = useSelector((store: any) => store.constructorStore);
+  const {bun, main} = useSelector(store => store.constructorStore);
 
   useEffect(() => {
     if (bun?._id === _id) {
@@ -31,7 +31,7 @@ const IngredientCard: FC<IIngredientCardProps> = (props) => {
     } else {
       let counter = 0;
 
-      main.forEach((item: any) => {
+      main.forEach(item => {
         if (item._id === _id) {
           counter = counter + 1;
         }

@@ -1,18 +1,18 @@
 import styles from './styles.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Redirect, useLocation} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
 import React, {FC, useState} from 'react';
 import {loginUserFetch} from '../../services/actions/user';
 import {hasToken} from '../../utils';
 import {LocationState} from '../../types/types';
 import {TLoginUserForm} from '../../services/api';
+import {useDispatch, useSelector} from '../../services/hooks';
 
 const LoginPage: FC = () => {
   const dispatch = useDispatch();
   const {state} = useLocation<LocationState>();
 
-  const {isLoggedIn} = useSelector((store: any) => store.user);
+  const {isLoggedIn} = useSelector(store => store.user);
 
   const [form, setForm] = useState<TLoginUserForm>({
     email: '',

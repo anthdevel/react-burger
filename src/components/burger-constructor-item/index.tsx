@@ -1,10 +1,10 @@
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles.module.css';
 import {FC, useRef} from 'react';
-import {useDispatch} from 'react-redux';
 import {useDrag, useDrop} from 'react-dnd';
 import {Nullable} from '../../types/types';
 import {replaceConstructorItemsAction} from '../../services/actions/constructor';
+import {useDispatch} from '../../services/hooks';
 
 interface IBurgerConstructorItemProps {
   readonly key: string

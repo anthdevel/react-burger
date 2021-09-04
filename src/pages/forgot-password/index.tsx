@@ -1,14 +1,14 @@
 import styles from './styles.module.css';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Redirect} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
 import React, {FC, useState} from 'react';
 import {restorePasswordFetch} from '../../services/actions/user';
 import {hasToken} from '../../utils';
+import {useDispatch, useSelector} from '../../services/hooks';
 
 const ForgotPasswordPage: FC = () => {
   const dispatch = useDispatch();
-  const {isFetched} = useSelector((store: any) => store.user.restorePassword);
+  const {isFetched} = useSelector(store => store.user.restorePassword);
   const [email, setEmail] = useState<string>('');
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {

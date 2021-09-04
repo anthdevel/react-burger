@@ -3,7 +3,6 @@ import styles from './styles.module.css';
 import {FC, useEffect, useState} from 'react';
 import Modal from '../modal';
 import OrderDetails from '../order-details';
-import {useDispatch, useSelector} from 'react-redux';
 import {useDrop} from 'react-dnd';
 import {getOrderNumberFetch} from '../../services/actions/order';
 import BurgerConstructorItem from '../burger-constructor-item';
@@ -11,15 +10,16 @@ import {useHistory} from 'react-router-dom';
 import {hasToken} from '../../utils';
 import {removeConstructorItemAction, resetConstructorAction, setConstructorItemAction} from '../../services/actions/constructor';
 import {TIngredient} from '../../services/types/data';
+import {useDispatch, useSelector} from '../../services/hooks';
 
 const BurgerConstructor: FC = () => {
   const history = useHistory();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  const {bun, main} = useSelector((store: any) => store.constructorStore);
+  const {bun, main} = useSelector(store => store.constructorStore);
 
-  const {number: orderNumber, isFetched: isOrderFetched} = useSelector((store: any) => store.order);
+  const {number: orderNumber, isFetched: isOrderFetched} = useSelector(store => store.order);
 
   const [, dropTargetRef] = useDrop({
     accept: ['ingredient'],
@@ -29,11 +29,11 @@ const BurgerConstructor: FC = () => {
   });
 
   const getTotalPrice = () => {
-    const bunTotalPrice = bun?.price * 2;
+    const bunTotalPrice = (bun?.price ?? 0) * 2;
 
     let mainTotalPrice = 0;
 
-    main.forEach((item: any) => {
+    main.forEach(item => {
       mainTotalPrice += item.price;
     });
 
@@ -42,7 +42,7 @@ const BurgerConstructor: FC = () => {
 
   const checkOut = () => {
     if (hasToken() && bun) {
-      dispatch(getOrderNumberFetch([bun._id, ...main.map((item: any) => item._id), bun._id]));
+      dispatch(getOrderNumberFetch([bun._id, ...main.map(item => item._id), bun._id]));
     } else {
       history.push("/login");
     }
@@ -79,7 +79,7 @@ const BurgerConstructor: FC = () => {
             )}
           </div>
           <div className={styles.constructorList}>
-            {main.map(({uniqueId, name, price, image_mobile}: any, index: number) => (
+            {main.map(({uniqueId, name, price, image_mobile}, index: number) => (
               <BurgerConstructorItem
                 key={uniqueId}
                 uniqueId={uniqueId}
@@ -114,7 +114,7 @@ const BurgerConstructor: FC = () => {
         </div>
       </div>
 
-      {isModalOpen && (
+      {isModalOpen && orderNumber && (
         <Modal onClose={onCloseModal}>
           <OrderDetails orderNumber={orderNumber}/>
         </Modal>

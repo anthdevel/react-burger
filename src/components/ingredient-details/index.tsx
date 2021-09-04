@@ -1,8 +1,14 @@
 import React, {FC} from 'react';
 import styles from './styles.module.css'
-import {useSelector} from 'react-redux';
+import {useSelector} from '../../services/hooks';
 
 const IngredientDetails: FC = () => {
+  const {details} = useSelector(store => store.ingredients);
+
+  if (!details) {
+    return null;
+  }
+
   const {
     calories,
     carbohydrates,
@@ -10,7 +16,7 @@ const IngredientDetails: FC = () => {
     image_large: image,
     name,
     proteins,
-  } = useSelector((store: any) => store.ingredients.details);
+  } = details;
 
   return (
     <div className={`${styles.root} pl-15 pr-15`}>

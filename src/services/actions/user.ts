@@ -37,6 +37,7 @@ import {
   UPDATE_USER_SUCCESS
 } from '../constants/user';
 import {TUser} from '../types/data';
+import {AppDispatch, AppThunk} from '../types';
 
 export interface IGetUserRequestAction {
   readonly type: typeof GET_USER_REQUEST
@@ -237,7 +238,7 @@ export const updateUserErrorAction = (): IUpdateUserErrorAction => ({
   type: UPDATE_USER_ERROR
 })
 
-export const getUserFetch = () => (dispatch: any) => {
+export const getUserFetch: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch(getUserRequestAction());
 
   getUser()
@@ -277,7 +278,7 @@ export const getUserFetch = () => (dispatch: any) => {
     });
 };
 
-export const loginUserFetch = (form: TLoginUserForm) => (dispatch: any) => {
+export const loginUserFetch: AppThunk = (form: TLoginUserForm) => (dispatch: AppDispatch) => {
   dispatch(loginUserRequestAction());
 
   loginUser(form)
@@ -306,7 +307,7 @@ export const loginUserFetch = (form: TLoginUserForm) => (dispatch: any) => {
     });
 };
 
-export const logoutUserFetch = (token?: string) => (dispatch: any) => {
+export const logoutUserFetch: AppThunk = (token?: string) => (dispatch: AppDispatch) => {
   dispatch(logoutUserRequestAction());
 
   logoutUser(token)
@@ -328,7 +329,7 @@ export const logoutUserFetch = (token?: string) => (dispatch: any) => {
     });
 };
 
-export const registerUserFetch = (form: TUserForm) => (dispatch: any) => {
+export const registerUserFetch: AppThunk = (form: TUserForm) => (dispatch: AppDispatch) => {
   dispatch(registerUserRequestAction());
 
   registerUser(form)
@@ -357,7 +358,7 @@ export const registerUserFetch = (form: TUserForm) => (dispatch: any) => {
     });
 };
 
-export const resetPasswordFetch = (form: TResetPasswordForm) => (dispatch: any) => {
+export const resetPasswordFetch: AppThunk = (form: TResetPasswordForm) => (dispatch: AppDispatch) => {
   dispatch(resetPasswordRequestAction());
 
   resetPassword(form)
@@ -377,7 +378,7 @@ export const resetPasswordFetch = (form: TResetPasswordForm) => (dispatch: any) 
     });
 };
 
-export const restorePasswordFetch = (email: string) => (dispatch: any) => {
+export const restorePasswordFetch: AppThunk = (email: string) => (dispatch: AppDispatch) => {
   dispatch(restorePasswordRequestAction());
 
   restorePassword(email)
@@ -397,7 +398,7 @@ export const restorePasswordFetch = (email: string) => (dispatch: any) => {
     });
 };
 
-export const updateUserFetch = (form: TUserForm) => (dispatch: any) => {
+export const updateUserFetch: AppThunk = (form: TUserForm) => (dispatch: AppDispatch) => {
   dispatch(updateUserRequestAction());
 
   updateUser(form)

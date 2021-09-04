@@ -1,6 +1,7 @@
 import {getIngredients} from '../api';
 import {GET_INGREDIENTS_ERROR, GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, GET_INGREDIENT_DETAILS} from '../constants/ingredients';
 import {TIngredient} from '../types/data';
+import {AppDispatch, AppThunk} from '../types';
 
 export interface IGetIngredientsRequestAction {
   readonly type: typeof GET_INGREDIENTS_REQUEST
@@ -44,7 +45,7 @@ export const getIngredientDetailsAction = (ingredient: TIngredient): IGetIngredi
   payload: ingredient
 })
 
-export const getIngredientsFetch = () => (dispatch: any) => {
+export const getIngredientsFetch: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch(getIngredientsRequestAction());
 
   getIngredients()
