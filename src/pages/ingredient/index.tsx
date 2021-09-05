@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import IngredientDetails from '../../components/ingredient-details';
-import {getIngredientDetailsAction, getIngredientsFetch} from '../../services/actions/ingredients';
+import {getIngredientDetailsAction} from '../../services/actions/ingredients';
 import styles from './styles.module.css';
 import {useDispatch, useSelector} from '../../services/hooks';
 
@@ -9,10 +9,6 @@ const IngredientPage: FC = () => {
   const dispatch = useDispatch();
   const {id} = useParams<{id: string}>();
   const {list: ingredients, details: ingredientDetails} = useSelector(store => store.ingredients);
-
-  useEffect(() => {
-    dispatch(getIngredientsFetch());
-  }, [dispatch]);
 
   useEffect(() => {
     const ingredient = ingredients.filter(item => item._id === id)[0];

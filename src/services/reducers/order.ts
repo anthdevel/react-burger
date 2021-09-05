@@ -1,19 +1,38 @@
-import {GET_ORDER_NUMBER_ERROR, GET_ORDER_NUMBER_REQUEST, GET_ORDER_NUMBER_SUCCESS} from '../constants/order';
+import {
+  GET_ORDER_DETAILS_ERROR,
+  GET_ORDER_DETAILS_REQUEST, GET_ORDER_DETAILS_SUCCESS,
+  GET_ORDER_NUMBER_ERROR,
+  GET_ORDER_NUMBER_REQUEST,
+  GET_ORDER_NUMBER_SUCCESS
+} from '../constants/order';
 import {Nullable} from '../../types/types';
 import {TOrderActions} from '../actions/order';
+import {fetchableDefault, fetchableFailed, fetchableFetched, fetchableFetching} from '../../utils';
 
 export type TOrderState = {
-  number: Nullable<number>
-  isFetching: boolean
-  isFetched: boolean
-  isFailed: boolean
+  number: {
+    isFetching: boolean
+    isFetched: boolean
+    isFailed: boolean
+    data: Nullable<number>
+  }
+  details: {
+    isFetching: boolean
+    isFetched: boolean
+    isFailed: boolean
+    data: any[]
+  }
 }
 
 const initialState: TOrderState = {
-  number: null,
-  isFetching: false,
-  isFetched: false,
-  isFailed: false,
+  number: {
+    ...fetchableDefault,
+    data: null,
+  },
+  details: {
+    ...fetchableDefault,
+    data: [],
+  }
 };
 
 export const orderReducer = (state = initialState, action: TOrderActions): TOrderState => {
@@ -21,27 +40,59 @@ export const orderReducer = (state = initialState, action: TOrderActions): TOrde
     case GET_ORDER_NUMBER_REQUEST: {
       return {
         ...state,
-        isFetching: true,
-        isFetched: false,
-        isFailed: false,
+        number: {
+          ...state.number,
+          ...fetchableFetching,
+        }
       };
     }
     case GET_ORDER_NUMBER_SUCCESS: {
       return {
         ...state,
-        number: action.payload,
-        isFetching: false,
-        isFetched: true,
-        isFailed: false,
+        number: {
+          ...state.number,
+          data: action.payload,
+          ...fetchableFetched,
+        }
       };
     }
     case GET_ORDER_NUMBER_ERROR: {
       return {
         ...state,
-        isFetching: false,
-        isFetched: false,
-        isFailed: true,
+        number: {
+          ...state.number,
+          ...fetchableFailed,
+        }
       };
+    }
+
+    case GET_ORDER_DETAILS_REQUEST: {
+      return {
+        ...state,
+        details: {
+          ...state.details,
+          ...fetchableFetching,
+        }
+      }
+    }
+    case GET_ORDER_DETAILS_SUCCESS: {
+      return {
+        ...state,
+        details: {
+          ...state.details,
+          data: action.payload,
+          ...fetchableFetched,
+        }
+      }
+    }
+    case GET_ORDER_DETAILS_ERROR: {
+      return {
+        ...state,
+        details: {
+          ...state.details,
+          ...fetchableFailed,
+        }
+      }
     }
 
     default:

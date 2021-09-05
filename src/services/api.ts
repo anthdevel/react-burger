@@ -7,7 +7,7 @@ export const getIngredients = () => {
   return fetch(`${BASE_URL}/ingredients`);
 };
 
-export const getOrder = (orderList: string[]) => {
+export const getOrderNumber = (orderList: string[]) => {
   return fetch(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
@@ -16,6 +16,15 @@ export const getOrder = (orderList: string[]) => {
     body: JSON.stringify({
       ingredients: orderList
     })
+  });
+};
+
+export const getOrderDetails = (id: string) => {
+  return fetch(`${BASE_URL}/orders/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
   });
 };
 

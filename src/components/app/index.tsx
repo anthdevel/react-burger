@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {Switch, Route, useHistory, useLocation} from 'react-router-dom';
 import AppHeader from '../app-header';
 import styles from './styles.module.css';
@@ -15,6 +15,8 @@ import {
 import ProtectedRoute from '../protected-route';
 import Modal from '../modal';
 import IngredientDetails from '../ingredient-details';
+import {getIngredientsFetch} from '../../services/actions/ingredients';
+import {useDispatch} from '../../services/hooks';
 
 interface ILocationState {
   readonly background: {
@@ -28,12 +30,17 @@ interface ILocationState {
 const App: FC = () => {
   const history = useHistory();
   const location = useLocation<ILocationState>();
+  const dispatch = useDispatch();
 
   const background = history.action === 'PUSH' && location.state && location.state.background;
 
   const onCloseModal = () => {
     history.goBack();
   };
+
+  useEffect(() => {
+    dispatch(getIngredientsFetch());
+  }, [dispatch]);
 
   return (
     <div className={styles.root}>
@@ -79,6 +86,6 @@ const App: FC = () => {
       </main>
     </div>
   );
-}
+};
 
 export default App;

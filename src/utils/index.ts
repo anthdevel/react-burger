@@ -1,5 +1,6 @@
-import {ETokenVariant} from '../types/enums';
+import {EOrderStatus, ETokenVariant} from '../types/enums';
 import {Nullable} from '../types/types';
+import {TOrder} from '../services/types/data';
 
 export function getCookie(name: ETokenVariant) {
   const matches = document.cookie.match(
@@ -68,4 +69,21 @@ export const hasToken = () => {
   const accessToken = getCookie(ETokenVariant.AccessToken);
 
   return Boolean(accessToken?.trim());
+};
+
+export const sortByDate = (a: TOrder, b: TOrder) => {
+  return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+};
+
+export const getOrderStatus = (status: EOrderStatus) => {
+  switch (status) {
+    case EOrderStatus.Pending:
+      return 'Готовится';
+    case EOrderStatus.Done:
+      return 'Выполнен';
+    case EOrderStatus.Created:
+      return 'Создан';
+    default:
+      return '';
+  }
 };

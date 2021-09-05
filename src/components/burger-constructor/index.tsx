@@ -19,7 +19,7 @@ const BurgerConstructor: FC = () => {
 
   const {bun, main} = useSelector(store => store.constructorStore);
 
-  const {number: orderNumber, isFetched: isOrderFetched} = useSelector(store => store.order);
+  const {data: orderNumber, isFetched: isOrderFetched} = useSelector(store => store.order.number);
 
   const [, dropTargetRef] = useDrop({
     accept: ['ingredient'],

@@ -1,0 +1,26 @@
+.orders {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 36px;
+}
+
+.ordersRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 24px;
+}
+
+.ordersList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ordersSuccess {
+  color: #00cccc;
+}
+
+.totalValue {
+  text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25), 0 4px 32px rgba(51, 51, 255, 0.5);
+  color: #f2f2f3;
+}
