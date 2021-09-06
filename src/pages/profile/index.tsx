@@ -7,7 +7,6 @@ import React, {FC, useEffect, useState} from 'react';
 import {ETokenVariant} from '../../types/enums';
 import {TUserForm} from '../../services/api';
 import {useDispatch, useSelector} from '../../services/hooks';
-import OrdersHistoryPage from '../orders-history';
 
 const ProfilePage: FC = () => {
   const dispatch = useDispatch();
@@ -140,7 +139,7 @@ const ProfilePage: FC = () => {
               </form>
             </Route>
             <Route path="/profile/orders" exact>
-              <OrdersHistoryPage />
+              <div>История заказов</div>
             </Route>
           </Switch>
         </div>

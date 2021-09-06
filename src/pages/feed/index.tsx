@@ -21,9 +21,14 @@ const FeedPage = () => {
 
   // @ts-ignore
   useEffect(() => {
+    console.log('mountSocket');
     dispatch(wsConnectionStart());
 
-    return () => dispatch(wsConnectionClosed());
+    return () => {
+      console.log('unmountSocket');
+
+      dispatch(wsConnectionClosed());
+    }
   }, [dispatch]);
 
   return (
