@@ -19,15 +19,6 @@ export const getOrderNumber = (orderList: string[]) => {
   });
 };
 
-export const getOrderDetails = (id: string) => {
-  return fetch(`${BASE_URL}/orders/${id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  });
-};
-
 export const restorePassword = (email: string) => {
   return fetch(`${BASE_URL}/password-reset`, {
     method: 'POST',
@@ -121,8 +112,3 @@ export const updateToken = (token?: string) => fetch(`${BASE_URL}/auth/token`, {
   },
   body: JSON.stringify({token}),
 });
-
-
-
-
-

@@ -1,6 +1,4 @@
 import {
-  GET_ORDER_DETAILS_ERROR,
-  GET_ORDER_DETAILS_REQUEST, GET_ORDER_DETAILS_SUCCESS,
   GET_ORDER_NUMBER_ERROR,
   GET_ORDER_NUMBER_REQUEST,
   GET_ORDER_NUMBER_SUCCESS
@@ -16,12 +14,6 @@ export type TOrderState = {
     isFailed: boolean
     data: Nullable<number>
   }
-  details: {
-    isFetching: boolean
-    isFetched: boolean
-    isFailed: boolean
-    data: any[]
-  }
 }
 
 const initialState: TOrderState = {
@@ -29,10 +21,6 @@ const initialState: TOrderState = {
     ...fetchableDefault,
     data: null,
   },
-  details: {
-    ...fetchableDefault,
-    data: [],
-  }
 };
 
 export const orderReducer = (state = initialState, action: TOrderActions): TOrderState => {
@@ -64,35 +52,6 @@ export const orderReducer = (state = initialState, action: TOrderActions): TOrde
           ...fetchableFailed,
         }
       };
-    }
-
-    case GET_ORDER_DETAILS_REQUEST: {
-      return {
-        ...state,
-        details: {
-          ...state.details,
-          ...fetchableFetching,
-        }
-      }
-    }
-    case GET_ORDER_DETAILS_SUCCESS: {
-      return {
-        ...state,
-        details: {
-          ...state.details,
-          data: action.payload,
-          ...fetchableFetched,
-        }
-      }
-    }
-    case GET_ORDER_DETAILS_ERROR: {
-      return {
-        ...state,
-        details: {
-          ...state.details,
-          ...fetchableFailed,
-        }
-      }
     }
 
     default:
