@@ -30,12 +30,9 @@ export type TOrder = {
   readonly updatedAt: string
 };
 
-export type TOrders = {
+export type TWsOrders = {
   readonly success: boolean
   readonly orders: TOrder[]
   readonly total: number
   readonly totalToday: number
 };
-
-
-

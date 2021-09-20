@@ -4,10 +4,10 @@ import {useSelector} from '../../services/hooks';
 import {EOrderStatus} from '../../types/enums';
 
 const OrdersSummary: FC = () => {
-  const {feedOrders, total, totalToday} = useSelector(store => store.ws);
+  const {orders, total, totalToday} = useSelector(store => store.wsAllOrders);
 
-  const pendingOrders = feedOrders.filter(({status}) => status === EOrderStatus.Pending);
-  const doneOrders = feedOrders.filter(({status}) => status === EOrderStatus.Done);
+  const pendingOrders = orders.filter(({status}) => status === EOrderStatus.Pending);
+  const doneOrders = orders.filter(({status}) => status === EOrderStatus.Done);
 
   return (
     <>

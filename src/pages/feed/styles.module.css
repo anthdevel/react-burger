@@ -19,6 +19,7 @@
   list-style: none;
 
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .ordersList::-webkit-scrollbar {

@@ -17,6 +17,7 @@ import Modal from '../modal';
 import IngredientDetails from '../ingredient-details';
 import {getIngredientsFetch} from '../../services/actions/ingredients';
 import {useDispatch} from '../../services/hooks';
+import {wsAllOrdersConnectionStart} from '../../services/actions/wsAllOrdersActions';
 
 interface ILocationState {
   readonly background: {
@@ -40,6 +41,7 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch(getIngredientsFetch());
+    dispatch(wsAllOrdersConnectionStart());
   }, [dispatch]);
 
   return (

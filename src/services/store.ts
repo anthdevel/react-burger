@@ -2,27 +2,27 @@ import {applyMiddleware, createStore} from 'redux';
 import {rootReducer} from './reducers';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import {socketMiddleware} from './middleware/socketMiddleware';
+import {socketAllOrdersMiddleware} from './middleware/socketAllOrdersMiddleware';
 import {
-  WS_CONNECTION_CLOSED,
-  WS_CONNECTION_ERROR,
-  WS_CONNECTION_START,
-  WS_CONNECTION_SUCCESS,
-  WS_GET_FEED_ORDERS,
-} from './constants/ws';
+  WS_ALL_ORDERS_CONNECTION_CLOSED,
+  WS_ALL_ORDERS_CONNECTION_ERROR,
+  WS_ALL_ORDERS_CONNECTION_START,
+  WS_ALL_ORDERS_CONNECTION_SUCCESS, WS_GET_ALL_ORDERS
+} from './constants/wsAllOrders';
 
-const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
+const wsUrl = 'wss://norma.nomoreparties.space/orders';
 
-const wsActions = {
-  wsInit: WS_CONNECTION_START,
-  onOpen: WS_CONNECTION_SUCCESS,
-  onClose: WS_CONNECTION_CLOSED,
-  onError: WS_CONNECTION_ERROR,
-  getFeedOrders: WS_GET_FEED_ORDERS,
+const wsAllOrdersActions = {
+  wsInit: WS_ALL_ORDERS_CONNECTION_START,
+  onOpen: WS_ALL_ORDERS_CONNECTION_SUCCESS,
+  onClose: WS_ALL_ORDERS_CONNECTION_CLOSED,
+  onError: WS_ALL_ORDERS_CONNECTION_ERROR,
+  onMessage: WS_GET_ALL_ORDERS,
 };
 
-const wsFeedOrdersMiddleware = socketMiddleware(wsUrl, wsActions);
-
-export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, wsFeedOrdersMiddleware)));
-
-
+export const store = createStore(rootReducer, composeWithDevTools(
+  applyMiddleware(
+    thunk,
+    socketAllOrdersMiddleware(wsUrl, wsAllOrdersActions)
+  )
+));

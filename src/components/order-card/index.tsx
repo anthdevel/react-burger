@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.css';
-import {getOrderStatus} from '../../utils';
+import {getDate, getOrderStatus} from '../../utils';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useSelector} from '../../services/hooks';
 import {TIngredient, TOrder} from '../../services/types/data';
@@ -45,7 +45,7 @@ const OrderCard = ({order, isProfile = false}: IOrderCardProps) => {
     <div className={styles.root}>
       <div className={`${styles.header} mb-6`}>
         <p className="text text_type_digits-default">#{order.number}</p>
-        <p className="text text_type_main-default text_color_inactive">{order.createdAt}</p>
+        <p className="text text_type_main-default text_color_inactive">{getDate(order.createdAt)}</p>
       </div>
       <p className="text text_type_main-medium">{order.name}</p>
       {isProfile && (

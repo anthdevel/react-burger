@@ -1,6 +1,8 @@
 import {EOrderStatus, ETokenVariant} from '../types/enums';
 import {Nullable} from '../types/types';
 import {TOrder} from '../services/types/data';
+import moment from 'moment-timezone';
+import 'moment/locale/ru';
 
 export function getCookie(name: ETokenVariant) {
   const matches = document.cookie.match(
@@ -87,3 +89,5 @@ export const getOrderStatus = (status: EOrderStatus) => {
       return '';
   }
 };
+
+export const getDate = (date: string) => `${moment.tz(date, 'Europe/Moscow').calendar()} i-GMT+3`;

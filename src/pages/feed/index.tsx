@@ -1,16 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styles from './styles.module.css';
 import {useHistory, useLocation} from 'react-router-dom';
 import OrderCard from '../../components/order-card';
 import OrdersSummary from '../../components/orders-summary';
-import {wsConnectionClosed, wsConnectionStart} from '../../services/actions/ws';
-import {useDispatch, useSelector} from '../../services/hooks';
+import {useSelector} from '../../services/hooks';
 
 const FeedPage = () => {
   const location = useLocation();
-  const {feedOrders} = useSelector(store => store.ws);
   const history = useHistory();
-  const dispatch = useDispatch();
+
+  const {orders} = useSelector(store => store.wsAllOrders);
 
   const onClickOrder = (id: number) => {
     history.push({
@@ -18,18 +17,6 @@ const FeedPage = () => {
       state: {background: location}
     });
   };
-
-  // @ts-ignore
-  useEffect(() => {
-    console.log('mountSocket');
-    dispatch(wsConnectionStart());
-
-    return () => {
-      console.log('unmountSocket');
-
-      dispatch(wsConnectionClosed());
-    }
-  }, [dispatch]);
 
   return (
     <>
@@ -39,7 +26,7 @@ const FeedPage = () => {
       <div className={styles.content}>
         <div className={styles.ordersListWrapper}>
           <ul className={styles.ordersList}>
-            {feedOrders.map(item => (
+            {orders.map(item => (
                 <li
                   key={item._id}
                   className={styles.ordersItem}
