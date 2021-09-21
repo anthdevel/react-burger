@@ -15,7 +15,7 @@ const OrdersList: FC<IOrdersListProps> = ({mode = 'feed'}) => {
     <>
       {mode === 'feed' ? (
         <ul className={styles.ordersList}>
-          {allOrders.length > 0 && allOrders.map(item => (
+          {allOrders?.length > 0 && allOrders.map(item => (
               <li key={item._id} className={styles.ordersItem}>
                 <OrderCard order={item}/>
               </li>
@@ -24,7 +24,7 @@ const OrdersList: FC<IOrdersListProps> = ({mode = 'feed'}) => {
         </ul>
       ) : (
         <ul className={styles.ordersList}>
-          {userOrders.length > 0 && userOrders.map(item => (
+          {userOrders?.length > 0 && userOrders.map(item => (
               <li key={item._id} className={styles.ordersItem}>
                 <OrderCard hasStatus order={item}/>
               </li>

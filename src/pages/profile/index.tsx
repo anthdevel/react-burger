@@ -148,7 +148,7 @@ const ProfilePage: FC = () => {
             </div>
           </Route>
           <Route path="/profile/orders">
-            <div className='pt-10'>
+            <div className={`${styles.ordersListContainer} pt-10`}>
               <OrdersList mode="profile"/>
             </div>
           </Route>
