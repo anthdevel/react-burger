@@ -6,6 +6,7 @@ import {
 } from '../constants/wsUserOrders';
 import {TWsUserOrdersActions} from '../actions/wsUserOrdersActions';
 import {TOrder} from '../types/data';
+import {sortByDate} from '../../utils';
 
 type TWsUserOrdersState = {
   wsConnected: boolean,
@@ -37,7 +38,7 @@ const wsUserOrdersReducer = (state = initialState, action: TWsUserOrdersActions)
     case WS_GET_USER_ORDERS:
       return {
         ...state,
-        orders: action.payload.orders,
+        orders: action.payload.orders?.sort(sortByDate),
       };
     default:
       return state;

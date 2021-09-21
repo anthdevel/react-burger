@@ -58,3 +58,7 @@
   align-items: center;
   white-space: nowrap;
 }
+
+.orderDone {
+  color: #00cccc;
+}

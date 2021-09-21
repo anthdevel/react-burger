@@ -6,6 +6,7 @@ import {
 } from '../constants/wsAllOrders';
 import {TWsAllOrdersActions} from '../actions/wsAllOrdersActions';
 import {TOrder} from '../types/data';
+import {sortByDate} from '../../utils';
 
 type TWsAllOrdersState = {
   wsConnected: boolean,
@@ -41,7 +42,7 @@ const wsAllOrdersReducer = (state = initialState, action: TWsAllOrdersActions): 
     case WS_GET_ALL_ORDERS:
       return {
         ...state,
-        orders: action.payload.orders,
+        orders: action.payload.orders?.sort(sortByDate),
         total: action.payload.total,
         totalToday: action.payload.totalToday,
       };

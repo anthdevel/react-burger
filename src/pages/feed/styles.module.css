@@ -1,43 +1,31 @@
 .content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 60px;
-    min-height: 0;
-    max-height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 60px;
+  min-height: 0;
+  max-height: 100%;
 }
 
-.ordersListWrapper {
+.ordersListContainer {
   display: grid;
   grid-template-rows: auto 1fr;
   min-height: 0;
   max-height: 100%;
 }
 
-.ordersList {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
+.ordersListWrapper {
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-.ordersList::-webkit-scrollbar {
+.ordersListWrapper::-webkit-scrollbar {
   width: 8px;
 }
 
-.ordersList::-webkit-scrollbar-track {
+.ordersListWrapper::-webkit-scrollbar-track {
   background: #2f2f37;
 }
 
-.ordersList::-webkit-scrollbar-thumb {
+.ordersListWrapper::-webkit-scrollbar-thumb {
   background: #8585ad;
-}
-
-.ordersItem {
-  cursor: pointer;
-}
-
-.ordersItem + .ordersItem {
-  margin-top: 16px;
 }

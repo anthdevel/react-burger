@@ -5,13 +5,14 @@ import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useSelector} from '../../services/hooks';
 import {TIngredient, TOrder} from '../../services/types/data';
 import {v4 as uuidv4} from 'uuid';
+import {EOrderStatus} from '../../types/enums';
 
 interface IOrderCardProps {
   readonly order: TOrder
-  readonly isProfile?: boolean
+  readonly hasStatus?: boolean
 }
 
-const OrderCard = ({order, isProfile = false}: IOrderCardProps) => {
+const OrderCard = ({order, hasStatus = false}: IOrderCardProps) => {
   const {ingredients: orderIngredientsIds} = order;
 
   const {list: allIngredients} = useSelector(store => store.ingredients);
@@ -48,8 +49,8 @@ const OrderCard = ({order, isProfile = false}: IOrderCardProps) => {
         <p className="text text_type_main-default text_color_inactive">{getDate(order.createdAt)}</p>
       </div>
       <p className="text text_type_main-medium">{order.name}</p>
-      {isProfile && (
-        <p className="text text_type_main-default mt-2">{getOrderStatus(order.status)}</p>
+      {hasStatus && (
+        <p className={`text text_type_main-default mt-2 ${order.status === EOrderStatus.Done && styles.orderDone}`}>{getOrderStatus(order.status)}</p>
       )}
 
       <div className={`${styles.footer} mt-6`}>

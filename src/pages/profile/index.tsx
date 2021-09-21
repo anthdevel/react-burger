@@ -7,6 +7,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {ETokenVariant} from '../../types/enums';
 import {TUserForm} from '../../services/api';
 import {useDispatch, useSelector} from '../../services/hooks';
+import OrdersList from '../../components/orders-list';
 
 const ProfilePage: FC = () => {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ const ProfilePage: FC = () => {
     });
 
     setCanSave(false);
-  }
+  };
 
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -71,78 +72,87 @@ const ProfilePage: FC = () => {
   }
 
   return (
-    <div className="pt-30">
-      <div className={styles.content}>
-        <div className={styles.sidebar}>
-          <ul className={styles.nav}>
-            <li className={styles.navItem}>
-              <NavLink exact to="/profile" className={`${styles.link} text text_type_main-medium`}
-                       activeClassName={styles.active}>
-                Профиль
-              </NavLink>
-            </li>
-            <li className={styles.navItem}>
-              <NavLink exact to="/profile/orders" className={`${styles.link} text text_type_main-medium`}
-                       activeClassName={styles.active}>
-                История заказов
-              </NavLink>
-            </li>
-            <li className={styles.navItem}>
-              <Link to="/login" onClick={onLogout} className={`${styles.link} text text_type_main-medium`}>
-                Выход
-              </Link>
-            </li>
-          </ul>
-
-          <p className={`${styles.notice} text text_type_main-default mt-20`}>В этом разделе вы можете изменить свои
-            персональные данные</p>
-        </div>
-        <div className={styles.details}>
-          <Switch>
-            <Route path="/profile" exact>
+    <div className={styles.content}>
+      <div className={`${styles.sidebar} pt-30`}>
+        <ul className={styles.nav}>
+          <li className={styles.navItem}>
+            <NavLink exact to="/profile" className={`${styles.link} text text_type_main-medium`}
+                     activeClassName={styles.active}>
+              Профиль
+            </NavLink>
+          </li>
+          <li className={styles.navItem}>
+            <NavLink exact to="/profile/orders" className={`${styles.link} text text_type_main-medium`}
+                     activeClassName={styles.active}>
+              История заказов
+            </NavLink>
+          </li>
+          <li className={styles.navItem}>
+            <Link to="/login" onClick={onLogout} className={`${styles.link} text text_type_main-medium`}>
+              Выход
+            </Link>
+          </li>
+        </ul>
+        <Switch>
+          <Route path="/profile" exact>
+            <p className={`${styles.notice} text text_type_main-default mt-20`}>В этом разделе вы можете изменить свои
+              персональные данные</p>
+          </Route>
+          <Route path="/profile/orders">
+            <p className={`${styles.notice} text text_type_main-default mt-20`}>В этом разделе вы можете просмотреть
+              свою историю заказов</p>
+          </Route>
+        </Switch>
+      </div>
+      <div className={styles.details}>
+        <Switch>
+          <Route path="/profile" exact>
+            <div className='pt-30'>
               <form className={styles.form} onSubmit={onSubmit}>
-                <div className={`${styles.inputWrapper} mb-6`}>
-                  <Input
-                    name="name"
-                    type="text"
-                    placeholder="Имя"
-                    value={form.name}
-                    onChange={onChange}
-                  />
+              <div className={`${styles.inputWrapper} mb-6`}>
+                <Input
+                  name="name"
+                  type="text"
+                  placeholder="Имя"
+                  value={form.name}
+                  onChange={onChange}
+                />
+              </div>
+              <div className={`${styles.inputWrapper} mb-6`}>
+                <Input
+                  name="email"
+                  type="email"
+                  placeholder="Логин"
+                  value={form.email}
+                  onChange={onChange}
+                />
+              </div>
+              <div className={`${styles.inputWrapper} mb-6`}>
+                <PasswordInput
+                  value={form.password}
+                  name="password"
+                  onChange={onChange}
+                />
+              </div>
+              {canSave && (
+                <div className={styles.buttonGroup}>
+                  <Button type="secondary" onClick={onCancel}>
+                    Отмена
+                  </Button>
+                  <Button>
+                    Сохранить
+                  </Button>
                 </div>
-                <div className={`${styles.inputWrapper} mb-6`}>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Логин"
-                    value={form.email}
-                    onChange={onChange}
-                  />
-                </div>
-                <div className={`${styles.inputWrapper} mb-6`}>
-                  <PasswordInput
-                    value={form.password}
-                    name="password"
-                    onChange={onChange}
-                  />
-                </div>
-                {canSave && (
-                  <div className={styles.buttonGroup}>
-                    <Button type="secondary" onClick={onCancel}>
-                      Отмена
-                    </Button>
-                    <Button>
-                      Сохранить
-                    </Button>
-                  </div>
-                )}
-              </form>
-            </Route>
-            <Route path="/profile/orders" exact>
-              <div>История заказов</div>
-            </Route>
-          </Switch>
-        </div>
+              )}
+            </form>
+            </div>
+          </Route>
+          <Route path="/profile/orders">
+            <div className='pt-10'>
+              <OrdersList mode="profile"/>
+            </div>
+          </Route>
+        </Switch>
       </div>
     </div>
   );
