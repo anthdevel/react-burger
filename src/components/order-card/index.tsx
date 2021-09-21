@@ -10,9 +10,10 @@ import {EOrderStatus} from '../../types/enums';
 interface IOrderCardProps {
   readonly order: TOrder
   readonly hasStatus?: boolean
+  readonly onOrderClick: (id: number) => void
 }
 
-const OrderCard = ({order, hasStatus = false}: IOrderCardProps) => {
+const OrderCard = ({order, hasStatus = false, onOrderClick}: IOrderCardProps) => {
   const {ingredients: orderIngredientsIds} = order;
 
   const {list: allIngredients} = useSelector(store => store.ingredients);
@@ -43,29 +44,35 @@ const OrderCard = ({order, hasStatus = false}: IOrderCardProps) => {
   const orderIngredients = getOrderIngredients(orderIngredientsIds, allIngredients);
 
   return (
-    <div className={styles.root}>
+    <div className={styles.root} onClick={() => onOrderClick(order.number)}>
       <div className={`${styles.header} mb-6`}>
         <p className="text text_type_digits-default">#{order.number}</p>
         <p className="text text_type_main-default text_color_inactive">{getDate(order.createdAt)}</p>
       </div>
       <p className="text text_type_main-medium">{order.name}</p>
       {hasStatus && (
-        <p className={`text text_type_main-default mt-2 ${order.status === EOrderStatus.Done && styles.orderDone}`}>{getOrderStatus(order.status)}</p>
+        <p
+          className={`text text_type_main-default mt-2 ${order.status === EOrderStatus.Done && styles.orderDone}`}>{getOrderStatus(order.status)}</p>
       )}
 
       <div className={`${styles.footer} mt-6`}>
         <ul className={styles.icons}>
-          {orderIngredients.map((item: TIngredient, index: number, array) =>
-            (index < 5) ? (
-              <li key={uuidv4()} className={styles.iconsItem} style={{zIndex: array.length - index}}>
-                <img className={styles.iconsPic} src={item.image_mobile} alt=""/>
-              </li>
-            ) : (
-              <li key={uuidv4()} className={`${styles.iconsItem} ${styles.iconsMuted}`}>
-                <img className={styles.iconsPic} src={item.image_mobile} alt=""/>
-                <span className={`${styles.restAmount} text text_type_main-default`}>+{array.length - 5}</span>
-              </li>
-            )
+          {orderIngredients?.length > 0 && (
+            <>
+              {orderIngredients.slice(0, 5).map((item, index, array) => (
+                <li key={uuidv4()} className={styles.iconsItem} style={{zIndex: array.length - index}}>
+                  <img className={styles.iconsPic} src={item.image_mobile} alt=""/>
+                </li>
+              ))}
+
+              {orderIngredients.slice(5).length > 0 && (
+                <li key={uuidv4()} className={`${styles.iconsItem} ${styles.iconsMuted}`}>
+                  <img className={styles.iconsPic} src={orderIngredients[5].image_mobile} alt=""/>
+                  <span className={`${styles.restAmount} text text_type_main-default`}>+{orderIngredients.length - 5}</span>
+                </li>
+              )
+              }
+            </>
           )}
         </ul>
         <div className={styles.sum}>

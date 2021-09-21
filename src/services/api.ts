@@ -20,6 +20,15 @@ export const getOrderNumber = (orderList: string[]) => {
   });
 };
 
+export const getOrderDetails = (id: number) => {
+  return fetch(`${BASE_URL}/orders/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+};
+
 export const restorePassword = (email: string) => {
   return fetch(`${BASE_URL}/password-reset`, {
     method: 'POST',

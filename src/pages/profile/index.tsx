@@ -98,7 +98,7 @@ const ProfilePage: FC = () => {
             <p className={`${styles.notice} text text_type_main-default mt-20`}>В этом разделе вы можете изменить свои
               персональные данные</p>
           </Route>
-          <Route path="/profile/orders">
+          <Route path="/profile/orders" exact>
             <p className={`${styles.notice} text text_type_main-default mt-20`}>В этом разделе вы можете просмотреть
               свою историю заказов</p>
           </Route>
@@ -147,7 +147,7 @@ const ProfilePage: FC = () => {
             </form>
             </div>
           </Route>
-          <Route path="/profile/orders">
+          <Route path="/profile/orders" exact>
             <div className={`${styles.ordersListContainer} pt-10`}>
               <OrdersList mode="profile"/>
             </div>

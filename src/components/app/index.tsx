@@ -19,6 +19,7 @@ import {getIngredientsFetch} from '../../services/actions/ingredients';
 import {useDispatch} from '../../services/hooks';
 import {wsAllOrdersConnectionStart} from '../../services/actions/wsAllOrdersActions';
 import {wsUserOrdersConnectionStart} from '../../services/actions/wsUserOrdersActions';
+import OrderPage from '../../pages/order-page';
 
 interface ILocationState {
   readonly background: {
@@ -69,8 +70,17 @@ const App: FC = () => {
           <Route path="/feed" exact>
             <FeedPage/>
           </Route>
-          <ProtectedRoute path="/profile">
+          <Route path="/feed/:id" exact>
+            <OrderPage/>
+          </Route>
+          <ProtectedRoute path="/profile" exact>
             <ProfilePage/>
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders" exact>
+            <ProfilePage/>
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders/:id" exact>
+            <OrderPage/>
           </ProtectedRoute>
           <Route path="/ingredients/:id">
             <IngredientPage/>

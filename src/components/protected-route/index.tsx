@@ -4,6 +4,7 @@ import {FC} from 'react';
 
 interface IProtectedRouteProps {
   readonly path: string
+  readonly exact?: boolean
 }
 
 const ProtectedRoute: FC<IProtectedRouteProps> = (props) => {
