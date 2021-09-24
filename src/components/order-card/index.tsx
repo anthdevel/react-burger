@@ -52,7 +52,7 @@ const OrderCard = ({order, hasStatus = false, onOrderClick}: IOrderCardProps) =>
       <p className="text text_type_main-medium">{order.name}</p>
       {hasStatus && (
         <p
-          className={`text text_type_main-default mt-2 ${order.status === EOrderStatus.Done && styles.orderDone}`}>{getOrderStatus(order.status)}</p>
+          className={`text text_type_main-default mt-2 ${order.status === EOrderStatus.Done && styles.orderSuccess}`}>{getOrderStatus(order.status)}</p>
       )}
 
       <div className={`${styles.footer} mt-6`}>
@@ -61,7 +61,7 @@ const OrderCard = ({order, hasStatus = false, onOrderClick}: IOrderCardProps) =>
             <>
               {orderIngredients.slice(0, 5).map((item, index, array) => (
                 <li key={uuidv4()} className={styles.iconsItem} style={{zIndex: array.length - index}}>
-                  <img className={styles.iconsPic} src={item.image_mobile} alt=""/>
+                  <img className={styles.iconsPic} src={item.image_mobile} alt={item.name}/>
                 </li>
               ))}
 

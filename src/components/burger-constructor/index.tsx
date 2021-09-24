@@ -2,7 +2,7 @@ import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-deve
 import styles from './styles.module.css';
 import {FC, useEffect, useState} from 'react';
 import Modal from '../modal';
-import OrderDetails from '../order-details';
+import OrderNumberInfo from '../order-number-info';
 import {useDrop} from 'react-dnd';
 import {getOrderNumberFetch} from '../../services/actions/order';
 import BurgerConstructorItem from '../burger-constructor-item';
@@ -116,7 +116,7 @@ const BurgerConstructor: FC = () => {
 
       {isModalOpen && orderNumber && (
         <Modal onClose={onCloseModal}>
-          <OrderDetails orderNumber={orderNumber}/>
+          <OrderNumberInfo orderNumber={orderNumber}/>
         </Modal>
       )}
     </>

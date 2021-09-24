@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import iconDone from '../../images/icon-done.png';
 import styles from './styles.module.css';
 
-const OrderDetails: FC<{
+const OrderNumberInfo: FC<{
   readonly orderNumber: number
 }> = ({orderNumber}) => (
   <div className={`${styles.root} pt-4 pb-15`}>
@@ -22,4 +22,4 @@ const OrderDetails: FC<{
   </div>
 );
 
-export default OrderDetails;
+export default OrderNumberInfo;
