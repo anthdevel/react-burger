@@ -97,6 +97,9 @@ export const userReducer = (state = initialState, action: TUserActions): TUserSt
     case LOGIN_USER_REQUEST: {
       return {
         ...state,
+        logout: {
+          ...fetchableDefault,
+        },
         login: {
           ...state.login,
           ...fetchableFetching,
