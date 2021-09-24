@@ -7,7 +7,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {ETokenVariant} from '../../types/enums';
 import {TUserForm} from '../../services/api';
 import {useDispatch, useSelector} from '../../services/hooks';
-import OrdersList from '../../components/orders-list';
+import ProfileOrdersPage from '../profile-orders';
 
 const ProfilePage: FC = () => {
   const dispatch = useDispatch();
@@ -148,9 +148,7 @@ const ProfilePage: FC = () => {
             </div>
           </Route>
           <Route path="/profile/orders" exact>
-            <div className={`${styles.ordersListContainer} pt-10`}>
-              <OrdersList mode="profile"/>
-            </div>
+            <ProfileOrdersPage />
           </Route>
         </Switch>
       </div>

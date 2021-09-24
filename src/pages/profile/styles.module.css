@@ -61,24 +61,3 @@
   display: flex;
   justify-content: flex-end;
 }
-
-.ordersListContainer {
-  min-height: 0;
-  max-height: 100%;
-  height: 100%;
-
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.ordersListContainer::-webkit-scrollbar {
-  width: 8px;
-}
-
-.ordersListContainer::-webkit-scrollbar-track {
-  background: #2f2f37;
-}
-
-.ordersListContainer::-webkit-scrollbar-thumb {
-  background: #8585ad;
-}
