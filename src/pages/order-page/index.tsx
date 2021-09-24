@@ -1,6 +1,6 @@
 import {useParams} from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
-import {getOrderDetailsFetch} from '../../services/actions/order';
+import {clearOrderDetailsAction, getOrderDetailsFetch} from '../../services/actions/order';
 import {useDispatch, useSelector} from '../../services/hooks';
 import {getDate, getOrderStatus} from '../../utils';
 import styles from './styles.module.css';
@@ -54,6 +54,10 @@ const OrderPage = () => {
 
   useEffect(() => {
     dispatch(getOrderDetailsFetch(id));
+
+    return () => {
+      dispatch(clearOrderDetailsAction())
+    }
   }, [dispatch, id]);
 
   return (

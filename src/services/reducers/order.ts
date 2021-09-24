@@ -1,4 +1,5 @@
 import {
+  CLEAR_ORDER_DETAILS,
   GET_ORDER_DETAILS_ERROR,
   GET_ORDER_DETAILS_REQUEST, GET_ORDER_DETAILS_SUCCESS,
   GET_ORDER_NUMBER_ERROR,
@@ -92,6 +93,16 @@ export const orderReducer = (state = initialState, action: TOrderActions): TOrde
         details: {
           ...state.details,
           ...fetchableFailed,
+        }
+      };
+    }
+
+    case CLEAR_ORDER_DETAILS: {
+      return {
+        ...state,
+        details: {
+          ...state.details,
+          data: null
         }
       };
     }

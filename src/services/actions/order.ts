@@ -1,5 +1,6 @@
 import {getOrderDetails, getOrderNumber} from '../api';
 import {
+  CLEAR_ORDER_DETAILS,
   GET_ORDER_DETAILS_ERROR,
   GET_ORDER_DETAILS_REQUEST,
   GET_ORDER_DETAILS_SUCCESS,
@@ -36,13 +37,18 @@ export interface IGetOrderDetailsErrorAction {
   readonly type: typeof GET_ORDER_DETAILS_ERROR
 }
 
+export interface IClearOrderDetailsAction {
+  readonly type: typeof CLEAR_ORDER_DETAILS
+}
+
 export type TOrderActions =
   | IGetOrderNumberRequestAction
   | IGetOrderNumberSuccessAction
   | IGetOrderNumberErrorAction
   | IGetOrderDetailsRequestAction
   | IGetOrderDetailsSuccessAction
-  | IGetOrderDetailsErrorAction;
+  | IGetOrderDetailsErrorAction
+  | IClearOrderDetailsAction;
 
 export const getOrderNumberRequestAction = (): IGetOrderNumberRequestAction => ({
   type: GET_ORDER_NUMBER_REQUEST
@@ -68,6 +74,10 @@ export const getOrderDetailsSuccessAction = (order: TOrder): IGetOrderDetailsSuc
 
 export const getOrderDetailsErrorAction = (): IGetOrderDetailsErrorAction => ({
   type: GET_ORDER_DETAILS_ERROR
+});
+
+export const clearOrderDetailsAction = (): IClearOrderDetailsAction => ({
+  type: CLEAR_ORDER_DETAILS
 });
 
 export const getOrderNumberFetch: AppThunk = (orderList: string[]) => (dispatch: AppDispatch) => {
