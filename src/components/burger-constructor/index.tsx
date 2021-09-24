@@ -1,6 +1,6 @@
 import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles.module.css';
-import {FC, useEffect, useState} from 'react';
+import {FC, useState} from 'react';
 import Modal from '../modal';
 import OrderNumberInfo from '../order-number-info';
 import {useDrop} from 'react-dnd';
@@ -19,7 +19,7 @@ const BurgerConstructor: FC = () => {
 
   const {bun, main} = useSelector(store => store.constructorStore);
 
-  const {data: orderNumber, isFetched: isOrderFetched} = useSelector(store => store.order.number);
+  const {data: orderNumber, isFetched: isOrderNumberFetched} = useSelector(store => store.order.number);
 
   const [, dropTargetRef] = useDrop({
     accept: ['ingredient'],
@@ -43,6 +43,8 @@ const BurgerConstructor: FC = () => {
   const checkOut = () => {
     if (hasToken() && bun) {
       dispatch(getOrderNumberFetch([bun._id, ...main.map(item => item._id), bun._id]));
+
+      setIsModalOpen(true);
     } else {
       history.push("/login");
     }
@@ -50,18 +52,13 @@ const BurgerConstructor: FC = () => {
 
   const onCloseModal = () => {
     dispatch(resetConstructorAction());
+
     setIsModalOpen(false);
   };
 
   const onRemoveItem = (id: string) => {
     dispatch(removeConstructorItemAction(id));
   };
-
-  useEffect(() => {
-    if (isOrderFetched) {
-      setIsModalOpen(true);
-    }
-  }, [isOrderFetched]);
 
   return (
     <>
@@ -114,9 +111,9 @@ const BurgerConstructor: FC = () => {
         </div>
       </div>
 
-      {isModalOpen && orderNumber && (
+      {isModalOpen && (
         <Modal onClose={onCloseModal}>
-          <OrderNumberInfo orderNumber={orderNumber}/>
+          <OrderNumberInfo orderNumber={orderNumber} isFetched={isOrderNumberFetched} />
         </Modal>
       )}
     </>
