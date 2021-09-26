@@ -1,4 +1,4 @@
-import {getOrderDetails, getOrderNumber} from '../api';
+import {getOrderDetails, getOrderNumber, updateToken} from '../api';
 import {
   CLEAR_ORDER_DETAILS,
   GET_ORDER_DETAILS_ERROR,
@@ -10,6 +10,8 @@ import {
 } from '../constants/order';
 import {AppDispatch, AppThunk} from '../types';
 import {TOrder} from '../types/data';
+import {getCookie, setCookie} from '../../utils';
+import {ETokenVariant} from '../../types/enums';
 
 export interface IGetOrderNumberRequestAction {
   readonly type: typeof GET_ORDER_NUMBER_REQUEST
@@ -80,19 +82,40 @@ export const clearOrderDetailsAction = (): IClearOrderDetailsAction => ({
   type: CLEAR_ORDER_DETAILS
 });
 
+
 export const getOrderNumberFetch: AppThunk = (orderList: string[]) => (dispatch: AppDispatch) => {
   dispatch(getOrderNumberRequestAction());
 
   getOrderNumber(orderList)
+    .then(response => response.json())
     .then(response => {
-      if (response.ok) {
-        return response.json();
+      if (response.success) {
+        dispatch(getOrderNumberSuccessAction(response.order.number));
+
+        return response;
       }
 
-      return Promise.reject(`Ошибка ${response.status}`);
+      return updateToken(getCookie(ETokenVariant.RefreshToken))
+        .then(response => response.json())
+        .then(response => {
+          if (response.success) {
+            setCookie(ETokenVariant.AccessToken, response.accessToken.split('Bearer ')[1]);
+            setCookie(ETokenVariant.RefreshToken, response.refreshToken);
+
+            return getOrderNumber(orderList)
+              .then(response => response.json())
+              .then(response => {
+                if (response.success) {
+                  dispatch(getOrderNumberSuccessAction(response.order.number));
+
+                  return response;
+                }
+              });
+          }
+
+          return response;
+        });
     })
-    .then(response => dispatch(getOrderNumberSuccessAction(response.order.number))
-    )
     .catch(error => {
       dispatch(getOrderNumberErrorAction());
 
