@@ -38,7 +38,7 @@ const wsUserOrdersReducer = (state = initialState, action: TWsUserOrdersActions)
     case WS_GET_USER_ORDERS:
       return {
         ...state,
-        orders: action.payload.orders?.sort(sortByDate),
+        orders: action.payload.orders.sort(sortByDate),
       };
     default:
       return state;

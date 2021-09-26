@@ -42,7 +42,7 @@ const wsAllOrdersReducer = (state = initialState, action: TWsAllOrdersActions): 
     case WS_GET_ALL_ORDERS:
       return {
         ...state,
-        orders: action.payload.orders?.sort(sortByDate),
+        orders: action.payload.orders.sort(sortByDate),
         total: action.payload.total,
         totalToday: action.payload.totalToday,
       };
