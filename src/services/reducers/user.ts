@@ -97,33 +97,9 @@ export const userReducer = (state = initialState, action: TUserActions): TUserSt
     case LOGIN_USER_REQUEST: {
       return {
         ...state,
-        get: {
-          ...state.get,
-          ...fetchableFetching,
-        },
-        update: {
-          ...state.update,
-          ...fetchableDefault,
-        },
         login: {
           ...state.login,
           ...fetchableFetching,
-        },
-        register: {
-          ...state.register,
-          ...fetchableDefault,
-        },
-        logout: {
-          ...state.logout,
-          ...fetchableDefault,
-        },
-        restorePassword: {
-          ...state.restorePassword,
-          ...fetchableDefault,
-        },
-        resetPassword: {
-          ...state.resetPassword,
-          ...fetchableDefault,
         },
       };
     }
@@ -218,6 +194,7 @@ export const userReducer = (state = initialState, action: TUserActions): TUserSt
     case LOGOUT_USER_SUCCESS: {
       return {
         ...initialState,
+        data: null,
         logout: {
           ...initialState.logout,
           ...fetchableFetched,
