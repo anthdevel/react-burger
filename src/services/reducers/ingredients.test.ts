@@ -2,15 +2,14 @@ import {ingredientsReducer} from './ingredients';
 import {TIngredientsActions} from '../actions/ingredients';
 import * as types from '../constants/ingredients';
 import {TIngredient} from '../types/data';
+import {fetchableDefault, fetchableFailed, fetchableFetched, fetchableFetching} from '../../utils';
 
 describe('ingredients reducer', () => {
   it('Должен вернуть начальное состояние', () => {
     expect(ingredientsReducer(undefined, {} as TIngredientsActions)).toEqual({
       list: [],
       details: null,
-      isFetching: false,
-      isFetched: false,
-      isFailed: false,
+      ...fetchableDefault
     });
   });
 
@@ -18,17 +17,13 @@ describe('ingredients reducer', () => {
     expect(ingredientsReducer({
       list: [],
       details: null,
-      isFetching: false,
-      isFetched: false,
-      isFailed: false,
+      ...fetchableDefault
     }, {
       type: types.GET_INGREDIENTS_REQUEST,
     })).toEqual({
       list: [],
       details: null,
-      isFetching: true,
-      isFetched: false,
-      isFailed: false,
+      ...fetchableFetching
     });
   });
 
@@ -38,9 +33,7 @@ describe('ingredients reducer', () => {
     expect(ingredientsReducer({
         list: [],
         details: null,
-        isFetching: true,
-        isFetched: false,
-        isFailed: false,
+        ...fetchableFetching
       }, {
         type: types.GET_INGREDIENTS_SUCCESS,
         payload: ingredients
@@ -48,9 +41,7 @@ describe('ingredients reducer', () => {
     )).toEqual({
       list: ingredients,
       details: null,
-      isFetching: false,
-      isFetched: true,
-      isFailed: false,
+      ...fetchableFetched
     });
   });
 
@@ -58,18 +49,14 @@ describe('ingredients reducer', () => {
     expect(ingredientsReducer({
         list: [],
         details: null,
-        isFetching: true,
-        isFetched: false,
-        isFailed: false,
+        ...fetchableFetching
       },
       {
         type: types.GET_INGREDIENTS_ERROR
       })).toEqual({
       list: [],
       details: null,
-      isFetching: false,
-      isFetched: false,
-      isFailed: true,
+      ...fetchableFailed
     });
   });
 
@@ -79,9 +66,7 @@ describe('ingredients reducer', () => {
     expect(ingredientsReducer({
         list: ingredients,
         details: null,
-        isFetching: false,
-        isFetched: true,
-        isFailed: false,
+        ...fetchableFetched
       },
       {
         type: types.GET_INGREDIENT_DETAILS,
@@ -89,9 +74,7 @@ describe('ingredients reducer', () => {
       })).toEqual({
       list: ingredients,
       details: ingredients[0],
-      isFetching: false,
-      isFetched: true,
-      isFailed: false,
+      ...fetchableFetched
     });
   });
 });

@@ -26,8 +26,10 @@ export type TOrder = {
   readonly ingredients: string[]
   readonly name: string
   readonly number: number
+  readonly owner: string
   readonly status: EOrderStatus
   readonly updatedAt: string
+  readonly __v: number;
 };
 
 export type TWsOrders = {
