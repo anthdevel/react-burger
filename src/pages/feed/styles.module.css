@@ -1,7 +1,33 @@
 .content {
-  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 60px;
+  min-height: 0;
+  max-height: 100%;
 }
 
-.title {
-  line-height: 1.35;
+.ordersListContainer {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+  max-height: 100%;
+}
+
+.ordersListWrapper {
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-right: 8px;
+}
+
+.ordersListWrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ordersListWrapper::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.ordersListWrapper::-webkit-scrollbar-thumb {
+  background: #8585ad;
 }

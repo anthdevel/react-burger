@@ -1,0 +1,27 @@
+export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST' as const;
+export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS' as const;
+export const REGISTER_USER_ERROR = 'REGISTER_USER_ERROR' as const;
+
+export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST' as const;
+export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS' as const;
+export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR' as const;
+
+export const GET_USER_REQUEST = 'GET_USER_REQUEST' as const;
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS' as const;
+export const GET_USER_ERROR = 'GET_USER_ERROR' as const;
+
+export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST' as const;
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS' as const;
+export const UPDATE_USER_ERROR = 'UPDATE_USER_ERROR' as const;
+
+export const LOGOUT_USER_REQUEST = 'LOGOUT_USER_REQUEST' as const;
+export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS' as const;
+export const LOGOUT_USER_ERROR = 'LOGOUT_USER_ERROR' as const;
+
+export const RESTORE_PASSWORD_REQUEST = 'RESTORE_PASSWORD_REQUEST' as const;
+export const RESTORE_PASSWORD_SUCCESS = 'RESTORE_PASSWORD_SUCCESS' as const;
+export const RESTORE_PASSWORD_ERROR = 'RESTORE_PASSWORD_ERROR' as const;
+
+export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST' as const;
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS' as const;
+export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR' as const;

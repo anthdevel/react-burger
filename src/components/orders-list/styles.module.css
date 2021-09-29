@@ -1,0 +1,13 @@
+.ordersList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ordersItem {
+  cursor: pointer;
+}
+
+.ordersItem + .ordersItem {
+  margin-top: 16px;
+}

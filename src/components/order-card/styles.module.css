@@ -1,0 +1,64 @@
+.root {
+  padding: 24px;
+
+  background: #1c1c21;
+  border-radius: 40px;
+}
+
+.header, .footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icons {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.iconsItem {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #131316;
+  border: 2px solid #801ab3;
+}
+
+.iconsItem + .iconsItem {
+  margin-left: -20px;
+}
+
+.iconsPic {
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.iconsMuted .iconsPic {
+  opacity: .6;
+}
+
+.restAmount {
+  color: #f2f2f3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.sum {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.orderSuccess {
+  color: #00cccc;
+}

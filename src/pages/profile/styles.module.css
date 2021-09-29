@@ -1,17 +1,19 @@
 .content {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+
+  min-height: 0;
+  max-height: 100%;
 }
 
 .sidebar {
-  flex: 0 0 380px;
-  max-width: 380px;
-
   padding-right: 60px;
 }
 
 .details {
-  flex-grow: 1;
+  display: grid;
+  min-height: 0;
+  max-height: 100%;
 }
 
 .form {
